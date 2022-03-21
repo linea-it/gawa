@@ -1,9 +1,12 @@
 *.pyc
 __pycache__
 runinfo/
-*.fits
+clusters.fits
+clusters0.fits
+tiles_specs.fits
 tiles/
 .ipynb_checkpoints/
 gawa.cfg
 .vscode/
+footprint/
 isochrone_masks/
