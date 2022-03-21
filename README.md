@@ -11,10 +11,13 @@ Clone the repository and create an environment with Conda:
 git clone https://github.com/linea-it/gawa && cd gawa 
 conda create -n gawa python=3.6
 conda activate gawa
+conda install ipykernel
 conda install -c conda-forge cfitsio=3.430
 conda install -c cta-observatory sparse2d
 conda install pip
 pip install -r requirements.txt
+conda install numpy
+ipython kernel install --user --name=gawa
 ```
 
 ### Running
@@ -22,3 +25,4 @@ pip install -r requirements.txt
 ```bash
 jupyter-lab gawazpy.ipynb
 ```
+And select the `gawa` kernel.

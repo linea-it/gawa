@@ -6,3 +6,4 @@ tiles/
 .ipynb_checkpoints/
 gawa.cfg
 .vscode/
+isochrone_masks/
