@@ -1,0 +1,8 @@
+*.pyc
+__pycache__
+runinfo/
+*.fits
+tiles/
+.ipynb_checkpoints/
+gawa.cfg
+.vscode/
