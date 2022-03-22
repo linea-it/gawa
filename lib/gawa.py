@@ -12,6 +12,7 @@ from astropy.table import Table
 from skimage.feature import peak_local_max
 from astropy.coordinates import SkyCoord
 from matplotlib import path
+import subprocess
 
 from .utils import create_directory, read_FitsCat
 from .utils import tile_radius, sub_hpix, radec2hpix, hpix2radec, dist_ang
@@ -686,21 +687,25 @@ def run_mr_filter(filled_catimage, wmap, gawa_cfg):
     smin = int(round(math.log10(scale_min_pix) / math.log10(2.0)))
     smax = int(round(math.log10(scale_max_pix) / math.log10(2.0)))
     if smin == 0:
-        os.system(
+        # os.system(
+        subprocess.call((
             "mr_filter -m 10 -i 3 -s 3.,3. -n " + str(smax + 1) + " -f 3 -K -C 2 -p -e0 -A " + filled_catimage + " " + wmap
-        )
+        ), shell=True)
     if smin == 1:
-        os.system(
+        # os.system(
+        subprocess.call((
             "mr_filter -m 10 -i 3 -s 10.,3.,3. -n " + str(smax + 1) + " -f 3 -K -C 2 -p -e0 -A " + filled_catimage + " " + wmap
-        )
+        ), shell=True)
     if smin == 2:
-        os.system(
+        # os.system(
+        subprocess.call((
             "mr_filter -m 10 -i 3 -s 10.,10.,3.,3. -n " + str(smax + 1) + " -f 3 -K -C 2 -p -e0 -A " + filled_catimage + " " + wmap
-        )
+        ), shell=True)
     if smin == 3:
-        os.system(
+        # os.system(
+        subprocess.call((
             "mr_filter -m 10 -i 3 -s 10.,10.,10.,3.,3. -n " + str(smax + 1) + " -f 3 -K -C 2 -p -e0 -A " + filled_catimage + " " + wmap
-        )
+        ), shell=True)
     return
 
 

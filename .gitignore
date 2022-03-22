@@ -1,8 +1,8 @@
 *.pyc
 __pycache__
 /runinfo/
-clusters.fits
-clusters0.fits
+/clusters.fits
+/clusters0.fits
 tiles_specs.fits
 /tiles/
 .ipynb_checkpoints/
