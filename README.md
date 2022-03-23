@@ -23,3 +23,19 @@ pip install -r requirements.txt
 ```bash
 jupyter-lab gawazpy.ipynb
 ```
+
+### Warnings
+
+To run again the code, please remove the following folders with the command (being in the root folder):
+
+```bash
+rm -r tiles footprint isochrone_masks
+```
+
+and files:
+
+```bash
+rm tiles_specs.fits cluster.fits cluster0.fits
+```
+
+If you run with max_threads > 1, the kernel may die while running the main cell. We think that this is related to the memory required by the jobs. Set max_threads = 1 and run again.
