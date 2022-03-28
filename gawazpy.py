@@ -12,10 +12,8 @@ from lib.gawa import gawa_tile, tile_dir_name
 from lib.gawa import cl_duplicates_filtering
 import numpy as np
 import json
-import parsl
-from parsl import python_app
-from parsl.config import Config
-from parsl.executors.threads import ThreadPoolExecutor
+
+from multiprocessing import Pool
 
 import sys
 import os
@@ -27,26 +25,17 @@ if not sys.warnoptions:
     warnings.simplefilter(warn_level)
     os.environ["PYTHONWARNINGS"] = warn_level
 
-local_threads = Config(
-    executors=[
-        ThreadPoolExecutor(
-            max_threads=3,
-            label='local_threads'
-        )
-    ]
-)
 
-parsl.load(local_threads)
-
-
-@python_app
-def gawa_thread_call(param, thread_id):
+def gawa_thread_call(args):
     """_summary_
 
     Args:
         param (_type_): _description_
         thread_id (_type_): _description_
     """
+
+    param = args[0]
+    thread_id = args[1]
 
     import os
     from astropy.table import Table
@@ -115,14 +104,14 @@ if __name__ == "__main__":
     except IndexError:
         confg = 'gawa.json'
 
-    # read config file
-    with open(confg) as fstream:
-        param = json.load(fstream)
-
     try:
         concat = sys.argv[2]
     except IndexError:
         concat = None
+
+    # read config file
+    with open(confg) as fstream:
+        param = json.load(fstream)
 
     if concat == 'concatenate':
         gawa_concatenate(param)
@@ -167,10 +156,5 @@ if __name__ == "__main__":
     print('Compute CMD masks')
     compute_cmd_masks(param['isochrone_masks'][param['survey']], param['out_paths'], param['gawa_cfg'])
 
-    futures = list()
-
-    for i in np.unique(thread_ids):
-        futures.append(gawa_thread_call(param, i))
-
-    for p in futures:
-        p.result()
+    with Pool(3) as p:
+        p.map(gawa_thread_call, [(param, i) for i in np.unique(thread_ids)])
