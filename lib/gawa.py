@@ -1,7 +1,7 @@
 from astropy.io import fits
 from astropy import wcs
 import numpy as np
-# import matplotlib.pyplot as plot
+import matplotlib.pyplot as plot
 import scipy.ndimage as ndi
 import os
 from astropy import units as u
@@ -171,14 +171,14 @@ def plot_cmd(xall, yall, xar_in, yar_in, isochrone_masks, file_png):
         isochrone_masks["mask_mag_max"],
     )
 
-    # fig = plot
-    # fig.scatter(xar_in, yar_in, s=2, c="red", alpha=1, zorder=1)
-    # fig.scatter(xall, yall, s=2, c="green", alpha=1, zorder=0)
-    # fig.xlabel("g-r", fontsize=20)
-    # fig.ylabel("g", fontsize=20)
-    # fig.axis((xmin, xmax, ymax, ymin))
-    # fig.tight_layout()
-    # fig.savefig(file_png)
+    fig = plot
+    fig.scatter(xar_in, yar_in, s=2, c="red", alpha=1, zorder=1)
+    fig.scatter(xall, yall, s=2, c="green", alpha=1, zorder=0)
+    fig.xlabel("g-r", fontsize=20)
+    fig.ylabel("g", fontsize=20)
+    fig.axis((xmin, xmax, ymax, ymin))
+    fig.tight_layout()
+    fig.savefig(file_png)
 
     return
 
@@ -422,17 +422,17 @@ def pixelized_colmag(color, mag, weight, isochrone_masks, out):
         xmap, ymap, bins=(nx, ny), range=((0, nx), (0, ny)), normed=None, weights=weight
     )
 
-    # if out is not None:
-    #     xbins = np.linspace(xmin, xmax, nx)
-    #     ybins = np.linspace(ymin, ymax, ny)
+    if out is not None:
+        xbins = np.linspace(xmin, xmax, nx)
+        ybins = np.linspace(ymin, ymax, ny)
 
-    #     plt = plot
-    #     plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plot.cm.jet)
-    #     plt.xlabel("g-r", fontsize=20)
-    #     plt.ylabel("g", fontsize=20)
-    #     plt.axis((xmin, xmax, ymax, ymin))
-    #     plt.tight_layout()
-    #     plt.savefig(out)
+        plt = plot
+        plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plot.cm.jet)
+        plt.xlabel("g-r", fontsize=20)
+        plt.ylabel("g", fontsize=20)
+        plt.axis((xmin, xmax, ymax, ymin))
+        plt.tight_layout()
+        plt.savefig(out)
 
     return colmag_pix
 
@@ -474,20 +474,20 @@ def plot_pixelized_colmag(
     xbins = np.linspace(xmin, xmax, nx)
     ybins = np.linspace(ymin, ymax, ny)
 
-    # plt = plot
-    # plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plot.cm.jet)
-    # plt.xlabel("g-r", fontsize=20)
-    # plt.ylabel("g", fontsize=20)
+    plt = plot
+    plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plot.cm.jet)
+    plt.xlabel("g-r", fontsize=20)
+    plt.ylabel("g", fontsize=20)
 
-    # plt.scatter(color_aper, gmag_aper, s=15, c="yellow", alpha=1, label="stars in aper")
-    # plt.scatter(
-    #     color_slaper, gmag_slaper, s=15, c="red", alpha=1, label="stars in aper + mask"
-    # )
+    plt.scatter(color_aper, gmag_aper, s=15, c="yellow", alpha=1, label="stars in aper")
+    plt.scatter(
+        color_slaper, gmag_slaper, s=15, c="red", alpha=1, label="stars in aper + mask"
+    )
 
-    # plt.axis((xmin, xmax, ymax, ymin))
-    # plt.tight_layout()
-    # plt.legend()
-    # plt.savefig(out)
+    plt.axis((xmin, xmax, ymax, ymin))
+    plt.tight_layout()
+    plt.legend()
+    plt.savefig(out)
 
     return
 
