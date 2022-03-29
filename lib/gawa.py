@@ -1,7 +1,7 @@
 from astropy.io import fits
 from astropy import wcs
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plot
 import scipy.ndimage as ndi
 import os
 from astropy import units as u
@@ -11,7 +11,7 @@ import healpy as hp
 from astropy.table import Table
 from skimage.feature import peak_local_max
 from astropy.coordinates import SkyCoord
-from matplotlib import path
+from matplotlib import path as pth
 import subprocess
 
 from .utils import create_directory, read_FitsCat
@@ -161,22 +161,25 @@ def plot_cmd(xall, yall, xar_in, yar_in, isochrone_masks, file_png):
         isochrone_masks (bool): _description_
         file_png (_type_): _description_
     """
+
     xmin, xmax = (
         isochrone_masks["mask_color_min"],
         isochrone_masks["mask_color_max"],
-    )  # noqa
+    )
     ymin, ymax = (
         isochrone_masks["mask_mag_min"],
         isochrone_masks["mask_mag_max"],
-    )  # noqa
-    plt.clf()
-    plt.scatter(xar_in, yar_in, s=2, c="red", alpha=1, zorder=1)
-    plt.scatter(xall, yall, s=2, c="green", alpha=1, zorder=0)
-    plt.xlabel("g-r", fontsize=20)
-    plt.ylabel("g", fontsize=20)
-    plt.axis((xmin, xmax, ymax, ymin))
-    plt.tight_layout()
-    plt.savefig(file_png)
+    )
+
+    fig = plot
+    fig.scatter(xar_in, yar_in, s=2, c="red", alpha=1, zorder=1)
+    fig.scatter(xall, yall, s=2, c="green", alpha=1, zorder=0)
+    fig.xlabel("g-r", fontsize=20)
+    fig.ylabel("g", fontsize=20)
+    fig.axis((xmin, xmax, ymax, ymin))
+    fig.tight_layout()
+    fig.savefig(file_png)
+
     return
 
 
@@ -256,7 +259,7 @@ def cmd_mask(dslice, isochrone_masks, out_paths):
     g = g0 + 5.0 * np.log10(dslice / 10.0)
     vertices = np.dstack((gr, g)).reshape(len(g), 2)
 
-    p = path.Path(vertices)
+    p = pth.Path(vertices)
     points_in = p.contains_points(points)
     xar_in, yar_in = xar[points_in], yar[points_in]
 
@@ -422,8 +425,9 @@ def pixelized_colmag(color, mag, weight, isochrone_masks, out):
     if out is not None:
         xbins = np.linspace(xmin, xmax, nx)
         ybins = np.linspace(ymin, ymax, ny)
-        plt.clf()
-        plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plt.cm.jet)
+
+        plt = plot
+        plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plot.cm.jet)
         plt.xlabel("g-r", fontsize=20)
         plt.ylabel("g", fontsize=20)
         plt.axis((xmin, xmax, ymax, ymin))
@@ -469,8 +473,9 @@ def plot_pixelized_colmag(
 
     xbins = np.linspace(xmin, xmax, nx)
     ybins = np.linspace(ymin, ymax, ny)
-    plt.clf()
-    plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plt.cm.jet)
+
+    plt = plot
+    plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plot.cm.jet)
     plt.xlabel("g-r", fontsize=20)
     plt.ylabel("g", fontsize=20)
 
@@ -686,26 +691,27 @@ def run_mr_filter(filled_catimage, wmap, gawa_cfg):
     ] * float(gawa_cfg["map_resolution"])
     smin = int(round(math.log10(scale_min_pix) / math.log10(2.0)))
     smax = int(round(math.log10(scale_max_pix) / math.log10(2.0)))
+
     if smin == 0:
         # os.system(
-        subprocess.call((
+        subprocess.run((
             "mr_filter -m 10 -i 3 -s 3.,3. -n " + str(smax + 1) + " -f 3 -K -C 2 -p -e0 -A " + filled_catimage + " " + wmap
-        ), shell=True)
+        ), check=True, shell=True, stdout=subprocess.PIPE).stdout
     if smin == 1:
         # os.system(
-        subprocess.call((
+        subprocess.run((
             "mr_filter -m 10 -i 3 -s 10.,3.,3. -n " + str(smax + 1) + " -f 3 -K -C 2 -p -e0 -A " + filled_catimage + " " + wmap
-        ), shell=True)
+        ), check=True, shell=True, stdout=subprocess.PIPE).stdout
     if smin == 2:
         # os.system(
-        subprocess.call((
+        subprocess.run((
             "mr_filter -m 10 -i 3 -s 10.,10.,3.,3. -n " + str(smax + 1) + " -f 3 -K -C 2 -p -e0 -A " + filled_catimage + " " + wmap
-        ), shell=True)
+        ), check=True, shell=True, stdout=subprocess.PIPE).stdout
     if smin == 3:
         # os.system(
-        subprocess.call((
+        subprocess.run((
             "mr_filter -m 10 -i 3 -s 10.,10.,10.,3.,3. -n " + str(smax + 1) + " -f 3 -K -C 2 -p -e0 -A " + filled_catimage + " " + wmap
-        ), shell=True)
+        ), check=True, shell=True, stdout=subprocess.PIPE).stdout
     return
 
 

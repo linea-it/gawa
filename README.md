@@ -9,13 +9,16 @@ This is a code intended to identify stellar clusters using wavelet transformatio
 Clone the repository and create an environment with Conda:
 ```bash
 git clone https://github.com/linea-it/gawa && cd gawa 
-conda create -n gawa python=3.6
-conda update -n base -c defaults conda
+conda create -n gawa python=3.8
 conda activate gawa
 conda install -c conda-forge cfitsio=3.430
 conda install -c cta-observatory sparse2d
-conda install pip
-pip install -r requirements.txt
+conda install jupyterlab
+conda install ipykernel
+pip install scikit-image
+pip install astropy
+pip install healpy
+ipython kernel install --user --name=gawa
 ```
 
 ### Running
