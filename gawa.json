@@ -47,8 +47,8 @@
                 "nest": true
             },
             "survey_footprint": "./sample_data/footprint/ftp_4096_nest.fits",
-            "key_pixel": "HP_PIXEL_NEST_4096",
-            "key_frac": "SIGNAL",
+            "key_pixel": "pixel",
+            "key_frac": "detfrac",
             "Nside": 4096,
             "nest": true
         },
@@ -59,8 +59,8 @@
                 "nest": true
             },
             "survey_footprint": "./sample_data/footprint/ftp_4096_nest.fits",
-            "key_pixel": "HP_PIXEL_NEST_4096",
-            "key_frac": "SIGNAL",
+            "key_pixel": "pixel",
+            "key_frac": "detfrac",
             "Nside": 4096,
             "nest": true
         }
