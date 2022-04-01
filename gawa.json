@@ -55,7 +55,7 @@
         "MOCK": {
             "mosaic": {
                 "dir": "./footprint",
-                "Nside": 64,
+                "Nside": 32,
                 "nest": true
             },
             "survey_footprint": "./sample_data/footprint/ftp_4096_nest.fits",
