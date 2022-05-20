@@ -1659,13 +1659,14 @@ def gawa_tile(tile_specs, isochrone_masks, data_star, starcat, data_fp, footprin
     return data_clusters, tile_info 
 
 
-def run_gawa_tile(config, thread_id):
+def run_gawa_tile(args):
     """_summary_
 
     Args:
-        config (_type_): _description_
-        thread_id (bool): _description_
+        args (tuple): _description_
     """
+
+    config, thread_id = args[0], args[1]
 
     # read config file
     with open(config) as fstream:
