@@ -1,15 +1,8 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import astropy.io.fits as fits
-import os, sys
-from astropy.cosmology.core import FlatLambdaCDM as flat
-from astropy import units as u
-from astropy.convolution import convolve,Gaussian1DKernel
+import os
 import healpy as hp
-from math import log, exp, atan, atanh
 from astropy.table import Table
-from scipy.optimize import least_squares
-from scipy import interpolate
 
 
 
@@ -101,7 +94,7 @@ def read_mosaicFitsCat_in_disc (galcat, tile, radius_deg):
                                assume_unique=True
                            )]
 
-    if len(relevant_fits_pixels) > 0:
+    if len(relevant_fits_pixels):
         # merge intersecting fits 
         for i in range (0, len(relevant_fits_pixels)):
             dat_disc = read_FitsCat(
@@ -166,7 +159,7 @@ def read_mosaicFootprint_in_disc (footprint, tile, radius_deg):
                                hpix_fits, 
                                assume_unique=True
                            )]
-    if len(relevant_fits_pixels) > 0:
+    if len(relevant_fits_pixels):
         # merge intersecting fits 
         for i in range (0, len(relevant_fits_pixels)):
             dat_disc = read_FitsCat(
@@ -223,7 +216,7 @@ def read_mosaicFitsCat_in_hpix (galcat, hpix_tile, Nside_tile, nest_tile):
     relevant_fits_pixels = np.unique(
         hpix_fits[np.isin(hpix_fits_tile, hpix_tile)]
     )
-    if len(relevant_fits_pixels) > 0:
+    if len(relevant_fits_pixels):
         # merge intersecting fits 
         for i in range (0, len(relevant_fits_pixels)):
             dat = read_FitsCat(
@@ -269,7 +262,7 @@ def read_mosaicFootprint_in_hpix (footprint, hpix_tile, Nside_tile, nest_tile):
         hpix_fits[np.isin(hpix_fits_tile, hpix_tile)]
     )
 
-    if len(relevant_fits_pixels) > 0:
+    if len(relevant_fits_pixels):
         # merge intersecting fits 
         for i in range (0, len(relevant_fits_pixels)):
             dat = read_FitsCat(
@@ -278,10 +271,10 @@ def read_mosaicFootprint_in_hpix (footprint, hpix_tile, Nside_tile, nest_tile):
                     str(relevant_fits_pixels[i])+'_footprint'+extension
                 )
             )
-            if i == 0:
-                data_fp_hpix = np.copy(dat)
-            else:
+            if i:
                 data_fp_hpix = np.append(data_fp_hpix, dat)
+            else:
+                data_fp_hpix = np.copy(dat)
     else:
         data_fp_hpix = None
     return data_fp_hpix
@@ -417,7 +410,7 @@ def add_key_to_fits(fitsfile, key_val, key_name, key_type):
     if key_type == 'float':
         new_col = fits.ColDefs([
             fits.Column(name=key_name, format='E',array=key_val)])
-    if key_type == 'int':
+    elif key_type == 'int':
         new_col = fits.ColDefs([
             fits.Column(name=key_name, format='J',array=key_val)])
 
@@ -754,7 +747,7 @@ def hpx_in_annulus (ra, dec, radius_in_deg, radius_out_deg,
     coverfrac = 0.
     hpx_in_ann, frac_in_ann = [], []
 
-    if npix_all > 0:
+    if npix_all:
         idx = np.isin(hpix, pixels_in_ann)
         hpx_in_ann = hpix[idx]  # visible pixels
         frac_in_ann = frac[idx] 

@@ -1,3 +1,5 @@
+import time
+start = time.time()
 import numpy as np
 import yaml
 import os
@@ -21,6 +23,7 @@ config = sys.argv[1]
 # read config file
 with open(config) as fstream:
     param = yaml.safe_load(fstream)
+    fstream.close()
 globals().update(param)
 
 # Working & output directories 
@@ -119,4 +122,5 @@ data_clusters.write(
 )
 
 print ('all done folks !')
-print ('results in ', workdir)
+end = time.time()
+print(f"elapsed time: {end-start}")

@@ -662,7 +662,7 @@ def run_mr_filter(filled_catimage, wmap, gawa_cfg):
     smin = int(round(math.log10(scale_min_pix)/math.log10(2.)))
     smax = int(round(math.log10(scale_max_pix)/math.log10(2.)))
 
-    if smin == 0:
+    if not smin:
         subprocess.run((
             os.path.join(path_mr, 'mr_filter')+\
             ' -m 10 -i 3 -s 3.,3. -n '+str(smax+1)+' -f 3 -K -C 2 -p -e0 -A '+\
@@ -1378,7 +1378,7 @@ def make_cylinders(peaks_list, dslices, gawa_cfg):
                     dec_cyl = key_cylinder(
                         dec_cyl,  dec_1, np0, i0, i1, isl, nsl, type='float'
                     )
-
+    data_cylinders = None 
     if npeaks_all > 0:
         data_init = init_cylinders (rank_cyl, ip_cyl, gawa_cfg)
         data_cylinders = append_peaks_infos_to_cylinders(
@@ -1390,8 +1390,8 @@ def make_cylinders(peaks_list, dslices, gawa_cfg):
         print('..........Number of cylinders : '+str(ncyl))
         print('..........Ratio npeaks / ncyl : '+\
               str(np.round(float(npeaks_all)/float(ncyl), 2)) )
-    else:
-        data_cylinders = None 
+    # else:
+    #     data_cylinders = None 
     return data_cylinders 
 
 
@@ -1671,6 +1671,7 @@ def run_gawa_tile(args):
     # read config file
     with open(config) as fstream:
         params = yaml.safe_load(fstream)
+        fstream.close()
 
     survey  = params['survey']
     starcat = params['starcat'][survey]
@@ -1875,9 +1876,10 @@ def gawa_concatenate(all_tiles, gawa_cfg, out_paths):
     # concatenate all tiles 
     print ('Concatenate clusters')
     list_clusters = []
-    for it in range(0, len(all_tiles)):
-        tile_dir = tile_dir_name(out_paths['workdir'], int(all_tiles['id'][it]) )
-        list_clusters.append(os.path.join(tile_dir, out_paths['gawa']['results']))
+    # for it in range(0, len(all_tiles)):
+    #     tile_dir = tile_dir_name(out_paths['workdir'], int(all_tiles['id'][it]) )
+        # list_clusters.append(os.path.join(tile_dir, out_paths['gawa']['results']))
+    list_clusters = list(map(lambda it: os.path.join(tile_dir_name(out_paths['workdir'], int(all_tiles['id'][it]) ), out_paths['gawa']['results']), list(range(len(all_tiles)))))
     data_clusters0 = concatenate_clusters(
         list_clusters, 'clusters.fits', 
         os.path.join(out_paths['workdir'], 'clusters0.fits')
