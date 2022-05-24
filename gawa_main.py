@@ -1,7 +1,7 @@
 import time
 start = time.time()
 from dask.distributed import Client, progress, LocalCluster
-import numpy as np
+import dask.array as da
 import yaml
 import os
 import sys
@@ -95,7 +95,7 @@ if not os.path.isfile(tiles_filename):
     all_tiles = read_FitsCat(tiles_filename)
 else:
     all_tiles = read_FitsCat(tiles_filename)
-    ntiles, n_threads = len(all_tiles), np.amax(all_tiles['thread_id']) 
+    ntiles, n_threads = len(all_tiles), da.max(all_tiles['thread_id']).compute() 
     thread_ids = all_tiles['thread_id']
 print ('Ntiles / Nthreads = ', ntiles, ' / ', n_threads)
 
@@ -113,11 +113,11 @@ compute_cmd_masks(isochrone_masks[survey], out_paths, gawa_cfg)
 # detect clusters on all tiles 
 # with Pool(3) as p:
 #     p.map(run_gawa_tile, [(config, ith) for ith in np.unique(thread_ids)])
-with LocalCluster(processes=False, threads_per_worker=1,
-            n_workers=6, memory_limit='20GB') as cluster:
+with LocalCluster(processes=False, threads_per_worker=2,
+            n_workers=4, memory_limit='20GB') as cluster:
     with Client(cluster) as client:
         client.restart()
-        futures = client.map(run_gawa_tile, [(config, ith) for ith in np.unique(thread_ids)])
+        futures = client.map(run_gawa_tile, [(config, ith) for ith in da.unique(thread_ids).compute()])
         for future in futures:
             progress(future)
 

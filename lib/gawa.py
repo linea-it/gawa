@@ -1,6 +1,7 @@
 from astropy.io import fits
 from astropy import wcs
 import numpy as np
+import dask.array as da
 import matplotlib.pyplot as plt
 import scipy.ndimage as ndi
 import os
@@ -133,9 +134,9 @@ def effective_area_framed_tile(tile, data_fp, footprint, admin):
     pixels_in_disc = hp.query_disc(
         nside=Nside, nest=nest, 
         vec=hp.pixelfunc.ang2vec(
-            np.radians(90.-tile['dec']), np.radians(tile['ra'])
+            da.radians(90.-tile['dec']), da.radians(tile['ra'])
         ),
-        radius = np.radians(radius_deg), 
+        radius = da.radians(radius_deg), 
         inclusive=False
     )
     framed_eff_area_deg2 = np.sum(
@@ -160,14 +161,14 @@ def plot_cmd(xall,yall, xar_in, yar_in, isochrone_masks, file_png):
                  isochrone_masks["mask_color_max"]
     ymin, ymax = isochrone_masks["mask_mag_min"],\
                  isochrone_masks["mask_mag_max"]
-    plt.clf()
-    plt.scatter(xar_in,yar_in,s=2,c='red', alpha=1, zorder=1) 
-    plt.scatter(xall,yall,s=2,c='green', alpha=1, zorder=0) 
-    plt.xlabel('g-r',fontsize=20)
-    plt.ylabel('g',fontsize=20)
-    plt.axis((xmin, xmax, ymax, ymin))
-    plt.tight_layout()
-    plt.savefig(file_png)
+    # plt.clf()
+    # plt.scatter(xar_in,yar_in,s=2,c='red', alpha=1, zorder=1) 
+    # plt.scatter(xall,yall,s=2,c='green', alpha=1, zorder=0) 
+    # plt.xlabel('g-r',fontsize=20)
+    # plt.ylabel('g',fontsize=20)
+    # plt.axis((xmin, xmax, ymax, ymin))
+    # plt.tight_layout()
+    # plt.savefig(file_png)
     return
 
 
@@ -398,13 +399,13 @@ def pixelized_colmag(color, mag, weight, isochrone_masks, out):
     if out is not None:
         xbins = np.linspace(xmin, xmax, nx)
         ybins = np.linspace(ymin, ymax, ny)
-        plt.clf()
-        plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plt.cm.jet)
-        plt.xlabel('g-r',fontsize=20)
-        plt.ylabel('g',fontsize=20)
-        plt.axis((xmin, xmax, ymax, ymin))
-        plt.tight_layout()
-        plt.savefig(out)
+        # plt.clf()
+        # plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plt.cm.jet)
+        # plt.xlabel('g-r',fontsize=20)
+        # plt.ylabel('g',fontsize=20)
+        # plt.axis((xmin, xmax, ymax, ymin))
+        # plt.tight_layout()
+        # plt.savefig(out)
 
     return colmag_pix
 
@@ -438,18 +439,18 @@ def plot_pixelized_colmag(color_aper, gmag_aper, weight_aper, color_slaper,
 
     xbins = np.linspace(xmin, xmax, nx)
     ybins = np.linspace(ymin, ymax, ny)
-    plt.clf()
-    plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plt.cm.jet)
-    plt.xlabel('g-r',fontsize=20)
-    plt.ylabel('g',fontsize=20)
-    plt.scatter(color_aper, gmag_aper, s=15, c='yellow', alpha=1, 
-                label="stars in aper") 
-    plt.scatter(color_slaper, gmag_slaper, s=15, c='red', alpha=1, 
-                label= "stars in aper + mask") 
-    plt.axis((xmin, xmax, ymax, ymin))
-    plt.tight_layout()
-    plt.legend()
-    plt.savefig(out)
+    # plt.clf()
+    # plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plt.cm.jet)
+    # plt.xlabel('g-r',fontsize=20)
+    # plt.ylabel('g',fontsize=20)
+    # plt.scatter(color_aper, gmag_aper, s=15, c='yellow', alpha=1, 
+    #             label="stars in aper") 
+    # plt.scatter(color_slaper, gmag_slaper, s=15, c='red', alpha=1, 
+    #             label= "stars in aper + mask") 
+    # plt.axis((xmin, xmax, ymax, ymin))
+    # plt.tight_layout()
+    # plt.legend()
+    # plt.savefig(out)
     return
 
 
@@ -517,9 +518,9 @@ def randoms_in_spherical_cap(tile, bkg_arcmin2):
     pixels_in_disc = hp.query_disc(
         nside=Nside_samp, nest=False, 
         vec=hp.pixelfunc.ang2vec(
-            np.radians(90.-tile['dec']), np.radians(tile['ra'])
+            da.radians(90.-tile['dec']), da.radians(tile['ra'])
         ),
-        radius = np.radians(tile['radius_tile_deg']), 
+        radius = da.radians(tile['radius_tile_deg']), 
         inclusive=False
     )
     area = 3600.*area_ann_deg2(0., tile['radius_tile_deg'])
@@ -750,7 +751,7 @@ def filter_peaks(tile, map_resolution, ra0, dec0, ip0, jp0):
 
     if tile['hpix']>0: # not target mode
         err_deg = 2./(60.*float(map_resolution))
-        dx, dy = err_deg*np.cos(np.radians(dec0)), err_deg
+        dx, dy = err_deg*np.cos(da.radians(dec0)), err_deg
         ghpx = radec2hpix (ra0, dec0, tile['Nside'], tile['nest'])
         ghpx1 = radec2hpix (ra0-dx, dec0-dy, tile['Nside'], tile['nest'])
         ghpx2 = radec2hpix (ra0-dx, dec0+dy, tile['Nside'], tile['nest'])
@@ -885,8 +886,8 @@ def compute_flux_aper(rap, decp, hpix, weight, aper, Nside, nest):
 
     pixels_in_disc = hp.query_disc(
         nside=Nside, nest=nest, 
-        vec=hp.pixelfunc.ang2vec(np.radians(90.-decp), np.radians(rap)),
-        radius = np.radians(aper), inclusive=False
+        vec=hp.pixelfunc.ang2vec(da.radians(90.-decp), da.radians(rap)),
+        radius = da.radians(aper), inclusive=False
     )
     Nraw = np.sum(weight[np.isin(hpix, pixels_in_disc)])
     pixelized_area = float(len(pixels_in_disc)) *\

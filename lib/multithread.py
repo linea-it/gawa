@@ -1,4 +1,5 @@
 import numpy as np 
+import dask.array as da
 import astropy.io.fits as fits
 
 
@@ -12,14 +13,14 @@ def read_FitsCat(cat):
 def split_equal_nr_of_tiles_in_threads(n_threads, ntiles):
     if ntiles <= n_threads:
         n_threads = ntiles
-        thread_ids = np.arange(0, ntiles)
+        thread_ids = da.arange(0, ntiles)
 
     if n_threads == 0:
         n_threads = ntiles
-        thread_ids = np.arange(0, ntiles)
+        thread_ids = da.arange(0, ntiles)
 
     if ntiles > n_threads:
-        thread_ids = np.zeros(ntiles)
+        thread_ids = da.zeros(ntiles).compute()
 
         p = float(ntiles)/float(n_threads)
 
@@ -58,17 +59,19 @@ def split_equal_area_in_threads(n_threads, tiles_filename):
 
     if n_threads == 0:
         n_threads = ntiles
-        thread_ids = np.arange(0, ntiles)
+        thread_ids = da.arange(0, ntiles)
 
     elif ntiles <= n_threads:
         n_threads = ntiles
-        thread_ids = np.arange(0, ntiles)
+        thread_ids = da.arange(0, ntiles)
 
     else:
         eff_area = tiles['eff_area_deg2']
-        area_thread = np.sum(eff_area)/float(n_threads)        
+        area_thread = da.sum(eff_area).compute()/float(n_threads)        
         thread_ids = np.zeros(ntiles)
+        # thread_ids.flags.writeable = True
         area_per_thread = np.zeros(n_threads)
+        # area_per_thread.flags.writeable = True
         for j in np.argsort(-eff_area):
             i = np.argmin(area_per_thread)
             thread_ids[j]=i
