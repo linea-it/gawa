@@ -1,5 +1,6 @@
 import time
 start = time.time()
+from dask.distributed import Client, progress, LocalCluster
 import numpy as np
 import yaml
 import os
@@ -110,8 +111,15 @@ out_paths = param['out_paths']
 compute_cmd_masks(isochrone_masks[survey], out_paths, gawa_cfg)
 
 # detect clusters on all tiles 
-with Pool(3) as p:
-    p.map(run_gawa_tile, [(config, ith) for ith in np.unique(thread_ids)])
+# with Pool(3) as p:
+#     p.map(run_gawa_tile, [(config, ith) for ith in np.unique(thread_ids)])
+with LocalCluster(processes=False, threads_per_worker=1,
+            n_workers=6, memory_limit='20GB') as cluster:
+    with Client(cluster) as client:
+        client.restart()
+        futures = client.map(run_gawa_tile, [(config, ith) for ith in np.unique(thread_ids)])
+        for future in futures:
+            progress(future)
 
 # concatenate
 # tiles with clusters 
