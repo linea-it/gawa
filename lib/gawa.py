@@ -2,6 +2,8 @@ from astropy.io import fits
 from astropy import wcs
 import numpy as np
 import dask.array as da
+import dask.dataframe as dd
+import dask.dataframe as dd
 import matplotlib.pyplot as plt
 import scipy.ndimage as ndi
 import os
@@ -200,7 +202,7 @@ def cmd_filter(magg, magr, cmd_mask, isochrone_masks):
     ixdata, iydata = xy2pix (
         color[cond_frame], mag[cond_frame], xmin, xmax, ymin, ymax, nx, ny)
     flag_vis = cmd_mask[ixdata, iydata]
-    cond_in = np.zeros(len(mag)).astype(bool)
+    cond_in = da.zeros(len(mag)).astype(bool)
     cond_in[inframe] = flag_vis.astype(bool)  
 
     return cond_in
@@ -239,11 +241,14 @@ def cmd_mask(dslice, isochrone_masks, nsig, out_paths):
     points = np.dstack((xar, yar)).reshape(len(xar), 2)
 
     # read error files 
-    gm, gm_err = np.loadtxt(gerr_file, usecols=(0, 1), unpack=True)
-    rm, rm_err = np.loadtxt(rerr_file, usecols=(0, 1), unpack=True)
+    file_1 = dd.read_csv(gerr_file, sep = ' ', header = None, usecols=[0,1])
+    gm, gm_err = file_1[0].to_dask_array().compute(), file_1[1].to_dask_array().compute()
+    file_2 = dd.read_csv(rerr_file, sep = ' ', header = None, usecols=[0,1])
+    rm, rm_err = file_2[0].to_dask_array().compute(), file_2[1].to_dask_array().compute()
 
     # get the polygon in color mag for a given cldistance 
-    gr, g0 = np.loadtxt(model_file, usecols=(0, 1), unpack=True)
+    df_model_file = dd.read_csv(model_file, sep = ' ', header = None, usecols=[0,1])
+    gr, g0 = df_model_file[0].to_dask_array().compute(), df_model_file[1].to_dask_array().compute()
     g = g0 + 5.*np.log10(dslice/10.)
     vertices = np.dstack((gr, g)).reshape(len(g),2)
 
@@ -933,9 +938,10 @@ def gmag_HB(isochrone_masks, dslice):
     """
 
     model_file = isochrone_masks["model_file"]
-    gr, g0 = np.loadtxt(model_file, usecols=(0, 1), unpack=True)
-    g0_HB_min = np.amin(g0[(gr<0.05) & (gr>-0.05)])
-    g0_HB_max = np.amax(g0[(gr<0.05) & (gr>-0.05)])
+    df_model_file =dd.read_csv(model_file, sep = ' ', header = None, usecols=[0,1])
+    gr, g0 = df_model_file[0].to_dask_array(), df_model_file[1].to_dask_array()
+    g0_HB_min = da.min(g0[(gr<0.05) & (gr>-0.05)]).compute()
+    g0_HB_max = da.max(g0[(gr<0.05) & (gr>-0.05)]).compute()
     g0_HB = (g0_HB_min + g0_HB_max)/2. 
     g_HB = g0_HB + 5.*np.log10(dslice/10.)
     return g_HB
@@ -954,15 +960,17 @@ def Dist_err(isochrone_masks, dslice):
 
     # read model
     model_file = isochrone_masks["model_file"]
-    gr, g0 = np.loadtxt(model_file, usecols=(0, 1), unpack=True)
+    df_model_file = dd.read_csv(model_file, sep = ' ', header = None, usecols=[0,1])
+    gr, g0 = df_model_file[0].to_dask_array().compute(), df_model_file[1].to_dask_array().compute()
     # read error files 
     gerr_file, rerr_file = isochrone_masks["magerr_blue_file"],\
                            isochrone_masks["magerr_red_file"]
-    gm, gm_err = np.loadtxt(gerr_file, usecols=(0, 1), unpack=True)
+    df_gerr_file = dd.read_csv(gerr_file, sep = ' ', header = None, usecols=[0,1])
+    gm, gm_err = df_gerr_file[0].to_dask_array().compute(), df_gerr_file[1].to_dask_array().compute()
 
     g = g0 + 5.*np.log10(dslice/10.)
-    gmin = np.amin(g[(gr<0.05) & (gr>-0.05)])
-    gmax = np.amax(g[(gr<0.05) & (gr>-0.05)])
+    gmin = da.min(g[(gr<0.05) & (gr>-0.05)]).compute()
+    gmax = da.max(g[(gr<0.05) & (gr>-0.05)]).compute()
     gmin = gmin - np.interp (gmin, gm, gm_err)
     gmax = gmax + np.interp (gmax, gm, gm_err)    
     g_HB = (gmin + gmax)/2. 
@@ -980,12 +988,14 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
         workdir (_type_): _description_
     """
     model_file = isochrone_masks["model_file"]
-    gr, g0 = np.loadtxt(model_file, usecols=(0, 1), unpack=True)
-
+    df_model_file = dd.read_csv(model_file, sep = ' ', header = None, usecols=[0,1])
+    gr, g0 = df_model_file[0].to_dask_array().compute(), df_model_file[1].to_dask_array().compute()
+            
     # read error files 
     gerr_file, rerr_file = isochrone_masks["magerr_blue_file"],\
                            isochrone_masks["magerr_red_file"]
-    gm, gm_err = np.loadtxt(gerr_file, usecols=(0, 1), unpack=True)
+    df_gerr_file = dd.read_csv(gerr_file, sep = ' ', header = None, usecols=[0,1])                      
+    gm, gm_err = df_gerr_file[0].to_dask_array().compute(), df_gerr_file[1].to_dask_array().compute()
 
     dstep = 10.
     dslices = [dslices_specs['dmin']]
