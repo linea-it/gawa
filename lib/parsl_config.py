@@ -29,7 +29,7 @@ def get_config(key):
                 max_blocks=16,
                 parallelism=0.5,
                 scheduler_options='+RequiresWholeMachine = True',
-                worker_init=f"source {gawa_root_dir}/env.sh",
+                worker_init=f"source {gawa_root_dir}/gawa.sh",
                 cmd_timeout=120,
             ),
         ),
@@ -48,7 +48,7 @@ def get_config(key):
                 max_blocks=5,
                 parallelism=1,
                 walltime='03:20:00',
-                worker_init=f"source {gawa_root_dir}/env.sh\n"
+                worker_init=f"source {gawa_root_dir}/gawa.sh\n"
             ),
         ),
         "local": HighThroughputExecutor(
@@ -60,7 +60,7 @@ def get_config(key):
                 init_blocks=1,
                 max_blocks=1,
                 parallelism=1,
-                worker_init=f"source {gawa_root_dir}/env.sh\n",
+                worker_init=f"source {gawa_root_dir}/gawa.sh\n",
             )
         ),
         "local_threads": ThreadPoolExecutor(

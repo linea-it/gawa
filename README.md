@@ -25,11 +25,11 @@ ipython kernel install --user --name=gawa
 Copy gawa.cfg and env.sh
 ```bash
 cp gawa.cfg.template gawa.cfg
-cp env.sh.template env.sh # You need to edit it if you want to run with Parsl in cluster.
+cp gawa.sh.template gawa.sh # You need to edit it if you want to run with Parsl in cluster.
 ```
 
 ### Running with Parsl(Pilot Jobs - Remote jobs)
-Edit env.sh, adding the path to Conda (CONDAPATH) and the path to this repository (GAWA_ROOT):
+Edit gawa.sh, adding the path to Conda (CONDAPATH) and the path to this repository (GAWA_ROOT):
 ```bash
 export CONDAPATH=<conda path>
 export GAWA_ROOT=<gawa repository path>
@@ -42,6 +42,7 @@ python -m ipykernel install --user --name=gawa
 ```
 Choose the 'executor' option in gawa.cfg and run:
 ```bash
+source gawa.sh
 python -W ignore gawa_main.py gawa.cfg
 ```
 

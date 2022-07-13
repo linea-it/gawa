@@ -24,6 +24,7 @@ def run_gawa_tile_job(args):
 
     gawa_root = os.environ.get('GAWA_ROOT', '.')
     level = os.environ.get('GAWA_LOG_LEVEL', 'info')
+    os.chdir(gawa_root)
 
     start_time_full = time.time()
     tile, config = args
@@ -40,8 +41,6 @@ def run_gawa_tile_job(args):
     isochrone_masks = params['isochrone_masks'][survey]
     gawa_cfg = params['gawa_cfg']    
     workdir = out_paths['workdir']
-
-    os.chdir(gawa_root)
 
     logger = get_logger(
         name=f'gawa-{tile["id"]}', level=level,
@@ -106,11 +105,10 @@ def compute_cmd_masks_job(isochrone_masks, out_paths, gawa_cfg):
 
     gawa_root = os.environ.get('GAWA_ROOT', '.')
     level = os.environ.get('GAWA_LOG_LEVEL', 'info')
+    os.chdir(gawa_root)
 
     start_time_full = time.time()
     
-    os.chdir(gawa_root)
-
     workdir = out_paths['workdir']
 
     logger = get_logger(
