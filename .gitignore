@@ -8,5 +8,8 @@ tiles_specs.fits
 .ipynb_checkpoints/
 gawa.cfg
 .vscode/
+output/
+output_*/
+env.sh
 /footprint/
 /isochrone_masks/
