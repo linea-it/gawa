@@ -8,6 +8,7 @@ survey: 'MOCK_DES'  # DES
 ref_bfilter: 'filter_g'
 ref_rfilter: 'filter_r'
 ref_color: 'gr'
+executor: 'local_threads'
 
 ##  I/O section
 input_data_structure:
