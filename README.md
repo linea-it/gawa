@@ -40,6 +40,10 @@ source $CONDAPATH/activate
 conda activate gawa
 python -m ipykernel install --user --name=gawa
 ```
+Choose the 'executor' option in gawa.cfg and run:
+```bash
+python -W ignore gawa_main.py gawa.cfg
+```
 
 ### Running
 
