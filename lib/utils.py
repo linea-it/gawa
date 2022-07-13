@@ -10,7 +10,44 @@ from math import log, exp, atan, atanh
 from astropy.table import Table
 from scipy.optimize import least_squares
 from scipy import interpolate
+import logging
 
+
+def get_logger(name=None, stdout=True, level='info'):
+    """
+    Returns a logger object
+    
+    Args:
+        name (string, optional): logger name. Defaults to None.
+        stdout (boolean, optional): print to stdout. Defaults to True.
+        level (string, optional): logger level. Defaults to 'info'.
+    
+    Returns:
+        logger: logger object
+    """
+
+    log_debug = {
+        'debug': logging.DEBUG, 'info': logging.INFO,
+        'warning': logging.WARNING, 'error': logging.ERROR,
+        'critical': logging.CRITICAL
+    }
+
+    if not name:
+        name = __name__
+
+    logger = logging.getLogger(name)
+
+    if stdout:
+        handler = logging.FileHandler(stdout)
+        formatter = logging.Formatter(
+            '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+        )
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+
+    logger.setLevel(log_debug[level])
+
+    return logger
 
 
 def create_directory(dir):
@@ -313,8 +350,7 @@ def create_mosaic_footprint(footprint, fpath):
     hpix0, frac0 = read_FitsFootprint(
         footprint['survey_footprint'], footprint
     )
-    ra0, dec0 = hpix2radec(hpix0, footprint['Nside'],\
-                           footprint['nest'])
+    ra0, dec0 = hpix2radec(hpix0, footprint['Nside'], footprint['nest'])
     hpix = radec2hpix(
         ra0, dec0, 
         footprint['mosaic']['Nside'], 

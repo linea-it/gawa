@@ -1,0 +1,8 @@
+export CONDAPATH=<conda path>
+export GAWA_ROOT=<gawa repository path>
+export PYTHONPATH=$PYTHONPATH:$GAWA_ROOT
+export GAWA_LOG_LEVEL=info
+
+source $CONDAPATH/activate
+conda activate gawa
+python -m ipykernel install --user --name=gawa

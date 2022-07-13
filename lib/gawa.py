@@ -6,20 +6,21 @@ import scipy.ndimage as ndi
 import os
 from astropy import units as u
 import math
-import astropy.coordinates
 import healpy as hp
 from astropy.table import Table
 from skimage.feature import peak_local_max
-from astropy.coordinates import SkyCoord
+from astropy.coordinates import SkyCoord, search_around_sky
 from matplotlib import path as pth
 import subprocess
-import yaml
+import logging as logger
 
-from .utils import create_directory, read_FitsCat, create_tile_specs
-from .utils import tile_radius, sub_hpix, radec2hpix, hpix2radec, dist_ang
-from .utils import area_ann_deg2, hpx_in_annulus, join_struct_arrays
-from .utils import cond_in_disc, concatenate_clusters, add_clusters_unique_id
-from .utils import read_mosaicFitsCat_in_disc, read_mosaicFootprint_in_disc
+from lib.utils import create_directory, read_FitsCat
+from lib.utils import tile_radius, sub_hpix, radec2hpix, hpix2radec, dist_ang
+from lib.utils import area_ann_deg2, hpx_in_annulus, join_struct_arrays
+from lib.utils import cond_in_disc, concatenate_clusters, add_clusters_unique_id
+
+GAWA_ROOT = os.getenv('GAWA_ROOT', '.')
+LEVEL = os.getenv('GAWA_LOG_LEVEL', 'info')
 
 
 def tile_dir_name(workdir, tile_nr):
@@ -69,8 +70,7 @@ def pix2xy (ix, iy, xmin, xmax, ymin, ymax, nx, ny):
         _type_: _description_
     """
     xstep, ystep = (xmax-xmin)/float(nx), (ymax-ymin)/float(ny)
-    x, y = xmin + (ix.astype(float)+0.5)*xstep,\
-           ymin + (iy.astype(float)+0.5)*ystep 
+    x, y = xmin + (ix.astype(float)+0.5)*xstep,ymin + (iy.astype(float)+0.5)*ystep 
     return x, y
 
 
@@ -127,8 +127,7 @@ def effective_area_framed_tile(tile, data_fp, footprint, admin):
         _type_: _description_
     """
     Nside, nest = footprint['Nside'], footprint['nest']
-    hpix_map, frac_map = data_fp[footprint['key_pixel']],\
-                         data_fp[footprint['key_frac']]
+    hpix_map, frac_map = data_fp[footprint['key_pixel']],data_fp[footprint['key_frac']]
     radius_deg = tile_radius(admin)
     pixels_in_disc = hp.query_disc(
         nside=Nside, nest=nest, 
@@ -144,7 +143,7 @@ def effective_area_framed_tile(tile, data_fp, footprint, admin):
     return framed_eff_area_deg2
 
 
-def plot_cmd(xall,yall, xar_in, yar_in, isochrone_masks, file_png):
+def plot_cmd(xall, yall, xar_in, yar_in, isochrone_masks, file_png):
     """_summary_
 
     Args:
@@ -156,10 +155,8 @@ def plot_cmd(xall,yall, xar_in, yar_in, isochrone_masks, file_png):
         file_png (_type_): _description_
     """
 
-    xmin, xmax = isochrone_masks["mask_color_min"],\
-                 isochrone_masks["mask_color_max"]
-    ymin, ymax = isochrone_masks["mask_mag_min"],\
-                 isochrone_masks["mask_mag_max"]
+    xmin, xmax = isochrone_masks["mask_color_min"], isochrone_masks["mask_color_max"]
+    ymin, ymax = isochrone_masks["mask_mag_min"], isochrone_masks["mask_mag_max"]
     plt.clf()
     plt.scatter(xar_in,yar_in,s=2,c='red', alpha=1, zorder=1) 
     plt.scatter(xall,yall,s=2,c='green', alpha=1, zorder=0) 
@@ -183,10 +180,8 @@ def cmd_filter(magg, magr, cmd_mask, isochrone_masks):
     Returns:
         _type_: _description_
     """
-    xmin, xmax = isochrone_masks["mask_color_min"],\
-                 isochrone_masks["mask_color_max"]
-    ymin, ymax = isochrone_masks["mask_mag_min"],\
-                 isochrone_masks["mask_mag_max"]
+    xmin, xmax = isochrone_masks["mask_color_min"], isochrone_masks["mask_color_max"]
+    ymin, ymax = isochrone_masks["mask_mag_min"], isochrone_masks["mask_mag_max"]
     nx = isochrone_masks["mask_resolution"]
     mag, color = magg, magg-magr
     # clip objects falling outside the frame 
@@ -217,20 +212,16 @@ def cmd_mask(dslice, isochrone_masks, nsig, out_paths):
     Returns:
         _type_: _description_
     """
-    xmin, xmax = isochrone_masks["mask_color_min"],\
-                 isochrone_masks["mask_color_max"]
-    ymin, ymax = isochrone_masks["mask_mag_min"],\
-                 isochrone_masks["mask_mag_max"]
+    xmin, xmax = isochrone_masks["mask_color_min"], isochrone_masks["mask_color_max"]
+    ymin, ymax = isochrone_masks["mask_mag_min"], isochrone_masks["mask_mag_max"]
     model_file = isochrone_masks["model_file"]
-    gerr_file, rerr_file = isochrone_masks["magerr_blue_file"],\
-                           isochrone_masks["magerr_red_file"]
+    gerr_file, rerr_file = isochrone_masks["magerr_blue_file"], isochrone_masks["magerr_red_file"]
     nx = isochrone_masks["mask_resolution"]
 
     # mask grid
     step = (xmax-xmin)/float(nx)
     ny = int((ymax-ymin)/step)
-    ix, iy = np.linspace(0,nx-1,nx).astype(int),\
-             np.linspace(0,ny-1,ny).astype(int)
+    ix, iy = np.linspace(0,nx-1,nx).astype(int), np.linspace(0,ny-1,ny).astype(int)
     x, y = np.meshgrid(ix, iy)
 
     ixar, iyar = np.ravel(x), np.ravel(y) # all pixels 
@@ -252,8 +243,7 @@ def cmd_mask(dslice, isochrone_masks, nsig, out_paths):
     xar_in, yar_in = xar[points_in], yar[points_in]
 
     g_in, r_in = yar_in, yar_in - xar_in 
-    gerr_in, rerr_in = np.interp (g_in, gm, gm_err),\
-                       np.interp (r_in, rm, rm_err)
+    gerr_in, rerr_in = np.interp (g_in, gm, gm_err), np.interp (r_in, rm, rm_err)
     xerr_in, yerr_in = (gerr_in**2 + rerr_in**2)**0.5, gerr_in
 
     for i in range (0, len(xar_in)):
@@ -264,15 +254,13 @@ def cmd_mask(dslice, isochrone_masks, nsig, out_paths):
         if i == 0:
             ixall, iyall = np.copy(ixar[cond_err]), np.copy(iyar[cond_err])
         else:
-            ixall, iyall = np.hstack((ixall, ixar[cond_err])),\
-                           np.hstack((iyall, iyar[cond_err]))
+            ixall, iyall = np.hstack((ixall, ixar[cond_err])), np.hstack((iyall, iyar[cond_err]))
     mask = np.zeros((nx, ny))
     mask[ixall, iyall]=1.
 
     # remove remaining holes in the mask
     iy_HB = max( 
-        x2pix( np.array([gmag_HB(isochrone_masks, dslice)+1.]), 
-               ymin, ymax, ny)[0], 0)
+        x2pix( np.array([gmag_HB(isochrone_masks, dslice)+1.]), ymin, ymax, ny)[0], 0)
     ixar, iyar   =  np.argwhere(mask==1).T[0], np.argwhere(mask==1).T[1]
     ixarn, iyarn = ixar[(iyar<iy_HB)], iyar[(iyar<iy_HB)]
 
@@ -280,27 +268,23 @@ def cmd_mask(dslice, isochrone_masks, nsig, out_paths):
         xmask = mask[:, iy]
         mask[np.argmin(xmask[xmask==1.]):np.argmax(xmask[xmask==1.])+1, iy] = 1.
         ixarn = np.hstack( 
-            (ixarn, 
-             np.arange(np.amin(ixar[iyar==iy]), np.amax(ixar[iyar==iy])+1)
-         )
+            (ixarn, np.arange(np.amin(ixar[iyar==iy]), np.amax(ixar[iyar==iy])+1))
         )
         iyarn = np.hstack( 
-            (iyarn, 
-             iy*np.ones(np.amax(ixar[iyar==iy]) - np.amin(ixar[iyar==iy])+1
-                    ).astype(int)
-         )
+            (iyarn, iy*np.ones(np.amax(ixar[iyar==iy]) - np.amin(ixar[iyar==iy])+1).astype(int))
         )
     xalln, yalln = pix2xy (ixarn, iyarn, xmin, xmax, ymin, ymax, nx, ny)
 
     # check cmd plot
-    plot_filename = os.path.join(out_paths['workdir'], out_paths['masks'],
-                                 'cmd_D'+str(dslice/1000)+'_err.png')
+    plot_filename = os.path.join(
+        out_paths['workdir'], out_paths['masks'], 'cmd_D'+str(dslice/1000)+'_err.png'
+    )
     plot_cmd(xalln,yalln, xar_in, yar_in, isochrone_masks, plot_filename)
 
     return mask
 
 
-def compute_cmd_masks(isochrone_masks, out_paths, gawa_cfg):
+def compute_cmd_masks(isochrone_masks, out_paths, gawa_cfg, logger=logger):
     """_summary_
 
     Args:
@@ -308,22 +292,27 @@ def compute_cmd_masks(isochrone_masks, out_paths, gawa_cfg):
         out_paths (_type_): _description_
         gawa_cfg (_type_): _description_
     """
+
     dslices = read_FitsCat( 
         os.path.join(out_paths['workdir'], 
-                     gawa_cfg['dslices']['dslices_filename'])
+            gawa_cfg['dslices']['dslices_filename']
+        )
     )['dist_pc']
     create_directory(os.path.join(out_paths['workdir'], out_paths['masks']))
     for i in range(0, len(dslices)):
-        print ('.....Mask distance (kpc) = ', np.round(dslices[i]/1000., 2))
+        logger.info(f'.....Mask distance (kpc) = {np.round(dslices[i]/1000., 2)}')
         if not os.path.isfile(
-                os.path.join(out_paths['workdir'], out_paths['masks'],
-                             'cmd_mask_D'+str(dslices[i]/1000)+'.npy')
+            os.path.join(
+                out_paths['workdir'], out_paths['masks'],
+                'cmd_mask_D'+str(dslices[i]/1000)+'.npy'
+            )
         ):
             mask = cmd_mask(dslices[i], isochrone_masks, 
                             gawa_cfg['photo_err']['nsig'], out_paths)
             np.save(
-                os.path.join(out_paths['workdir'], out_paths['masks'],
-                             'cmd_mask_D'+str(dslices[i]/1000)+'.npy'), mask
+                os.path.join(
+                    out_paths['workdir'], out_paths['masks'], 'cmd_mask_D'+str(dslices[i]/1000)+'.npy'
+                ), mask
             )        
     return
 
@@ -341,8 +330,8 @@ def select_stars_in_slice(data_star, starcat, gawa_cfg, mask, isochrone_masks):
     Returns:
         _type_: _description_
     """
-    magg, magr = data_star[starcat['keys']['key_mag_blue']],\
-                 data_star[starcat['keys']['key_mag_red']]
+    magr = data_star[starcat['keys']['key_mag_red']]
+    magg = data_star[starcat['keys']['key_mag_blue']]
     cond = cmd_filter (magg, magr, mask, isochrone_masks)
     return data_star[cond]
 
@@ -382,10 +371,8 @@ def pixelized_colmag(color, mag, weight, isochrone_masks, out):
     Returns:
         _type_: _description_
     """
-    xmin, xmax = isochrone_masks["mask_color_min"],\
-                 isochrone_masks["mask_color_max"]
-    ymin, ymax = isochrone_masks["mask_mag_min"],\
-                 isochrone_masks["mask_mag_max"]
+    xmin, xmax = isochrone_masks["mask_color_min"], isochrone_masks["mask_color_max"]
+    ymin, ymax = isochrone_masks["mask_mag_min"], isochrone_masks["mask_mag_max"]
     step = 0.05
     nx = int((xmax-xmin)/step)
     ny = int((ymax-ymin)/step)
@@ -410,9 +397,9 @@ def pixelized_colmag(color, mag, weight, isochrone_masks, out):
 
 
 
-def plot_pixelized_colmag(color_aper, gmag_aper, weight_aper, color_slaper, 
-                          gmag_slaper, weight_slaper, color, mag, weight, 
-                          isochrone_masks, out):
+def plot_pixelized_colmag(
+    color_aper, gmag_aper, weight_aper, color_slaper, gmag_slaper, weight_slaper,
+    color, mag, weight, isochrone_masks, out):
     """_summary_
 
     Args:
@@ -428,10 +415,8 @@ def plot_pixelized_colmag(color_aper, gmag_aper, weight_aper, color_slaper,
         isochrone_masks (bool): _description_
         out (_type_): _description_
     """
-    xmin, xmax = isochrone_masks["mask_color_min"],\
-                 isochrone_masks["mask_color_max"]
-    ymin, ymax = isochrone_masks["mask_mag_min"],\
-                 isochrone_masks["mask_mag_max"]
+    xmin, xmax = isochrone_masks["mask_color_min"], isochrone_masks["mask_color_max"]
+    ymin, ymax = isochrone_masks["mask_mag_min"], isochrone_masks["mask_mag_max"]
     step = 0.05
     nx = int((xmax-xmin)/step)
     ny = int((ymax-ymin)/step)
@@ -563,10 +548,8 @@ def compute_filled_catimage(ra_map, dec_map, weight_map, gawa_cfg, tile, data_fp
         ra_map, dec_map, footprint['Nside'], footprint['nest']
     ))
 
-    empty_edge_hpix = edge_pixels\
-                      [np.isin(edge_pixels, hpix_filled, invert=True)]
-    empty_sub_edge_hpix = sub_edge_hpix\
-                          [np.isin(sub_edge_hpix, shpix_filled, invert=True)]
+    empty_edge_hpix = edge_pixels[np.isin(edge_pixels, hpix_filled, invert=True)]
+    empty_sub_edge_hpix = sub_edge_hpix[np.isin(sub_edge_hpix, shpix_filled, invert=True)]
     # keep only sub pixels not neighbouring the pixels with actual galaxies 
     nlist_esep = hp.pixelfunc.get_all_neighbours(
         2*footprint['Nside'], empty_sub_edge_hpix, 
@@ -582,10 +565,8 @@ def compute_filled_catimage(ra_map, dec_map, weight_map, gawa_cfg, tile, data_fp
     hpx_ran1 = radec2hpix(
         ra_ran, dec_ran, footprint['Nside'], footprint['nest']
     )
-    ra_ranf1 =   ra_ran\
-                 [np.isin(hpx_ran1, data_fp[footprint['key_pixel']], invert=True)]
-    dec_ranf1 = dec_ran\
-                [np.isin(hpx_ran1, data_fp[footprint['key_pixel']], invert=True)]
+    ra_ranf1 =   ra_ran[np.isin(hpx_ran1, data_fp[footprint['key_pixel']], invert=True)]
+    dec_ranf1 = dec_ran[np.isin(hpx_ran1, data_fp[footprint['key_pixel']], invert=True)]
 
     hpx_ran2 = radec2hpix(
         ra_ran, dec_ran, footprint['Nside']*2, footprint['nest']
@@ -594,10 +575,8 @@ def compute_filled_catimage(ra_map, dec_map, weight_map, gawa_cfg, tile, data_fp
     dec_ranf2 = dec_ran[np.isin(hpx_ran2, empty_sub_edge_hpix)]
 
     # stack galaxies + randoms 
-    ra_ranf1, dec_ranf1 = np.hstack((ra_ranf1, ra_ranf2)),\
-                          np.hstack((dec_ranf1, dec_ranf2))
-    ra_all, dec_all = np.hstack((ra_ranf1,  ra_map)),\
-                      np.hstack((dec_ranf1,  dec_map))
+    ra_ranf1, dec_ranf1 = np.hstack((ra_ranf1, ra_ranf2)),np.hstack((dec_ranf1, dec_ranf2))
+    ra_all, dec_all = np.hstack((ra_ranf1,  ra_map)),np.hstack((dec_ranf1,  dec_map))
     weight_all = np.hstack((np.ones(len(ra_ranf1)), weight_map))
 
     # build catalogue image 
@@ -710,8 +689,7 @@ def wmap2peaks(wmap, wazp_specs, tile_specs):
     iobj0, jobj0 = local_maxi[:,0]+1., local_maxi[:,1]+1. # pix coordinates of the peaks
     iobj = iobj0[(wmap_data[iobj0.astype(int),jobj0.astype(int)]> wmap_thresh) ]
     jobj = jobj0[(wmap_data[iobj0.astype(int),jobj0.astype(int)]> wmap_thresh) ]
-    ra_peak, dec_peak =  w.all_pix2world(iobj,jobj,1)[0],\
-                         w.all_pix2world(iobj,jobj,1)[1]
+    ra_peak, dec_peak =  w.all_pix2world(iobj,jobj,1)[0],w.all_pix2world(iobj,jobj,1)[1]
     return ra_peak, dec_peak, iobj, jobj
 
 
@@ -798,7 +776,7 @@ def coverfrac_disc(ra, dec, data_footprint, footprint, radius_deg):
 
 
 def init_peaks_table(ra_peaks, dec_peaks, iobj, jobj, coverfrac, coverfrac_bkg, 
-                     wradius, dslice, isochrone_masks, gawa_cfg):
+    wradius, dslice, isochrone_masks, gawa_cfg):
     """initialize the table of peaks
     Args:
         ra (_type_): _description_
@@ -813,24 +791,24 @@ def init_peaks_table(ra_peaks, dec_peaks, iobj, jobj, coverfrac, coverfrac_bkg,
     Derr, Dmin, Dmax = Dist_err(isochrone_masks, dslice)
 
     data_peaks = np.zeros( (len(ra_peaks)), 
-          dtype={
-              'names':(
-                  'peak_id', 'ra', 'dec', 
-                  'iobj', 'jobj', 
-                  'dist_init_kpc', 'dist_err_kpc',
-                  'dist_min_kpc', 'dist_max_kpc', 
-                  'coverfrac', 'coverfrac_bkg',
-                  gawa_cfg['clkeys']['key_radius']
-              ),
-              'formats':(
-                  'i8', 'f8', 'f8', 
-                  'f4', 'f4', 
-                  'f4', 'f4', 
-                  'f4', 'f4', 
-                  'f4', 'f4', 
-                  'f4'
-              )
-          }
+        dtype={
+            'names':(
+                'peak_id', 'ra', 'dec', 
+                'iobj', 'jobj', 
+                'dist_init_kpc', 'dist_err_kpc',
+                'dist_min_kpc', 'dist_max_kpc', 
+                'coverfrac', 'coverfrac_bkg',
+                gawa_cfg['clkeys']['key_radius']
+            ),
+            'formats':(
+                'i8', 'f8', 'f8', 
+                'f4', 'f4', 
+                'f4', 'f4', 
+                'f4', 'f4', 
+                'f4', 'f4', 
+                'f4'
+            )
+        }
     )
     data_peaks['peak_id'] = np.arange(len(ra_peaks))
     data_peaks['ra']   = ra_peaks
@@ -889,8 +867,7 @@ def compute_flux_aper(rap, decp, hpix, weight, aper, Nside, nest):
         radius = np.radians(aper), inclusive=False
     )
     Nraw = np.sum(weight[np.isin(hpix, pixels_in_disc)])
-    pixelized_area = float(len(pixels_in_disc)) *\
-                     hp.pixelfunc.nside2pixarea(Nside, degrees=True)
+    pixelized_area = float(len(pixels_in_disc)) * hp.pixelfunc.nside2pixarea(Nside, degrees=True)
     return Nraw*area_ann_deg2(0., aper)/pixelized_area
 
 
@@ -955,8 +932,7 @@ def Dist_err(isochrone_masks, dslice):
     model_file = isochrone_masks["model_file"]
     gr, g0 = np.loadtxt(model_file, usecols=(0, 1), unpack=True)
     # read error files 
-    gerr_file, rerr_file = isochrone_masks["magerr_blue_file"],\
-                           isochrone_masks["magerr_red_file"]
+    gerr_file, rerr_file = isochrone_masks["magerr_blue_file"],isochrone_masks["magerr_red_file"]
     gm, gm_err = np.loadtxt(gerr_file, usecols=(0, 1), unpack=True)
 
     g = g0 + 5.*np.log10(dslice/10.)
@@ -982,8 +958,7 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
     gr, g0 = np.loadtxt(model_file, usecols=(0, 1), unpack=True)
 
     # read error files 
-    gerr_file, rerr_file = isochrone_masks["magerr_blue_file"],\
-                           isochrone_masks["magerr_red_file"]
+    gerr_file, rerr_file = isochrone_masks["magerr_blue_file"],isochrone_masks["magerr_red_file"]
     gm, gm_err = np.loadtxt(gerr_file, usecols=(0, 1), unpack=True)
 
     dstep = 10.
@@ -991,10 +966,8 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
     dist = dslices[0]
     nstep = 2*int((dslices_specs['dmax'] - dslices_specs['dmin'])/dstep)+1
     g = g0 + 5.*np.log10(dist/10.)
-    gmin, gmax = np.amin(g[(gr<0.05) & (gr>-0.05)]),\
-                 np.amax(g[(gr<0.05) & (gr>-0.05)])
-    gmin, gmax = gmin - np.interp (gmin, gm, gm_err),\
-                 gmax + np.interp (gmax, gm, gm_err)    
+    gmin, gmax = np.amin(g[(gr<0.05) & (gr>-0.05)]),np.amax(g[(gr<0.05) & (gr>-0.05)])
+    gmin, gmax = gmin - np.interp (gmin, gm, gm_err),gmax + np.interp (gmax, gm, gm_err)    
 
     for j in range(0,nstep):
         dist+=dstep
@@ -1013,14 +986,14 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
     dslices = np.array(dslices)
     dslices = dslices[(dslices<125000.) & (dslices>80000.)]
     data = np.zeros( (len(dslices)), 
-                     dtype = {
-                         'names':(
-                             'id', 'dist_pc'
-                         ), 
-                         'formats':(
-                             'i8', 'f8'
-                         )
-                     }
+        dtype = {
+            'names':(
+                'id', 'dist_pc'
+            ), 
+            'formats':(
+                'i8', 'f8'
+            )
+        }
     )
     data['id'] = np.arange(len(dslices))
     data['dist_pc'] = dslices
@@ -1062,10 +1035,8 @@ def gmag_weight_map(dslice, isochrone_masks, gawa_cfg):
     Returns:
         _type_: _description_
     """
-    xmin, xmax = isochrone_masks["mask_color_min"],\
-                 isochrone_masks["mask_color_max"]
-    ymin, ymax = isochrone_masks["mask_mag_min"],\
-                 isochrone_masks["mask_mag_max"]
+    xmin, xmax = isochrone_masks["mask_color_min"],isochrone_masks["mask_color_max"]
+    ymin, ymax = isochrone_masks["mask_mag_min"],isochrone_masks["mask_mag_max"]
     step = 0.05
     nx = int((xmax-xmin)/step)
     ny = int((ymax-ymin)/step)
@@ -1077,7 +1048,7 @@ def gmag_weight_map(dslice, isochrone_masks, gawa_cfg):
 
 
 def add_peaks_attributes(data_peaks, data_stars, starcat, bkg_arcmin2, 
-                         dslice, isochrone_masks, tile, gawa_cfg):
+    dslice, isochrone_masks, tile, gawa_cfg):
     """_summary_
 
     Args:
@@ -1122,8 +1093,7 @@ def add_peaks_attributes(data_peaks, data_stars, starcat, bkg_arcmin2,
     data_peaks[clkeys['key_Naper']] = Nsnr
     data_peaks[clkeys['key_Napertot']] = Nraw_snr
     data_peaks[clkeys['key_Napertot_weighted']] = Naper_weighted
-    data_peaks[clkeys['key_Nbkg']] = gawa_cfg['radius_aper_arcmin']*\
-                                     bkg_arcmin2*np.ones(len(Nsnr))
+    data_peaks[clkeys['key_Nbkg']] = gawa_cfg['radius_aper_arcmin']*bkg_arcmin2*np.ones(len(Nsnr))
     return
 
 
@@ -1205,10 +1175,12 @@ def init_cylinders (keyrank, peak_ids, wazp_specs):
     icyl = np.arange(ncyl)
 
     data_cylinders = np.zeros((ncyl), 
-    dtype={
-              'names':('id_cyl', 'peak_id', 'cyl_length', 
-                       'cyl_isl_min', 'cyl_isl_max', 'cyl_isl_mode'),
-              'formats':('i4', 'i4', 'i4', 'i4', 'i4', 'i4')})
+        dtype={
+            'names':('id_cyl', 'peak_id', 'cyl_length', 
+                    'cyl_isl_min', 'cyl_isl_max', 'cyl_isl_mode'),
+            'formats':('i4', 'i4', 'i4', 'i4', 'i4', 'i4')
+        }
+    )
     data_cylinders['id_cyl'] = icyl
     data_cylinders['peak_id'] = ip
     data_cylinders['cyl_length'] = isl_max - isl_min + 1
@@ -1253,21 +1225,21 @@ def append_peaks_infos_to_cylinders(data_cylinders_init, peaks_list, dslices,
         dec[icl] = peaks_list[isl]['dec'][ip]
 
     data_extra = np.zeros((ncl), 
-                          dtype={
-                              'names':(
-                                  'ra', 'dec', 
-                                  'dist_init_kpc', 'snr', 
-                                  'ip_cyl', 'ra_cyl', 'dec_cyl', 
-                                  'rank_cyl', 'snr_cyl'
-                              ),
-                              'formats':(
-                                  'f8','f8',
-                                  'f8', 'f8', 
-                                  str(nsl)+'i8', str(nsl)+'f8', str(nsl)+'f8', 
-                                  str(nsl)+'f8', str(nsl)+'f8' 
-                              ) 
-                          }
-                      )
+        dtype={
+            'names':(
+                'ra', 'dec', 
+                'dist_init_kpc', 'snr', 
+                'ip_cyl', 'ra_cyl', 'dec_cyl', 
+                'rank_cyl', 'snr_cyl'
+            ),
+            'formats':(
+                'f8','f8',
+                'f8', 'f8', 
+                str(nsl)+'i8', str(nsl)+'f8', str(nsl)+'f8', 
+                str(nsl)+'f8', str(nsl)+'f8' 
+            ) 
+        }
+    )
 
     data_extra['dist_init_kpc'] = dist_init
     data_extra['snr'] = snr
@@ -1335,9 +1307,9 @@ def make_cylinders(peaks_list, dslices, gawa_cfg):
                     rank_cyl_new, snr_cyl_new = np.ones((np0,nsl))*(-1),\
                                                 np.ones((np0,nsl))*(-1)
                     ra_cyl_new, dec_cyl_new = np.ones((np0,nsl))*(-1),\
-                                              np.ones((np0,nsl))*(-1)
+                                                np.ones((np0,nsl))*(-1)
                     rank_cyl_new[:,isl], snr_cyl_new[:,isl] = dat[key_rank],\
-                                                              dat[key_snr]
+                                                                dat[key_snr]
                     ra_cyl_new[:,isl], dec_cyl_new[:,isl] = dat['ra'],\
                                                             dat['dec']
 
@@ -1345,7 +1317,7 @@ def make_cylinders(peaks_list, dslices, gawa_cfg):
                     rank_cyl = np.concatenate((rank_cyl,rank_cyl_new))
                     snr_cyl  = np.concatenate((snr_cyl,snr_cyl_new))
                     ra_cyl, dec_cyl = np.concatenate((ra_cyl,ra_cyl_new)),\
-                                      np.concatenate((dec_cyl,dec_cyl_new))
+                                                        np.concatenate((dec_cyl,dec_cyl_new))
                 else:
                     ra_0, dec_0 = ra_cyl[:,isl-1], dec_cyl[:,isl-1]
                     np0 = len(ra_0)
@@ -1358,7 +1330,7 @@ def make_cylinders(peaks_list, dslices, gawa_cfg):
 
                     c0 = SkyCoord(ra=ra_0*u.degree, dec=dec_0*u.degree)
                     c1 = SkyCoord(ra=ra_1*u.degree, dec=dec_1*u.degree)
-                    i0,i1,sep2d,dist3d = astropy.coordinates.search_around_sky(
+                    i0,i1,sep2d,dist3d = search_around_sky(
                         c0, c1, rad_deg*u.degree, 
                         storekdtree='kdtree_sky'
                     )
@@ -1386,10 +1358,9 @@ def make_cylinders(peaks_list, dslices, gawa_cfg):
             ip_cyl, ra_cyl, dec_cyl, rank_cyl, snr_cyl
         )    
         ncyl = len(data_cylinders)
-        print('')
-        print('..........Number of cylinders : '+str(ncyl))
-        print('..........Ratio npeaks / ncyl : '+\
-              str(np.round(float(npeaks_all)/float(ncyl), 2)) )
+        logger.info('')
+        logger.info('..........Number of cylinders : '+str(ncyl))
+        logger.info('..........Ratio npeaks / ncyl : '+str(np.round(float(npeaks_all)/float(ncyl), 2)) )
     else:
         data_cylinders = None 
     return data_cylinders 
@@ -1415,10 +1386,11 @@ def gawa_tile_slice(tile, dslice, isochrone_masks, data_star, starcat,
         _type_: _description_
     """
 
+    
+
     # select objects for computing density maps 
     cmd_mask = np.load(
-        os.path.join(out_paths['workdir'], out_paths['masks'],\
-                     'cmd_mask_D'+str(dslice/1000)+'.npy')
+        os.path.join(out_paths['workdir'], out_paths['masks'],'cmd_mask_D'+str(dslice/1000)+'.npy')
     )    
     data_star_slice = select_stars_in_slice(
         data_star, starcat, gawa_cfg, cmd_mask, isochrone_masks
@@ -1481,7 +1453,7 @@ def gawa_tile_slice(tile, dslice, isochrone_masks, data_star, starcat,
 
     # peaks to be kept
     condf = ( (data_peaks['snr']>=gawa_cfg['snr_min']) &\
-              (data_peaks['Naper']>=gawa_cfg['N_min']))
+                (data_peaks['Naper']>=gawa_cfg['N_min']))
 
     # plot pixelized CMD diagrams bkg + stars in aper 
     if verbose >=2:
@@ -1496,12 +1468,12 @@ def gawa_tile_slice(tile, dslice, isochrone_masks, data_star, starcat,
                 data_star, starcat, gawa_cfg['radius_aper_arcmin']/60.
             )
             gmag_slaper, rmag_slaper = data_star_slice_aper\
-                                       [starcat['keys']['key_mag_blue']],\
-                                       data_star_slice_aper\
-                                       [starcat['keys']['key_mag_red']]
+                                        [starcat['keys']['key_mag_blue']],\
+                                        data_star_slice_aper\
+                                        [starcat['keys']['key_mag_red']]
             color_slaper = gmag_slaper-rmag_slaper
             gmag_aper, rmag_aper = data_star_aper[starcat['keys']['key_mag_blue']],\
-                                   data_star_aper[starcat['keys']['key_mag_red']]
+                                    data_star_aper[starcat['keys']['key_mag_red']]
             color_aper = gmag_aper-rmag_aper
             cmd_histogram = os.path.join(
                 out_paths['workdir_loc'], out_paths['gawa']['plots'],\
@@ -1517,18 +1489,10 @@ def gawa_tile_slice(tile, dslice, isochrone_masks, data_star, starcat,
             )
 
     if verbose >=1:
-        print ('..............peaks filtering inner tile in / out ', 
-               len(rap0) , len(rap)
-        )
-        print ('..............peaks filtering coverfrac  in / out ', 
-               len(rap) , len(rap[pcond])
-        )
-        print ('..............peaks filtering SNR/N      in / out ', 
-               len(data_peaks), len(data_peaks[condf])
-        )
-        print ('         distance / density/arcmin2 = ', 
-               np.round(dslice/1000., 2), ' / ', np.round(bkg_arcmin2, 3)
-        )
+        logger.info(f'{10*"."}peaks filtering inner tile in / out {len(rap0)} , {len(rap)}')
+        logger.info(f'{10*"."}peaks filtering coverfrac  in / out {len(rap)} , {len(rap[pcond])}')
+        logger.info(f'{10*"."}peaks filtering SNR/N      in / out {len(data_peaks)}, {len(data_peaks[condf])}')
+        logger.info(f'         distance / density/arcmin2 = {np.round(dslice/1000., 2)} / {np.round(bkg_arcmin2, 3)}')
 
     if verbose >=2:
         xycat_fitsname = os.path.join(
@@ -1550,7 +1514,7 @@ def gawa_tile_slice(tile, dslice, isochrone_masks, data_star, starcat,
 
 
 def gawa_tile(tile_specs, isochrone_masks, data_star, starcat, data_fp, footprint, 
-              gawa_cfg, admin, out_paths, verbose):
+                gawa_cfg, admin, out_paths, verbose, logger=logger):
     """_summary_
 
     Args:
@@ -1568,11 +1532,11 @@ def gawa_tile(tile_specs, isochrone_masks, data_star, starcat, data_fp, footprin
 
     dslices = read_FitsCat( 
         os.path.join(out_paths['workdir'],
-                     gawa_cfg['dslices']['dslices_filename']
-                 ) 
+                        gawa_cfg['dslices']['dslices_filename']
+                ) 
     )['dist_pc']
 
-    print ('..........Start gawa tile catalog construction')
+    logger.info('..........Start gawa tile catalog construction')
     Nclusters = 0
     if not os.path.isfile(os.path.join(
             out_paths['workdir_loc'],
@@ -1585,7 +1549,7 @@ def gawa_tile(tile_specs, isochrone_masks, data_star, starcat, data_fp, footprin
                     out_paths['workdir_loc'],
                     out_paths['gawa']['files'], 
                     'peaks_'+str(isl)+'.npy')):
-                print ('.............. Detection in slice ', isl)
+                logger.info(f'.............. Detection in slice {isl}')
                 data_peaks = gawa_tile_slice(
                     tile_specs, dslices[isl], isochrone_masks, data_star, starcat,
                     data_fp, footprint, gawa_cfg, out_paths, verbose)
@@ -1595,15 +1559,16 @@ def gawa_tile(tile_specs, isochrone_masks, data_star, starcat, data_fp, footprin
                 ), data_peaks)
                 npeaks_tot += len(data_peaks)
             else:
-                print ('.............. Use existing detections in slice ', isl)
-                data_peaks = np.load(
-                    os.path.join(out_paths['workdir_loc'], out_paths['gawa']['files'], 
-                                 'peaks_'+str(isl)+'.npy')
-                )
+                logger.info(f'.............. Use existing detections in slice {isl}')
+                data_peaks = np.load(os.path.join(
+                    out_paths['workdir_loc'],
+                    out_paths['gawa']['files'],
+                    'peaks_'+str(isl)+'.npy'
+                ))
                 npeaks_tot += len(data_peaks)
             peaks_list.append(data_peaks)
 
-        print ('..........Start cylinders')
+        logger.info('..........Start cylinders')
         if npeaks_tot>0:
             data_cylinders = make_cylinders(peaks_list, dslices, gawa_cfg )
             if verbose >=1:
@@ -1616,7 +1581,7 @@ def gawa_tile(tile_specs, isochrone_masks, data_star, starcat, data_fp, footprin
                 )
 
             if data_cylinders is not None:    
-                print ('..........Start cylinders_2_clusters')
+                logger.info('..........Start cylinders_2_clusters')
                 data_clusters0 = cylinders2clusters(
                     data_cylinders, peaks_list, tile_specs,
                     dslices, out_paths, gawa_cfg['clkeys'])
@@ -1627,14 +1592,12 @@ def gawa_tile(tile_specs, isochrone_masks, data_star, starcat, data_fp, footprin
                 ), data_clusters0)
         
     else:
-        print ('..........Use existing clusters')
+        logger.info('..........Use existing clusters')
         data_clusters0 = np.load(
-            os.path.join(out_paths['workdir_loc'],
-                         out_paths['gawa']['files'], 
-                         'clusters0.npy')
+            os.path.join(out_paths['workdir_loc'],out_paths['gawa']['files'],'clusters0.npy')
         )
 
-    print ('..........Start filtering ')
+    logger.info('..........Start filtering ')
     if npeaks_tot >0:
         data_clusters = cl_duplicates_filtering(data_clusters0, gawa_cfg, 'tile')
         Nclusters = len(data_clusters)
@@ -1644,95 +1607,19 @@ def gawa_tile(tile_specs, isochrone_masks, data_star, starcat, data_fp, footprin
 
     # write final tile recap for final concatenation of clusters
     tile_info = np.zeros( 1, 
-                          dtype = {
-                              'names':(
-                                  'id', 'eff_area_deg2', 'Nclusters'
-                              ),
-                              'formats':(
-                                  'i8', 'f8', 'i8'
-                              )
-                          }
+        dtype = {
+            'names':(
+                'id', 'eff_area_deg2', 'Nclusters'
+            ),
+            'formats':(
+                'i8', 'f8', 'i8'
+            )
+        }
     ) 
     tile_info['id'] = tile_specs['id']
     tile_info['eff_area_deg2'] = tile_specs['eff_area_deg2']
     tile_info['Nclusters'] = Nclusters
     return data_clusters, tile_info 
-
-
-def run_gawa_tile(args):
-    """_summary_
-
-    Args:
-        args (tuple): _description_
-    """
-
-    config, thread_id = args[0], args[1]
-
-    # read config file
-    with open(config) as fstream:
-        params = yaml.safe_load(fstream)
-
-    survey  = params['survey']
-    starcat = params['starcat'][survey]
-    out_paths = params['out_paths']
-    admin = params['admin']
-    footprint = params['footprint'][survey]
-    isochrone_masks = params['isochrone_masks'][survey]
-    gawa_cfg = params['gawa_cfg']
-
-    workdir = out_paths['workdir']
-    all_tiles = read_FitsCat(os.path.join(workdir, admin['tiling']['tiles_filename']))
-    tiles = all_tiles[(all_tiles['thread_id']==int(thread_id))]    
-    print ('THREAD ', int(thread_id))
-
-    for it in range(0, len(tiles)):
-        tile_dir = os.path.join(
-            workdir, 'tiles', 'tile_'+str(int(tiles['id'][it])).zfill(3)
-        )
-        print ('..... Tile ', int(tiles['id'][it]))
-
-        create_directory(tile_dir)
-        create_gawa_directories(tile_dir, out_paths['gawa'])
-        out_paths['workdir_loc'] = tile_dir # local update 
-        tile_radius_deg = tile_radius(admin['tiling'])
-        tile_specs = create_tile_specs(tiles[it], tile_radius_deg, admin)
-        data_star_tile = read_mosaicFitsCat_in_disc(
-            starcat, tiles[it], tile_radius_deg
-        )   
-        data_fp_tile = read_mosaicFootprint_in_disc(
-            footprint, tiles[it], tile_radius_deg
-        )
-
-        if params['verbose'] >=2:
-            t = Table (data_star_tile)
-            t.write(os.path.join(tile_dir, "starcat.fits"),overwrite=True)
-            t = Table (data_fp_tile)
-            t.write(os.path.join(tile_dir, "footprint.fits"),overwrite=True)
-        
-        if not os.path.isfile(os.path.join(
-                tile_dir, out_paths['gawa']['results'], "clusters.fits"
-        )):
-            data_clusters, tile_info = gawa_tile(
-                tile_specs, isochrone_masks, data_star_tile, starcat,
-                data_fp_tile, footprint, gawa_cfg, admin, 
-                out_paths, params['verbose'])
-
-            if data_clusters is not None:
-                t = Table (data_clusters)#, names=names)
-                t.write(
-                    os.path.join(
-                        tile_dir, out_paths['gawa']['results'], "clusters.fits"
-                    ), overwrite = True
-                )
-            tile_info = Table(tile_info)
-            tile_info.write(
-                os.path.join(
-                    out_paths['workdir_loc'],
-                    out_paths['gawa']['results'], 
-                    "tile_info.fits"
-                ), overwrite = True
-            )
-    return
 
 
 def cylinders2clusters(data_cylinders, peaks_list, tile, dslices, out_paths, clkeys):
@@ -1754,11 +1641,10 @@ def cylinders2clusters(data_cylinders, peaks_list, tile, dslices, out_paths, clk
     for isl in range(0, len(dslices)):
         if len(peaks_list[isl]) > 0:
             data_peaks = peaks_list[isl]
-            ip = data_cylinders\
-                 ['peak_id'][data_cylinders['cyl_isl_mode']==isl]
+            ip = data_cylinders['peak_id'][data_cylinders['cyl_isl_mode']==isl]
             data_peaks_ext = Table(data_peaks[ip])
             data_peaks_ext['icyl'] = data_cylinders\
-                                     ['id_cyl'][data_cylinders['cyl_isl_mode']==isl]
+                                        ['id_cyl'][data_cylinders['cyl_isl_mode']==isl]
             data_peaks_ext['tile'] = tile['id']*np.ones(len(ip)).astype(int)
             data_peaks_ext['slice'] = isl*np.ones(len(ip)).astype(int)
 
@@ -1812,10 +1698,10 @@ def cl_duplicates_filtering(data_clusters_in, gawa_cfg, mode):
             radius_deg = min_dist_arcmin/60.
             if mode == 'tile':
                 cond = ( (abs(distpc[i]-distpc)<= min_delta_distkpc) &\
-                         (clid[i]!=clid) )
+                            (clid[i]!=clid) )
             if mode == 'survey':
                 cond = ( (abs(distpc[i]-distpc)<= min_delta_distkpc) &\
-                         (tile_id[i]!=tile_id) )
+                            (tile_id[i]!=tile_id) )
             in_cone = cond_in_disc(
                 ra[cond], dec[cond], clhpx[cond], 
                 Nside_tmp, nest_tmp,
@@ -1825,11 +1711,9 @@ def cl_duplicates_filtering(data_clusters_in, gawa_cfg, mode):
             flagdp[cond] = 1
 
     data_clusters_out = data_clusters_in[flagdp==0]
-    print ('              Nr. of duplicates = '+\
-           str(len(data_cl) - len(data_clusters_out))+\
-           ' / '+str(len(data_cl)))
-    print ('              Final Nr of clusters : '+\
-           str(len(data_clusters_out)))
+    logger.info('              Nr. of duplicates = '+\
+        str(len(data_cl) - len(data_clusters_out))+' / '+str(len(data_cl)))
+    logger.info('              Final Nr of clusters : '+str(len(data_clusters_out)))
     return data_clusters_out
 
 
@@ -1855,9 +1739,9 @@ def tiles_with_clusters(out_paths, all_tiles):
             ))[0]['Nclusters'] > 0:
                 flag[it] = 1
             else:
-                print ('warning : no detection in tile ', tile_dir)
+                logger.info(f'warning : no detection in tile {tile_dir}')
         else:
-            print ('warning : missing tile ', tile_dir)
+            logger.info(f'warning : missing tile {tile_dir}')
     return all_tiles[flag==1]
 
 
@@ -1873,7 +1757,7 @@ def gawa_concatenate(all_tiles, gawa_cfg, out_paths):
     """
 
     # concatenate all tiles 
-    print ('Concatenate clusters')
+    logger.info('Concatenate clusters')
     list_clusters = []
     for it in range(0, len(all_tiles)):
         tile_dir = tile_dir_name(out_paths['workdir'], int(all_tiles['id'][it]) )
@@ -1883,7 +1767,7 @@ def gawa_concatenate(all_tiles, gawa_cfg, out_paths):
         os.path.join(out_paths['workdir'], 'clusters0.fits')
     )    
     # final filtering 
-    print ('........gawa final filtering') 
+    logger.info('........gawa final filtering') 
     data_clusters0f = cl_duplicates_filtering(data_clusters0, gawa_cfg, 'survey')
     # create unique index with decreasing SNR 
     data_clusters = add_clusters_unique_id(data_clusters0f, gawa_cfg['clkeys'])
