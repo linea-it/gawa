@@ -4,9 +4,11 @@ import astropy.io.fits as fits
 import os
 import healpy as hp
 from astropy.table import Table
+from lib.timeit import timeit
 
 
 
+@timeit
 def create_directory(dir):
     """_summary_
 
@@ -18,6 +20,7 @@ def create_directory(dir):
     return
 
 
+@timeit
 def read_FitsCat(cat):
     """_summary_
 
@@ -33,6 +36,7 @@ def read_FitsCat(cat):
     return dat
 
 
+@timeit
 def read_FitsFootprint(hpx_footprint, hpx_meta):
     """_summary_
 
@@ -55,6 +59,7 @@ def read_FitsFootprint(hpx_footprint, hpx_meta):
     return  hpix_map, frac_map
 
 
+@timeit
 def read_mosaicFitsCat_in_disc (galcat, tile, radius_deg):
     """From a list of galcat files, selects objects in a cone centered 
     on racen, deccen Output is a structured array
@@ -120,6 +125,7 @@ def read_mosaicFitsCat_in_disc (galcat, tile, radius_deg):
     return data_gal_disc
 
 
+@timeit
 def read_mosaicFootprint_in_disc (footprint, tile, radius_deg):
     """From a list of galcat files, selects objects in a cone 
     centered on racen, deccen
@@ -185,6 +191,7 @@ def read_mosaicFootprint_in_disc (footprint, tile, radius_deg):
     return data_fp_disc
 
 
+@timeit
 def read_mosaicFitsCat_in_hpix (galcat, hpix_tile, Nside_tile, nest_tile):
     """_summary_
 
@@ -232,6 +239,7 @@ def read_mosaicFitsCat_in_hpix (galcat, hpix_tile, Nside_tile, nest_tile):
     return data_gal_hpix
 
 
+@timeit
 def read_mosaicFootprint_in_hpix (footprint, hpix_tile, Nside_tile, nest_tile):
     """_summary_
 
@@ -281,6 +289,7 @@ def read_mosaicFootprint_in_hpix (footprint, hpix_tile, Nside_tile, nest_tile):
     return data_fp_hpix
 
 
+@timeit
 def create_survey_footprint_from_mosaic(footprint, survey_footprint):
     """_summary_
 
@@ -294,6 +303,7 @@ def create_survey_footprint_from_mosaic(footprint, survey_footprint):
     return
 
 
+@timeit
 def create_mosaic_footprint(footprint, fpath):
     """_summary_
 
@@ -345,6 +355,7 @@ def create_mosaic_footprint(footprint, fpath):
     return
 
 
+@timeit
 def concatenate_fits(flist, output):
     """_summary_
 
@@ -368,6 +379,7 @@ def concatenate_fits(flist, output):
     return cdat
 
 
+@timeit
 def concatenate_fits_with_label(flist, label_name, label, output):
     """_summary_
 
@@ -393,6 +405,7 @@ def concatenate_fits_with_label(flist, label_name, label, output):
     return cdat
 
 
+@timeit
 def add_key_to_fits(fitsfile, key_val, key_name, key_type):
     """_summary_
 
@@ -421,6 +434,7 @@ def add_key_to_fits(fitsfile, key_val, key_name, key_type):
     return
 
         
+@timeit
 def filter_hpx_tile(data, cat, tile_specs):
     """_summary_
 
@@ -440,6 +454,7 @@ def filter_hpx_tile(data, cat, tile_specs):
     return data[np.argwhere(hpx == pixel_tile).T[0]]
 
 
+@timeit
 def add_hpx_to_cat(data_gal, ra, dec, Nside_tmp, nest_tmp, keyname):
     """_summary_
 
@@ -460,6 +475,7 @@ def add_hpx_to_cat(data_gal, ra, dec, Nside_tmp, nest_tmp, keyname):
     return t
 
 
+@timeit
 def mad(x):
     """_summary_
 
@@ -472,6 +488,7 @@ def mad(x):
     return 1.4826*np.median(abs(x))
 
 
+@timeit
 def gaussian(x, mu, sig):
     """_summary_
 
@@ -486,6 +503,7 @@ def gaussian(x, mu, sig):
     return np.exp(-(x - mu)**2 / (2.*sig**2) ) / (sig * np.sqrt(2.*np.pi))
 
 
+@timeit
 def dist_ang(ra1, dec1, ra_ref, dec_ref):
     """_summary_
 
@@ -512,6 +530,7 @@ def dist_ang(ra1, dec1, ra_ref, dec_ref):
     return dist_ang 
 
 
+@timeit
 def area_ann_deg2(theta_1, theta_2):
     """_summary_
 
@@ -528,6 +547,7 @@ def area_ann_deg2(theta_1, theta_2):
     return area
 
 
+@timeit
 def _mstar_ (mstar_filename, zin):
     """
     from a given (z, mstar) ascii file
@@ -537,6 +557,7 @@ def _mstar_ (mstar_filename, zin):
     return np.interp (zin,zst,mst)
 
 
+@timeit
 def join_struct_arrays(arrays):
     """_summary_
 
@@ -556,6 +577,7 @@ def join_struct_arrays(arrays):
     dtype = sum((a.dtype.descr for a in arrays), [])
     return joint.ravel().view(dtype)
 
+@timeit
 def radec_window_area (ramin, ramax, decmin, decmax):
     """_summary_
 
@@ -578,6 +600,7 @@ def radec_window_area (ramin, ramax, decmin, decmax):
 
 
 # healpix functions
+@timeit
 def radec2phitheta(ra, dec):
     """_summary_
 
@@ -595,6 +618,7 @@ def radec2phitheta(ra, dec):
     return phi, theta
 
 
+@timeit
 def phitheta2radec(phi,theta):
     """_summary_
 
@@ -608,6 +632,7 @@ def phitheta2radec(phi,theta):
     return np.degrees(phi), 90.-np.degrees(theta)
 
 
+@timeit
 def radec2hpix(ra, dec, Nside, nest):
     """_summary_
 
@@ -626,6 +651,7 @@ def radec2hpix(ra, dec, Nside, nest):
     return  hp.ang2pix(Nside, theta, phi, nest)
 
 
+@timeit
 def hpix2radec(hpix, nside, nest):
     """_summary_
 
@@ -642,6 +668,7 @@ def hpix2radec(hpix, nside, nest):
     return phitheta2radec(phi,theta)
 
 
+@timeit
 def sub_hpix(hpix, Nside, nest):
     """_summary_
 
@@ -668,6 +695,7 @@ def sub_hpix(hpix, Nside, nest):
     return radec2hpix(rac, decc, Nside*2, nest)
 
 
+@timeit
 def makeHealpixMap(ra, dec, weights=None, nside=1024, nest=False):
     """_summary_
 
@@ -686,6 +714,7 @@ def makeHealpixMap(ra, dec, weights=None, nside=1024, nest=False):
     return np.bincount(ipix, weights = weights, minlength=hp.nside2npix(nside))
 
 
+@timeit
 def all_hpx_in_annulus (ra, dec, radius_in_deg, radius_out_deg, 
                         hpx_meta, inclusive):
     """
@@ -726,6 +755,7 @@ def all_hpx_in_annulus (ra, dec, radius_in_deg, radius_out_deg,
 
     return pixels_in_ann
 
+@timeit
 def hpx_in_annulus (ra, dec, radius_in_deg, radius_out_deg, 
                     data_fp, hpx_meta, inclusive):
     """
@@ -761,6 +791,7 @@ def hpx_in_annulus (ra, dec, radius_in_deg, radius_out_deg,
 
 # FCT to split surveys 
 
+@timeit
 def survey_ra_minmax(ra):
     """_summary_
 
@@ -785,6 +816,7 @@ def survey_ra_minmax(ra):
     return ramin, ramax
 
 
+@timeit
 def hpx_degrade(pix_in, nside_in, nest_in, nside_out, nest_out):
     """_summary_
 
@@ -804,6 +836,7 @@ def hpx_degrade(pix_in, nside_in, nest_in, nside_out, nest_out):
     nsamp = (float(nside_in)/float(nside_out))**2
     return pix_out, counts.astype(float)/nsamp
 
+@timeit
 def hpx_split_survey (footprint_file, footprint, admin, output):
     """_summary_
 
@@ -897,6 +930,7 @@ def hpx_split_survey (footprint_file, footprint, admin, output):
     return len(data_tiles)
 
 
+@timeit
 def tile_radius(tiling):
     """_summary_
 
@@ -916,6 +950,7 @@ def tile_radius(tiling):
     return tile_radius + frame_deg
 
 
+@timeit
 def create_tile_specs(tile, tile_radius_deg, admin):
     """_summary_
 
@@ -955,6 +990,7 @@ def create_tile_specs(tile, tile_radius_deg, admin):
     return tile_specs 
 
 
+@timeit
 def cond_in_disc(rag, decg, hpxg, Nside, nest, racen, deccen, rad_deg):
     """_summary_
 
@@ -1004,6 +1040,7 @@ def cond_in_disc(rag, decg, hpxg, Nside, nest, racen, deccen, rad_deg):
     return (dist2cl<rad_deg)
 
 
+@timeit
 def cond_in_hpx_disc(hpxg, Nside, nest, racen, deccen, rad_deg):
     """_summary_
 
@@ -1032,10 +1069,12 @@ def cond_in_hpx_disc(hpxg, Nside, nest, racen, deccen, rad_deg):
     return cond_strict
 
 
+@timeit
 def normal_distribution_function(x):
     value = scipy.stats.norm.pdf(x,mean,std)
     return value
 
+@timeit
 def compute_gaussian_kernel_1d(kernel):
 # kernel is an integer >0
     mean = 0.0 
@@ -1048,6 +1087,7 @@ def compute_gaussian_kernel_1d(kernel):
     return np.array(np.concatenate((np.sort(kk)[0:len(kk)-1], kk)))
 
 
+@timeit
 def get_gaussian_kernel_1d(kernel):
 
     if kernel == 1:
@@ -1066,6 +1106,7 @@ def get_gaussian_kernel_1d(kernel):
     return gkernel
 
 
+@timeit
 def concatenate_clusters(tiles_dir, infilename, clusters_outfile): 
     """_summary_
 
@@ -1082,6 +1123,7 @@ def concatenate_clusters(tiles_dir, infilename, clusters_outfile):
     return clcat
 
 
+@timeit
 def concatenate_members(all_tiles, list_path_members, 
                         infilename, data_clusters, members_outfile):
     # data_clusters = clusters over the whole survey
@@ -1125,6 +1167,7 @@ def concatenate_members(all_tiles, list_path_members,
     return
 
 
+@timeit
 def add_clusters_unique_id(data_clusters, clkeys):
     """_summary_
 
