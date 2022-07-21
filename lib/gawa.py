@@ -23,9 +23,9 @@ from .utils import tile_radius, sub_hpix, radec2hpix, hpix2radec, dist_ang
 from .utils import area_ann_deg2, hpx_in_annulus, join_struct_arrays
 from .utils import cond_in_disc, concatenate_clusters, add_clusters_unique_id
 from .utils import read_mosaicFitsCat_in_disc, read_mosaicFootprint_in_disc
-from lib.timeit import timeit
+#from lib.timeit import timeit
 
-@timeit
+#@timeit
 def tile_dir_name(workdir, tile_nr):
     """Defines the working directory at the tile level
 
@@ -39,7 +39,7 @@ def tile_dir_name(workdir, tile_nr):
     return os.path.join(workdir, 'tiles', 'tile_'+str(tile_nr).zfill(3))
 
 
-@timeit
+#@timeit
 def create_gawa_directories(root, path):  # only called from pmem_main
     """Creates the relevant directories for writing intermediate 
     files/ results/ plots
@@ -57,7 +57,7 @@ def create_gawa_directories(root, path):  # only called from pmem_main
     return
 
 
-@timeit
+#@timeit
 def pix2xy (ix, iy, xmin, xmax, ymin, ymax, nx, ny):
     """_summary_
 
@@ -80,7 +80,7 @@ def pix2xy (ix, iy, xmin, xmax, ymin, ymax, nx, ny):
     return x, y
 
 
-@timeit
+#@timeit
 def xy2pix (x, y, xmin, xmax, ymin, ymax, nx, ny):
     """_summary_
 
@@ -103,7 +103,7 @@ def xy2pix (x, y, xmin, xmax, ymin, ymax, nx, ny):
     return ix.astype(int), iy.astype(int)
 
 
-@timeit
+#@timeit
 def x2pix (x, xmin, xmax, nx):
     """_summary_
 
@@ -122,7 +122,7 @@ def x2pix (x, xmin, xmax, nx):
     return ix.astype(int)
 
 
-@timeit
+#@timeit
 def effective_area_framed_tile(tile, data_fp, footprint, admin):
     """_summary_
 
@@ -153,7 +153,7 @@ def effective_area_framed_tile(tile, data_fp, footprint, admin):
     return framed_eff_area_deg2
 
 
-@timeit
+#@timeit
 def plot_cmd(xall,yall, xar_in, yar_in, isochrone_masks, file_png):
     """_summary_
 
@@ -181,7 +181,7 @@ def plot_cmd(xall,yall, xar_in, yar_in, isochrone_masks, file_png):
     return
 
 
-@timeit
+#@timeit
 def cmd_filter(magg, magr, cmd_mask, isochrone_masks):
     """_summary_
 
@@ -216,7 +216,7 @@ def cmd_filter(magg, magr, cmd_mask, isochrone_masks):
     return cond_in
 
 
-@timeit
+#@timeit
 def cmd_mask(dslice, isochrone_masks, nsig, out_paths):
     """_summary_
 
@@ -315,7 +315,7 @@ def cmd_mask(dslice, isochrone_masks, nsig, out_paths):
     return mask
 
 
-@timeit
+#@timeit
 def compute_cmd_masks(isochrone_masks, out_paths, gawa_cfg):
     """_summary_
 
@@ -344,7 +344,7 @@ def compute_cmd_masks(isochrone_masks, out_paths, gawa_cfg):
     return
 
 
-@timeit
+#@timeit
 def select_stars_in_slice(data_star, starcat, gawa_cfg, mask, isochrone_masks):
     """_summary_
 
@@ -364,7 +364,7 @@ def select_stars_in_slice(data_star, starcat, gawa_cfg, mask, isochrone_masks):
     return data_star[cond]
 
 
-@timeit
+#@timeit
 def pixelized_radec(ra_map, dec_map, weight_map, w, nxy):
     """_summary_
 
@@ -387,7 +387,7 @@ def pixelized_radec(ra_map, dec_map, weight_map, w, nxy):
     return xycat
 
 
-@timeit
+#@timeit
 def pixelized_colmag(color, mag, weight, isochrone_masks, out):
     """_summary_
 
@@ -429,7 +429,7 @@ def pixelized_colmag(color, mag, weight, isochrone_masks, out):
 
 
 
-@timeit
+#@timeit
 def plot_pixelized_colmag(color_aper, gmag_aper, weight_aper, color_slaper, 
                           gmag_slaper, weight_slaper, color, mag, weight, 
                           isochrone_masks, out):
@@ -473,7 +473,7 @@ def plot_pixelized_colmag(color_aper, gmag_aper, weight_aper, color_slaper,
     return
 
 
-@timeit
+#@timeit
 def create_wcs(gawa_cfg, tile_specs):
     """_summary_
 
@@ -498,7 +498,7 @@ def create_wcs(gawa_cfg, tile_specs):
     return w, nxy
 
 
-@timeit
+#@timeit
 def compute_catimage(ra_map, dec_map, weight_map, gawa_cfg, tile_specs):
     """_summary_
 
@@ -518,7 +518,7 @@ def compute_catimage(ra_map, dec_map, weight_map, gawa_cfg, tile_specs):
     return xycat
 
 
-@timeit
+#@timeit
 def randoms_in_spherical_cap(tile, bkg_arcmin2):
     """_summary_
 
@@ -551,7 +551,7 @@ def randoms_in_spherical_cap(tile, bkg_arcmin2):
     return hpix2radec(pix_samp, Nside_samp, False)
 
 
-@timeit
+#@timeit
 def compute_filled_catimage(ra_map, dec_map, weight_map, gawa_cfg, tile, data_fp, 
                             footprint, bkg_arcmin2):
     """_summary_
@@ -630,7 +630,7 @@ def compute_filled_catimage(ra_map, dec_map, weight_map, gawa_cfg, tile, data_fp
     return xycat
 
 
-@timeit
+#@timeit
 def map2fits(imap, gawa_cfg, tile, fitsname):
     """_summary_
 
@@ -649,7 +649,7 @@ def map2fits(imap, gawa_cfg, tile, fitsname):
     hdu.writeto(fitsname, overwrite=True)
     return
 
-@timeit
+#@timeit
 def fits2map(wmap):
     """_summary_
 
@@ -668,7 +668,7 @@ def fits2map(wmap):
     return wmap_data
 
 
-@timeit
+#@timeit
 def run_mr_filter(filled_catimage, wmap, gawa_cfg):
     """_summary_
 
@@ -717,7 +717,7 @@ def run_mr_filter(filled_catimage, wmap, gawa_cfg):
     return
 
 
-@timeit
+#@timeit
 def wmap2peaks(wmap, wazp_specs, tile_specs):
     """_summary_
 
@@ -743,7 +743,7 @@ def wmap2peaks(wmap, wazp_specs, tile_specs):
     return ra_peak, dec_peak, iobj, jobj
 
 
-@timeit
+#@timeit
 def wave_radius(wmap_data, ip, jp, gawa_cfg):
     """_summary_
 
@@ -762,7 +762,7 @@ def wave_radius(wmap_data, ip, jp, gawa_cfg):
     return radius_arcmin
 
 
-@timeit
+#@timeit
 def filter_peaks(tile, map_resolution, ra0, dec0, ip0, jp0):
     """_summary_
 
@@ -803,7 +803,7 @@ def filter_peaks(tile, map_resolution, ra0, dec0, ip0, jp0):
     return    ra, dec, ip, jp 
 
 
-@timeit
+#@timeit
 def coverfrac_disc(ra, dec, data_footprint, footprint, radius_deg):
     """_summary_
 
@@ -828,7 +828,7 @@ def coverfrac_disc(ra, dec, data_footprint, footprint, radius_deg):
     return coverfrac
 
 
-@timeit
+#@timeit
 def init_peaks_table(ra_peaks, dec_peaks, iobj, jobj, coverfrac, coverfrac_bkg, 
                      wradius, dslice, isochrone_masks, gawa_cfg):
     """initialize the table of peaks
@@ -880,7 +880,7 @@ def init_peaks_table(ra_peaks, dec_peaks, iobj, jobj, coverfrac, coverfrac_bkg,
     return Table(data_peaks)
 
 
-@timeit
+#@timeit
 def select_stars_in_disc(racen, deccen, data_stars, starcat, aper):
     """_summary_
 
@@ -900,7 +900,7 @@ def select_stars_in_disc(racen, deccen, data_stars, starcat, aper):
     return data_stars[cond]
 
 
-@timeit
+#@timeit
 def compute_flux_aper(rap, decp, hpix, weight, aper, Nside, nest):
     """_summary_
 
@@ -928,7 +928,7 @@ def compute_flux_aper(rap, decp, hpix, weight, aper, Nside, nest):
     return Nraw*area_ann_deg2(0., aper)/pixelized_area
 
 
-@timeit
+#@timeit
 def compute_flux_aper_vec(rap, decp, aper, ras, decs, weights):
     """_summary_
 
@@ -955,7 +955,7 @@ def compute_flux_aper_vec(rap, decp, aper, ras, decs, weights):
     return Naper
 
 
-@timeit
+#@timeit
 def gmag_HB(isochrone_masks, dslice):
     """_summary_
 
@@ -977,7 +977,7 @@ def gmag_HB(isochrone_masks, dslice):
     return g_HB
 
 
-@timeit
+#@timeit
 def Dist_err(isochrone_masks, dslice):
     """_summary_
 
@@ -1011,7 +1011,7 @@ def Dist_err(isochrone_masks, dslice):
     delta_D = Dmax - Dmin
     return delta_D/100., Dmin/100., Dmax/100.
 
-@timeit
+#@timeit
 def compute_dslices(isochrone_masks, dslices_specs, workdir):
     """_summary_
     Args:
@@ -1074,7 +1074,7 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
     return
 
 
-@timeit
+#@timeit
 def gmag_weight(gmag, dslice, isochrone_masks, gawa_cfg):    
     """_summary_
 
@@ -1095,7 +1095,7 @@ def gmag_weight(gmag, dslice, isochrone_masks, gawa_cfg):
     weight[weight<=gawa_cfg['wmin']] = gawa_cfg['wmin']
     return weight
 
-@timeit
+#@timeit
 def gmag_weight_map(dslice, isochrone_masks, gawa_cfg): 
     """_summary_
 
@@ -1121,7 +1121,7 @@ def gmag_weight_map(dslice, isochrone_masks, gawa_cfg):
     return np.tile(weight, (nx, 1))
 
 
-@timeit
+#@timeit
 def add_peaks_attributes(data_peaks, data_stars, starcat, bkg_arcmin2, 
                          dslice, isochrone_masks, tile, gawa_cfg):
     """_summary_
@@ -1173,7 +1173,7 @@ def add_peaks_attributes(data_peaks, data_stars, starcat, bkg_arcmin2,
     return
 
 
-@timeit
+#@timeit
 def key_cylinder(key_cyl, key_1, length, i0, i1, isl, nslices, type):
     """_summary_
 
@@ -1209,7 +1209,7 @@ def key_cylinder(key_cyl, key_1, length, i0, i1, isl, nslices, type):
     return key_cyl
 
 
-@timeit
+#@timeit
 def init_cylinders (keyrank, peak_ids, wazp_specs):
     """_summary_
 
@@ -1266,7 +1266,7 @@ def init_cylinders (keyrank, peak_ids, wazp_specs):
     return data_cylinders
 
 
-@timeit
+#@timeit
 def append_peaks_infos_to_cylinders(data_cylinders_init, peaks_list, dslices,
                                     ip_cyl, ra_cyl, dec_cyl, rank_cyl, snr_cyl):    
 
@@ -1332,7 +1332,7 @@ def append_peaks_infos_to_cylinders(data_cylinders_init, peaks_list, dslices,
     return join_struct_arrays(arrays)
 
 
-@timeit
+#@timeit
 def make_cylinders(peaks_list, dslices, gawa_cfg):
     """_summary_
 
@@ -1445,7 +1445,7 @@ def make_cylinders(peaks_list, dslices, gawa_cfg):
     return data_cylinders 
 
 
-@timeit
+#@timeit
 def gawa_tile_slice(tile, dslice, isochrone_masks, data_star, starcat, 
                     data_fp, footprint, gawa_cfg, out_paths, verbose):
     """_summary_
@@ -1600,7 +1600,7 @@ def gawa_tile_slice(tile, dslice, isochrone_masks, data_star, starcat,
     return data_peaks[condf]
 
 
-@timeit
+#@timeit
 def gawa_tile(tile_specs, isochrone_masks, data_star, starcat, data_fp, footprint, 
               gawa_cfg, admin, out_paths, verbose):
     """_summary_
@@ -1711,7 +1711,7 @@ def gawa_tile(tile_specs, isochrone_masks, data_star, starcat, data_fp, footprin
     return data_clusters, tile_info 
 
 
-@timeit
+#@timeit
 def run_gawa_tile(args):
     """_summary_
 
@@ -1789,7 +1789,7 @@ def run_gawa_tile(args):
     return
 
 
-@timeit
+#@timeit
 def cylinders2clusters(data_cylinders, peaks_list, tile, dslices, out_paths, clkeys):
     """_summary_
 
@@ -1831,7 +1831,7 @@ def cylinders2clusters(data_cylinders, peaks_list, tile, dslices, out_paths, clk
     return t
 
 
-@timeit
+#@timeit
 def cl_duplicates_filtering(data_clusters_in, gawa_cfg, mode):
     """_summary_
 
@@ -1889,7 +1889,7 @@ def cl_duplicates_filtering(data_clusters_in, gawa_cfg, mode):
     return data_clusters_out
 
 
-@timeit
+#@timeit
 def tiles_with_clusters(out_paths, all_tiles):
     """_summary_
 
@@ -1918,7 +1918,7 @@ def tiles_with_clusters(out_paths, all_tiles):
     return all_tiles[flag==1]
 
 
-@timeit
+#@timeit
 def gawa_concatenate(all_tiles, gawa_cfg, out_paths):
     """_summary_
 

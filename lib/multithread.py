@@ -1,16 +1,16 @@
 import numpy as np 
 import dask.array as da
 import astropy.io.fits as fits
-from lib.timeit import timeit
+#from lib.timeit import timeit
 
-@timeit
+#@timeit
 def read_FitsCat(cat):
     hdulist=fits.open(cat)
     dat=hdulist[1].data
     hdulist.close()
     return dat
 
-@timeit
+#@timeit
 def split_equal_nr_of_tiles_in_threads(n_threads, ntiles):
     if ntiles <= n_threads:
         n_threads = ntiles
@@ -52,7 +52,7 @@ def split_equal_nr_of_tiles_in_threads(n_threads, ntiles):
     return n_threads, thread_idsf.astype(int)
 
 
-@timeit
+#@timeit
 def split_equal_area_in_threads(n_threads, tiles_filename):
 
     tiles = read_FitsCat(tiles_filename)
