@@ -7,6 +7,7 @@ import os
 import sys
 import json
 import matplotlib
+import numpy as np
 matplotlib.use('Agg')
 
 from lib.multithread import split_equal_area_in_threads
@@ -116,7 +117,7 @@ compute_cmd_masks(isochrone_masks[survey], out_paths, gawa_cfg)
 with LocalCluster(processes=False, threads_per_worker=2,
             n_workers=4, memory_limit='20GB') as cluster:
     with Client(cluster) as client:
-        client.restart()
+        # client.restart()
         futures = client.map(run_gawa_tile, [(config, ith) for ith in da.unique(thread_ids).compute()])
         for future in futures:
             progress(future)
