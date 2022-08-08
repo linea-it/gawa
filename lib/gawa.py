@@ -254,7 +254,8 @@ def cmd_mask(dslice, isochrone_masks, nsig, out_paths):
     gm, gm_err = file_1[0].to_dask_array().compute(), file_1[1].to_dask_array().compute()
     file_2 = dd.read_csv(rerr_file, sep = ' ', header = None, usecols=[0,1])
     rm, rm_err = file_2[0].to_dask_array().compute(), file_2[1].to_dask_array().compute()
-
+    
+    #print('AQUI',gm, gm_err, rm, rm_err)
     # get the polygon in color mag for a given cldistance 
     df_model_file = dd.read_csv(model_file, sep = ' ', header = None, usecols=[0,1])
     gr, g0 = df_model_file[0].to_dask_array().compute(), df_model_file[1].to_dask_array().compute()
@@ -1022,14 +1023,16 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
     model_file = isochrone_masks["model_file"]
     df_model_file = dd.read_csv(model_file, sep = ' ', header = None, usecols=[0,1])
     gr, g0 = df_model_file[0].to_dask_array().compute(), df_model_file[1].to_dask_array().compute()
+    
             
     # read error files 
     gerr_file, rerr_file = isochrone_masks["magerr_blue_file"],\
                            isochrone_masks["magerr_red_file"]
+    
     df_gerr_file = dd.read_csv(gerr_file, sep = ' ', header = None, usecols=[0,1])                      
     gm, gm_err = df_gerr_file[0].to_dask_array().compute(), df_gerr_file[1].to_dask_array().compute()
-
-    dstep = 10.
+    print(gm, gm_err)
+    dstep = 100000.
     dslices = [dslices_specs['dmin']]
     dist = dslices[0]
     nstep = 2*int((dslices_specs['dmax'] - dslices_specs['dmin'])/dstep)+1
@@ -1054,7 +1057,7 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
                 break
 
     dslices = np.array(dslices)
-    dslices = dslices[(dslices<125000.) & (dslices>80000.)]
+    #dslices = dslices[(dslices<125000.) & (dslices>80000.)]
     data = np.zeros( (len(dslices)), 
                      dtype = {
                          'names':(
