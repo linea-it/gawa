@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuickStart &mdash; GAWA 2.1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Reference guide" href="api.html" />
+    <link rel="prev" title="Welcome to GAWA’s documentation!" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> GAWA
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">QuickStart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#code-and-dependencies">Code and dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#running">Running</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#warnings">Warnings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#running-with-parsl-pilot-jobs">Running with Parsl (Pilot Jobs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GAWA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>QuickStart</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/usage/quickstart.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quickstart">
+<h1>QuickStart<a class="headerlink" href="#quickstart" title="Permalink to this heading"></a></h1>
+<div class="line-block">
+<div class="line">To install the code, you have to clone the repository and follow instructions to install dependencies.</div>
+</div>
+<div class="line-block">
+<div class="line">The code is intended to run on Linux distributions.</div>
+</div>
+</section>
+<section id="code-and-dependencies">
+<h1>Code and dependencies<a class="headerlink" href="#code-and-dependencies" title="Permalink to this heading"></a></h1>
+<div class="line-block">
+<div class="line">The code is written and runs in Python 3.9, but it is compatible to python 3.X. The following libraries are mandatory to run the code:</div>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.conda.io/en/latest/">conda</a></p></li>
+<li><p><a class="reference external" href="https:/www.astropy.org/">astropy</a></p></li>
+<li><p><a class="reference external" href="https:/healpy.readthedocs.io/en/latest">healpy</a></p></li>
+<li><p><a class="reference external" href="https:/matplotlib.org/">matplotlib</a></p></li>
+<li><p><a class="reference external" href="https://anaconda.org/conda-forge/cfitsio">cfitsio=3.430</a></p></li>
+<li><p><a class="reference external" href="https://anaconda.org/cta-observatory/sparse2d">sparse2d</a></p></li>
+<li><p><a class="reference external" href="https://scikit-image.org/docs/stable/install.html">scikit-image</a></p></li>
+<li><p><a class="reference external" href="https://parsl.readthedocs.io/en/stable/">parsl</a></p></li>
+</ul>
+</section>
+<section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
+<div class="line-block">
+<div class="line">Clone the repository and create an environment with Conda:</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">linea</span><span class="o">-</span><span class="n">it</span><span class="o">/</span><span class="n">gawa</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">gawa</span>
+<span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">gawa</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.9</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">Install packages needed to your environment (for example):</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">gawa</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">cfitsio</span><span class="o">=</span><span class="mf">3.430</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">cta</span><span class="o">-</span><span class="n">observatory</span> <span class="n">sparse2d</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="n">jupyterlab</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="n">ipykernel</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">scikit</span><span class="o">-</span><span class="n">image</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">astropy</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">healpy</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">parsl</span>
+<span class="n">ipython</span> <span class="n">kernel</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="o">--</span><span class="n">name</span><span class="o">=</span><span class="n">gawa</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">If you have error messages from missing libraries, install it in a similar manner as packages installed above.</div>
+</div>
+<div class="line-block">
+<div class="line">Copy gawa.cfg and env.sh</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="n">gawa</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">template</span> <span class="n">gawa</span><span class="o">.</span><span class="n">cfg</span>
+<span class="n">cp</span> <span class="n">gawa</span><span class="o">.</span><span class="n">sh</span><span class="o">.</span><span class="n">template</span> <span class="n">gawa</span><span class="o">.</span><span class="n">sh</span>   <span class="c1"># You need to edit it if you want to run with Parsl in cluster.</span>
+</pre></div>
+</div>
+</section>
+<section id="running">
+<h1>Running<a class="headerlink" href="#running" title="Permalink to this heading"></a></h1>
+<div class="line-block">
+<div class="line">In jupyterlab, run the following command:</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span><span class="o">-</span><span class="n">lab</span> <span class="n">gawazpy</span><span class="o">.</span><span class="n">ipynb</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">In the terminal, run the following command:</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">W</span> <span class="n">ignore</span> <span class="n">gawa_main</span><span class="o">.</span><span class="n">py</span> <span class="n">gawa</span><span class="o">.</span><span class="n">cfg</span>
+</pre></div>
+</div>
+<section id="warnings">
+<h2>Warnings<a class="headerlink" href="#warnings" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">To run again the code, please remove the following folders with the command (being in the root folder):</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="o">-</span><span class="n">r</span> <span class="n">tiles</span> <span class="n">footprint</span> <span class="n">isochrone_masks</span>
+</pre></div>
+</div>
+<p>and files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="n">tiles_specs</span><span class="o">.</span><span class="n">fits</span> <span class="n">cluster</span><span class="o">.</span><span class="n">fits</span> <span class="n">cluster0</span><span class="o">.</span><span class="n">fits</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="running-with-parsl-pilot-jobs">
+<h1>Running with Parsl (Pilot Jobs)<a class="headerlink" href="#running-with-parsl-pilot-jobs" title="Permalink to this heading"></a></h1>
+<div class="line-block">
+<div class="line">Edit gawa.sh, adding the path to Conda (CONDAPATH) and the path to this repository (GAWA_ROOT):</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export CONDAPATH=&lt;conda path&gt;
+export GAWA_ROOT=&lt;gawa repository path&gt;
+export PYTHONPATH=$PYTHONPATH:$GAWA_ROOT
+export GAWA_LOG_LEVEL=info
+source $CONDAPATH/activate
+conda activate gawa
+python -m ipykernel install --user --name=gawa
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">Choose the ‘executor’ option in gawa.cfg and run:</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">gawa</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">W</span> <span class="n">ignore</span> <span class="n">gawa_main</span><span class="o">.</span><span class="n">py</span> <span class="n">gawa</span><span class="o">.</span><span class="n">cfg</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to GAWA’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API Reference guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LIneA.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

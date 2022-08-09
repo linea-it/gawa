@@ -1,0 +1,18 @@
+=========
+Functions
+=========
+
+.. automodule:: gawa_main
+    :members:
+
+.. automodule:: lib.gawa
+    :members:
+
+.. automodule:: lib.utils
+    :members:
+
+.. automodule:: lib.parsl_config
+    :members:
+
+.. automodule:: lib.apps
+    :members:

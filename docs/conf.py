@@ -17,12 +17,12 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Gawa'
-copyright = '2022, Christophe Benoist, Adriano Pieres, Cristiano Singulani'
+project = 'GAWA'
+copyright = '2022, LIneA' 
 author = 'Christophe Benoist, Adriano Pieres, Cristiano Singulani'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.0'
+release = '2.1.0'
 
 
 # -- General configuration ---------------------------------------------------

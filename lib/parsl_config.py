@@ -16,7 +16,7 @@ def get_config(key):
             Options are: 'local', 'local_threads', 'sdumont', 'htcondor'.
 
     Returns:
-        config: Parsl executor instance.
+        config: Parsl config instance.
     """
 
     gawa_root_dir = os.getenv('GAWA_ROOT', '.')
