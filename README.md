@@ -9,7 +9,7 @@ This is a code intended to identify stellar clusters using wavelet transformatio
 Clone the repository and create an environment with Conda:
 ```bash
 git clone https://github.com/linea-it/gawa && cd gawa 
-conda create -n gawa python=3.8
+conda create -n gawa python=3.9
 conda activate gawa
 conda install -c conda-forge cfitsio=3.430
 conda install -c cta-observatory sparse2d
@@ -18,7 +18,32 @@ conda install ipykernel
 pip install scikit-image
 pip install astropy
 pip install healpy
+pip install parsl
 ipython kernel install --user --name=gawa
+```
+
+Copy gawa.cfg and env.sh
+```bash
+cp gawa.cfg.template gawa.cfg
+cp gawa.sh.template gawa.sh # You need to edit it if you want to run with Parsl in cluster.
+```
+
+### Running with Parsl(Pilot Jobs - Remote jobs)
+Edit gawa.sh, adding the path to Conda (CONDAPATH) and the path to this repository (GAWA_ROOT):
+```bash
+export CONDAPATH=<conda path>
+export GAWA_ROOT=<gawa repository path>
+export PYTHONPATH=$PYTHONPATH:$GAWA_ROOT
+export GAWA_LOG_LEVEL=info
+
+source $CONDAPATH/activate
+conda activate gawa
+python -m ipykernel install --user --name=gawa
+```
+Choose the 'executor' option in gawa.cfg and run:
+```bash
+source gawa.sh
+python -W ignore gawa_main.py gawa.cfg
 ```
 
 ### Running
