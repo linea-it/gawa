@@ -777,7 +777,8 @@ def coverfrac_disc(ra, dec, data_footprint, footprint, radius_deg):
 
 def init_peaks_table(ra_peaks, dec_peaks, iobj, jobj, coverfrac, coverfrac_bkg, 
     wradius, dslice, isochrone_masks, gawa_cfg):
-    """initialize the table of peaks
+    """Initialize the table of peaks
+
     Args:
         ra (_type_): _description_
         dec (_type_): _description_
@@ -949,10 +950,15 @@ def Dist_err(isochrone_masks, dslice):
 
 def compute_dslices(isochrone_masks, dslices_specs, workdir):
     """_summary_
+
     Args:
         isochrone_masks (bool): _description_
         dslices_specs (_type_): _description_
         workdir (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    
     """
     model_file = isochrone_masks["model_file"]
     gr, g0 = np.loadtxt(model_file, usecols=(0, 1), unpack=True)
@@ -1528,6 +1534,7 @@ def gawa_tile(tile_specs, isochrone_masks, data_star, starcat, data_fp, footprin
         admin (_type_): _description_
         out_paths (_type_): _description_
         verbose (_type_): _description_
+        logger (instance): Logging instance.
     """
 
     dslices = read_FitsCat( 

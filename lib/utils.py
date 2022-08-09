@@ -574,6 +574,13 @@ def _mstar_ (mstar_filename, zin):
     """
     from a given (z, mstar) ascii file
     interpolate to provide the mstar at a given z_in
+
+    Args:
+        mstar_filename (_type_): _description_
+        zin (_type_): _description_
+
+    Returns:
+        _type_: _description_
     """
     zst, mst = np.loadtxt(mstar_filename, usecols=(0, 1), unpack=True)
     return np.interp (zin,zst,mst)
@@ -735,7 +742,19 @@ def all_hpx_in_annulus (ra, dec, radius_in_deg, radius_out_deg,
     ra-dec (deg) 
     the radii that define the annulus are in degrees    
     pixels are inclusive on radius_out but not radius_in
+
+    Args:
+        ra (_type_): _description_
+        dec (_type_): _description_
+        radius_in_deg (_type_): _description_
+        radius_out_deg (_type_): _description_
+        hpx_meta (_type_): _description_
+        inclusive (_type_): _description_
+
+    Returns:
+        _type_: _description_
     """
+
     Nside, nest = hpx_meta['Nside'], hpx_meta['nest']
     pixels_in_disc = hp.query_disc(
         nside=Nside, nest=nest, 
@@ -777,6 +796,18 @@ def hpx_in_annulus (ra, dec, radius_in_deg, radius_out_deg,
     ra-dec (deg)
     the radii that define the annulus are in degrees
     hpx pixels are inclusive on radius_out but not radius_in
+
+    Args:
+        ra (_type_): _description_
+        dec (_type_): _description_
+        radius_in_deg (_type_): _description_
+        radius_out_deg (_type_): _description_
+        data_fp (_type_): _description_
+        hpx_meta (_type_): _description_
+        inclusive (_type_): _description_
+
+    Returns:
+        _type_: _description_
     """
     Nside, nest = hpx_meta['Nside'], hpx_meta['nest']
     hpix, frac = data_fp[hpx_meta['key_pixel']], data_fp[hpx_meta['key_frac']]
