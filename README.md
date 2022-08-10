@@ -4,6 +4,8 @@
 
 This is a code intended to identify stellar clusters using wavelet transformation in a catalog of stars filtered by isochronal masks.
 
+The complete parsl documentation is hosted `here <https://linea-it.github.io/gawa/>`_.
+
 ### Instalation
 
 Clone the repository and create an environment with Conda:
