@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>API Reference guide &mdash; GAWA 2.1.0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <title>API Reference guide &mdash; GAWA 2.1.0 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -37,7 +33,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">QuickStart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html#code-and-dependencies">Code and dependencies</a></li>
@@ -45,7 +41,7 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html#running">Running</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html#running-with-parsl-pilot-jobs">Running with Parsl (Pilot Jobs)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-gawa_main">gawa_main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gawa-main">gawa_main</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-lib.gawa">lib.gawa</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-lib.utils">lib.utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-lib.parsl_config">lib.parsl_config</a></li>
@@ -78,30 +74,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="api-reference-guide">
-<h1>API Reference guide<a class="headerlink" href="#api-reference-guide" title="Permalink to this heading"></a></h1>
-<section id="module-gawa_main">
-<span id="gawa-main"></span><h2>gawa_main<a class="headerlink" href="#module-gawa_main" title="Permalink to this heading"></a></h2>
+  <div class="section" id="api-reference-guide">
+<h1>API Reference guide<a class="headerlink" href="#api-reference-guide" title="Permalink to this headline"></a></h1>
+<div class="section" id="gawa-main">
+<h2>gawa_main<a class="headerlink" href="#gawa-main" title="Permalink to this headline"></a></h2>
+</div>
+<div class="section" id="module-lib.gawa">
+<span id="lib-gawa"></span><h2>lib.gawa<a class="headerlink" href="#module-lib.gawa" title="Permalink to this headline"></a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="gawa_main.run">
-<span class="sig-prename descclassname"><span class="pre">gawa_main.</span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parsl_conf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gawa_main.run" title="Permalink to this definition"></a></dt>
-<dd><p>Run the Gawa pipeline</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>param</strong> (<em>dict</em>) – Gawa parameters. See gawa.cfg for more details</p></li>
-<li><p><strong>parsl_conf</strong> (<em>instance</em>) – Parsl config instance</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-lib.gawa">
-<span id="lib-gawa"></span><h2>lib.gawa<a class="headerlink" href="#module-lib.gawa" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.Dist_err">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">Dist_err</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.Dist_err" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.Dist_err">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">Dist_err</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.Dist_err" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -120,8 +102,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.add_peaks_attributes">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">add_peaks_attributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_peaks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_stars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bkg_arcmin2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.add_peaks_attributes" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.add_peaks_attributes">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">add_peaks_attributes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_peaks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_stars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bkg_arcmin2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.add_peaks_attributes" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -140,8 +122,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.append_peaks_infos_to_cylinders">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">append_peaks_infos_to_cylinders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_cylinders_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip_cyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra_cyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_cyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank_cyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr_cyl</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.append_peaks_infos_to_cylinders" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.append_peaks_infos_to_cylinders">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">append_peaks_infos_to_cylinders</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_cylinders_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip_cyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra_cyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_cyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank_cyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr_cyl</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.append_peaks_infos_to_cylinders" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -166,8 +148,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.cl_duplicates_filtering">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">cl_duplicates_filtering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_clusters_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.cl_duplicates_filtering" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.cl_duplicates_filtering">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">cl_duplicates_filtering</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_clusters_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.cl_duplicates_filtering" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -187,8 +169,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.cmd_filter">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">cmd_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">magg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmd_mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.cmd_filter" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.cmd_filter">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">cmd_filter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">magg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmd_mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.cmd_filter" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -209,8 +191,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.cmd_mask">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">cmd_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.cmd_mask" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.cmd_mask">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">cmd_mask</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.cmd_mask" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -231,8 +213,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.compute_catimage">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">compute_catimage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_catimage" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.compute_catimage">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">compute_catimage</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_catimage" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -254,8 +236,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.compute_cmd_masks">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">compute_cmd_masks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger=&lt;module</span> <span class="pre">'logging'</span> <span class="pre">from</span> <span class="pre">'/home/singulani/miniconda3/envs/gawa/lib/python3.9/logging/__init__.py'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_cmd_masks" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.compute_cmd_masks">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">compute_cmd_masks</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">isochrone_masks</span></em>, <em class="sig-param"><span class="pre">out_paths</span></em>, <em class="sig-param"><span class="pre">gawa_cfg</span></em>, <em class="sig-param"><span class="pre">logger=&lt;module</span> <span class="pre">'logging'</span> <span class="pre">from</span> <span class="pre">'/home/adriano/anaconda3/envs/gawa/lib/python3.6/logging/__init__.py'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_cmd_masks" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -269,8 +251,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.compute_dslices">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">compute_dslices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslices_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_dslices" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.compute_dslices">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">compute_dslices</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslices_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_dslices" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -290,8 +272,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.compute_filled_catimage">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">compute_filled_catimage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bkg_arcmin2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_filled_catimage" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.compute_filled_catimage">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">compute_filled_catimage</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bkg_arcmin2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_filled_catimage" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -316,8 +298,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.compute_flux_aper">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">compute_flux_aper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_flux_aper" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.compute_flux_aper">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">compute_flux_aper</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_flux_aper" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -341,8 +323,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.compute_flux_aper_vec">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">compute_flux_aper_vec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ras</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_flux_aper_vec" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.compute_flux_aper_vec">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">compute_flux_aper_vec</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ras</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_flux_aper_vec" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -365,8 +347,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.coverfrac_disc">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">coverfrac_disc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_deg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.coverfrac_disc" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.coverfrac_disc">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">coverfrac_disc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_deg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.coverfrac_disc" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -388,8 +370,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.create_gawa_directories">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">create_gawa_directories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.create_gawa_directories" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.create_gawa_directories">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">create_gawa_directories</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.create_gawa_directories" title="Permalink to this definition"></a></dt>
 <dd><p>Creates the relevant directories for writing intermediate
 files/ results/ plots</p>
 <dl class="field-list simple">
@@ -403,8 +385,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.create_wcs">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">create_wcs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.create_wcs" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.create_wcs">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">create_wcs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.create_wcs" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -423,8 +405,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.cylinders2clusters">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">cylinders2clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_cylinders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clkeys</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.cylinders2clusters" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.cylinders2clusters">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">cylinders2clusters</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_cylinders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clkeys</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.cylinders2clusters" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -447,8 +429,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.effective_area_framed_tile">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">effective_area_framed_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.effective_area_framed_tile" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.effective_area_framed_tile">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">effective_area_framed_tile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.effective_area_framed_tile" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -469,8 +451,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.filter_peaks">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">filter_peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_resolution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jp0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.filter_peaks" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.filter_peaks">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">filter_peaks</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_resolution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jp0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.filter_peaks" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -493,8 +475,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.fits2map">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">fits2map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wmap</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.fits2map" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.fits2map">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">fits2map</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wmap</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.fits2map" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -510,8 +492,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.gawa_concatenate">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">gawa_concatenate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_tiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gawa_concatenate" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.gawa_concatenate">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">gawa_concatenate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_tiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gawa_concatenate" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -530,8 +512,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.gawa_tile">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">gawa_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_star</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger=&lt;module</span> <span class="pre">'logging'</span> <span class="pre">from</span> <span class="pre">'/home/singulani/miniconda3/envs/gawa/lib/python3.9/logging/__init__.py'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gawa_tile" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.gawa_tile">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">gawa_tile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tile_specs</span></em>, <em class="sig-param"><span class="pre">isochrone_masks</span></em>, <em class="sig-param"><span class="pre">data_star</span></em>, <em class="sig-param"><span class="pre">starcat</span></em>, <em class="sig-param"><span class="pre">data_fp</span></em>, <em class="sig-param"><span class="pre">footprint</span></em>, <em class="sig-param"><span class="pre">gawa_cfg</span></em>, <em class="sig-param"><span class="pre">admin</span></em>, <em class="sig-param"><span class="pre">out_paths</span></em>, <em class="sig-param"><span class="pre">verbose</span></em>, <em class="sig-param"><span class="pre">logger=&lt;module</span> <span class="pre">'logging'</span> <span class="pre">from</span> <span class="pre">'/home/adriano/anaconda3/envs/gawa/lib/python3.6/logging/__init__.py'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gawa_tile" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -553,8 +535,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.gawa_tile_slice">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">gawa_tile_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_star</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gawa_tile_slice" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.gawa_tile_slice">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">gawa_tile_slice</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_star</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gawa_tile_slice" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -581,8 +563,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.gmag_HB">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">gmag_HB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gmag_HB" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.gmag_HB">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">gmag_HB</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gmag_HB" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -601,8 +583,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.gmag_weight">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">gmag_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gmag_weight" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.gmag_weight">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">gmag_weight</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gmag_weight" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -623,8 +605,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.gmag_weight_map">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">gmag_weight_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gmag_weight_map" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.gmag_weight_map">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">gmag_weight_map</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gmag_weight_map" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -644,8 +626,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.init_cylinders">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">init_cylinders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyrank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wazp_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.init_cylinders" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.init_cylinders">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">init_cylinders</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyrank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wazp_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.init_cylinders" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -665,8 +647,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.init_peaks_table">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">init_peaks_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_peaks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_peaks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iobj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jobj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coverfrac</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coverfrac_bkg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wradius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.init_peaks_table" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.init_peaks_table">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">init_peaks_table</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_peaks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_peaks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iobj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jobj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coverfrac</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coverfrac_bkg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wradius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.init_peaks_table" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize the table of peaks</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -688,8 +670,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.key_cylinder">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">key_cylinder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_cyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nslices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.key_cylinder" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.key_cylinder">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">key_cylinder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_cyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nslices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.key_cylinder" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -714,8 +696,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.make_cylinders">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">make_cylinders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peaks_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.make_cylinders" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.make_cylinders">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">make_cylinders</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peaks_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.make_cylinders" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -735,8 +717,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.map2fits">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">map2fits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitsname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.map2fits" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.map2fits">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">map2fits</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitsname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.map2fits" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -751,8 +733,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.pix2xy">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">pix2xy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.pix2xy" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.pix2xy">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">pix2xy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.pix2xy" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -777,8 +759,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.pixelized_colmag">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">pixelized_colmag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.pixelized_colmag" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.pixelized_colmag">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">pixelized_colmag</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.pixelized_colmag" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -800,8 +782,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.pixelized_radec">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">pixelized_radec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nxy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.pixelized_radec" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.pixelized_radec">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">pixelized_radec</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nxy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.pixelized_radec" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -823,8 +805,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.plot_cmd">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">plot_cmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xall</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yall</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xar_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yar_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_png</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.plot_cmd" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.plot_cmd">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">plot_cmd</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xall</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yall</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xar_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yar_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_png</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.plot_cmd" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -841,8 +823,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.plot_pixelized_colmag">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">plot_pixelized_colmag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color_aper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmag_aper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_aper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_slaper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmag_slaper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_slaper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.plot_pixelized_colmag" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.plot_pixelized_colmag">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">plot_pixelized_colmag</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color_aper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmag_aper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_aper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_slaper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmag_slaper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_slaper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.plot_pixelized_colmag" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -864,8 +846,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.randoms_in_spherical_cap">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">randoms_in_spherical_cap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bkg_arcmin2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.randoms_in_spherical_cap" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.randoms_in_spherical_cap">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">randoms_in_spherical_cap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bkg_arcmin2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.randoms_in_spherical_cap" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -884,8 +866,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.run_mr_filter">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">run_mr_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filled_catimage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wmap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.run_mr_filter" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.run_mr_filter">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">run_mr_filter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filled_catimage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wmap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.run_mr_filter" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -899,8 +881,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.select_stars_in_disc">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">select_stars_in_disc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">racen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deccen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_stars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.select_stars_in_disc" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.select_stars_in_disc">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">select_stars_in_disc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">racen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deccen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_stars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.select_stars_in_disc" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -922,8 +904,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.select_stars_in_slice">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">select_stars_in_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_star</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.select_stars_in_slice" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.select_stars_in_slice">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">select_stars_in_slice</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_star</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.select_stars_in_slice" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -945,8 +927,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.tile_dir_name">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">tile_dir_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_nr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.tile_dir_name" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.tile_dir_name">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">tile_dir_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_nr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.tile_dir_name" title="Permalink to this definition"></a></dt>
 <dd><p>Defines the working directory at the tile level</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -965,8 +947,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.tiles_with_clusters">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">tiles_with_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_tiles</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.tiles_with_clusters" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.tiles_with_clusters">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">tiles_with_clusters</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_tiles</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.tiles_with_clusters" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -985,8 +967,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.wave_radius">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">wave_radius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wmap_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.wave_radius" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.wave_radius">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">wave_radius</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wmap_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.wave_radius" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1007,8 +989,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.wmap2peaks">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">wmap2peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wmap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wazp_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.wmap2peaks" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.wmap2peaks">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">wmap2peaks</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wmap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wazp_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.wmap2peaks" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1028,8 +1010,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.x2pix">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">x2pix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.x2pix" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.x2pix">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">x2pix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.x2pix" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1050,8 +1032,8 @@ files/ results/ plots</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.gawa.xy2pix">
-<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">xy2pix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.xy2pix" title="Permalink to this definition"></a></dt>
+<dt id="lib.gawa.xy2pix">
+<code class="sig-prename descclassname"><span class="pre">lib.gawa.</span></code><code class="sig-name descname"><span class="pre">xy2pix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.xy2pix" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1075,12 +1057,12 @@ files/ results/ plots</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="module-lib.utils">
-<span id="lib-utils"></span><h2>lib.utils<a class="headerlink" href="#module-lib.utils" title="Permalink to this heading"></a></h2>
+</div>
+<div class="section" id="module-lib.utils">
+<span id="lib-utils"></span><h2>lib.utils<a class="headerlink" href="#module-lib.utils" title="Permalink to this headline"></a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils._mstar_">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">_mstar_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mstar_filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils._mstar_" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils._mstar_">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">_mstar_</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mstar_filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils._mstar_" title="Permalink to this definition"></a></dt>
 <dd><p>from a given (z, mstar) ascii file
 interpolate to provide the mstar at a given z_in</p>
 <dl class="field-list simple">
@@ -1100,8 +1082,8 @@ interpolate to provide the mstar at a given z_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.add_clusters_unique_id">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">add_clusters_unique_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_clusters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clkeys</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.add_clusters_unique_id" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.add_clusters_unique_id">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">add_clusters_unique_id</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_clusters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clkeys</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.add_clusters_unique_id" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1120,8 +1102,8 @@ interpolate to provide the mstar at a given z_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.add_hpx_to_cat">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">add_hpx_to_cat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_gal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.add_hpx_to_cat" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.add_hpx_to_cat">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">add_hpx_to_cat</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_gal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.add_hpx_to_cat" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1144,8 +1126,8 @@ interpolate to provide the mstar at a given z_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.add_key_to_fits">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">add_key_to_fits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fitsfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.add_key_to_fits" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.add_key_to_fits">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">add_key_to_fits</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fitsfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.add_key_to_fits" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1160,8 +1142,8 @@ interpolate to provide the mstar at a given z_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.all_hpx_in_annulus">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">all_hpx_in_annulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_in_deg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_out_deg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpx_meta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inclusive</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.all_hpx_in_annulus" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.all_hpx_in_annulus">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">all_hpx_in_annulus</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_in_deg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_out_deg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpx_meta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inclusive</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.all_hpx_in_annulus" title="Permalink to this definition"></a></dt>
 <dd><p>Get the list of all healpix pixels falling in an annulus around
 ra-dec (deg)
 the radii that define the annulus are in degrees
@@ -1187,8 +1169,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.area_ann_deg2">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">area_ann_deg2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.area_ann_deg2" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.area_ann_deg2">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">area_ann_deg2</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.area_ann_deg2" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1207,8 +1189,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.concatenate_clusters">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">concatenate_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tiles_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infilename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusters_outfile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.concatenate_clusters" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.concatenate_clusters">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">concatenate_clusters</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tiles_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infilename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusters_outfile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.concatenate_clusters" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1221,8 +1203,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.concatenate_fits">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">concatenate_fits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.concatenate_fits" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.concatenate_fits">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">concatenate_fits</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.concatenate_fits" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1241,8 +1223,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.concatenate_fits_with_label">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">concatenate_fits_with_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.concatenate_fits_with_label" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.concatenate_fits_with_label">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">concatenate_fits_with_label</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.concatenate_fits_with_label" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1263,8 +1245,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.cond_in_disc">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">cond_in_disc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpxg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">racen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deccen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rad_deg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.cond_in_disc" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.cond_in_disc">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">cond_in_disc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpxg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">racen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deccen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rad_deg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.cond_in_disc" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1289,8 +1271,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.cond_in_hpx_disc">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">cond_in_hpx_disc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hpxg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">racen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deccen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rad_deg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.cond_in_hpx_disc" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.cond_in_hpx_disc">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">cond_in_hpx_disc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hpxg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">racen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deccen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rad_deg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.cond_in_hpx_disc" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1313,8 +1295,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.create_directory">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">create_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.create_directory" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.create_directory">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">create_directory</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.create_directory" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1324,8 +1306,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.create_mosaic_footprint">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">create_mosaic_footprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.create_mosaic_footprint" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.create_mosaic_footprint">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">create_mosaic_footprint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.create_mosaic_footprint" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1338,8 +1320,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.create_survey_footprint_from_mosaic">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">create_survey_footprint_from_mosaic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">survey_footprint</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.create_survey_footprint_from_mosaic" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.create_survey_footprint_from_mosaic">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">create_survey_footprint_from_mosaic</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">survey_footprint</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.create_survey_footprint_from_mosaic" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1352,8 +1334,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.create_tile_specs">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">create_tile_specs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_radius_deg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.create_tile_specs" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.create_tile_specs">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">create_tile_specs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_radius_deg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.create_tile_specs" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1373,8 +1355,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.dist_ang">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">dist_ang</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra_ref</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_ref</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.dist_ang" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.dist_ang">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">dist_ang</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra_ref</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_ref</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.dist_ang" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1395,8 +1377,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.filter_hpx_tile">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">filter_hpx_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.filter_hpx_tile" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.filter_hpx_tile">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">filter_hpx_tile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.filter_hpx_tile" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1416,8 +1398,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.gaussian">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.gaussian" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.gaussian">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">gaussian</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.gaussian" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1437,8 +1419,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.get_logger">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.get_logger" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.get_logger">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">get_logger</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.get_logger" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a logger object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1458,8 +1440,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.hpix2radec">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">hpix2radec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hpix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.hpix2radec" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.hpix2radec">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">hpix2radec</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hpix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.hpix2radec" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1479,8 +1461,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.hpx_degrade">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">hpx_degrade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pix_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nside_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nside_out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest_out</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.hpx_degrade" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.hpx_degrade">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">hpx_degrade</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pix_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nside_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nside_out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest_out</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.hpx_degrade" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1502,8 +1484,8 @@ pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.hpx_in_annulus">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">hpx_in_annulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_in_deg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_out_deg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpx_meta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inclusive</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.hpx_in_annulus" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.hpx_in_annulus">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">hpx_in_annulus</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_in_deg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_out_deg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpx_meta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inclusive</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.hpx_in_annulus" title="Permalink to this definition"></a></dt>
 <dd><p>Given an array of healpix pixels (hpix, frac) where frac is the
 covered fraction of each hpix pixel,
 computes the sub list of these pixels falling in an annulus around position
@@ -1532,8 +1514,8 @@ hpx pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.hpx_split_survey">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">hpx_split_survey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">footprint_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.hpx_split_survey" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.hpx_split_survey">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">hpx_split_survey</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">footprint_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.hpx_split_survey" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1554,8 +1536,8 @@ hpx pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.join_struct_arrays">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">join_struct_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arrays</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.join_struct_arrays" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.join_struct_arrays">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">join_struct_arrays</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arrays</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.join_struct_arrays" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1571,8 +1553,8 @@ hpx pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.mad">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">mad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.mad" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.mad">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">mad</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.mad" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1588,8 +1570,8 @@ hpx pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.makeHealpixMap">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">makeHealpixMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nside</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.makeHealpixMap" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.makeHealpixMap">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">makeHealpixMap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nside</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.makeHealpixMap" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1611,8 +1593,8 @@ hpx pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.phitheta2radec">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">phitheta2radec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.phitheta2radec" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.phitheta2radec">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">phitheta2radec</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.phitheta2radec" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1631,8 +1613,8 @@ hpx pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.radec2hpix">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">radec2hpix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.radec2hpix" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.radec2hpix">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">radec2hpix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.radec2hpix" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1652,8 +1634,8 @@ hpx pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.radec2phitheta">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">radec2phitheta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.radec2phitheta" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.radec2phitheta">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">radec2phitheta</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.radec2phitheta" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1672,8 +1654,8 @@ hpx pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.radec_window_area">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">radec_window_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ramin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ramax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.radec_window_area" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.radec_window_area">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">radec_window_area</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ramin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ramax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.radec_window_area" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1694,8 +1676,8 @@ hpx pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.read_FitsCat">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">read_FitsCat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_FitsCat" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.read_FitsCat">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">read_FitsCat</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_FitsCat" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1711,8 +1693,8 @@ hpx pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.read_FitsFootprint">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">read_FitsFootprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hpx_footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpx_meta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_FitsFootprint" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.read_FitsFootprint">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">read_FitsFootprint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hpx_footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpx_meta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_FitsFootprint" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1731,8 +1713,8 @@ hpx pixels are inclusive on radius_out but not radius_in</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.read_mosaicFitsCat_in_disc">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">read_mosaicFitsCat_in_disc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">galcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_deg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_mosaicFitsCat_in_disc" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.read_mosaicFitsCat_in_disc">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">read_mosaicFitsCat_in_disc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">galcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_deg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_mosaicFitsCat_in_disc" title="Permalink to this definition"></a></dt>
 <dd><p>From a list of galcat files, selects objects in a cone centered
 on racen, deccen Output is a structured array</p>
 <dl class="field-list simple">
@@ -1753,8 +1735,8 @@ on racen, deccen Output is a structured array</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.read_mosaicFitsCat_in_hpix">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">read_mosaicFitsCat_in_hpix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">galcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpix_tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside_tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest_tile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_mosaicFitsCat_in_hpix" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.read_mosaicFitsCat_in_hpix">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">read_mosaicFitsCat_in_hpix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">galcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpix_tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside_tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest_tile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_mosaicFitsCat_in_hpix" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1775,8 +1757,8 @@ on racen, deccen Output is a structured array</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.read_mosaicFootprint_in_disc">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">read_mosaicFootprint_in_disc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_deg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_mosaicFootprint_in_disc" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.read_mosaicFootprint_in_disc">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">read_mosaicFootprint_in_disc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_deg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_mosaicFootprint_in_disc" title="Permalink to this definition"></a></dt>
 <dd><p>From a list of galcat files, selects objects in a cone
 centered on racen, deccen
 Output is a structured array</p>
@@ -1798,8 +1780,8 @@ Output is a structured array</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.read_mosaicFootprint_in_hpix">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">read_mosaicFootprint_in_hpix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpix_tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside_tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest_tile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_mosaicFootprint_in_hpix" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.read_mosaicFootprint_in_hpix">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">read_mosaicFootprint_in_hpix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpix_tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside_tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest_tile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_mosaicFootprint_in_hpix" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1820,8 +1802,8 @@ Output is a structured array</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.sub_hpix">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">sub_hpix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hpix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.sub_hpix" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.sub_hpix">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">sub_hpix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hpix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.sub_hpix" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1841,8 +1823,8 @@ Output is a structured array</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.survey_ra_minmax">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">survey_ra_minmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.survey_ra_minmax" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.survey_ra_minmax">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">survey_ra_minmax</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.survey_ra_minmax" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1858,8 +1840,8 @@ Output is a structured array</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.utils.tile_radius">
-<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">tile_radius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tiling</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.tile_radius" title="Permalink to this definition"></a></dt>
+<dt id="lib.utils.tile_radius">
+<code class="sig-prename descclassname"><span class="pre">lib.utils.</span></code><code class="sig-name descname"><span class="pre">tile_radius</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tiling</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.tile_radius" title="Permalink to this definition"></a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1874,12 +1856,12 @@ Output is a structured array</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="module-lib.parsl_config">
-<span id="lib-parsl-config"></span><h2>lib.parsl_config<a class="headerlink" href="#module-lib.parsl_config" title="Permalink to this heading"></a></h2>
+</div>
+<div class="section" id="module-lib.parsl_config">
+<span id="lib-parsl-config"></span><h2>lib.parsl_config<a class="headerlink" href="#module-lib.parsl_config" title="Permalink to this headline"></a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="lib.parsl_config.get_config">
-<span class="sig-prename descclassname"><span class="pre">lib.parsl_config.</span></span><span class="sig-name descname"><span class="pre">get_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.parsl_config.get_config" title="Permalink to this definition"></a></dt>
+<dt id="lib.parsl_config.get_config">
+<code class="sig-prename descclassname"><span class="pre">lib.parsl_config.</span></code><code class="sig-name descname"><span class="pre">get_config</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.parsl_config.get_config" title="Permalink to this definition"></a></dt>
 <dd><p>Creates an instance of the Parsl configuration</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1895,11 +1877,11 @@ Options are: ‘local’, ‘local_threads’, ‘sdumont’, ‘htcondor’.</p
 </dl>
 </dd></dl>
 
-</section>
-<section id="module-lib.apps">
-<span id="lib-apps"></span><h2>lib.apps<a class="headerlink" href="#module-lib.apps" title="Permalink to this heading"></a></h2>
-</section>
-</section>
+</div>
+<div class="section" id="module-lib.apps">
+<span id="lib-apps"></span><h2>lib.apps<a class="headerlink" href="#module-lib.apps" title="Permalink to this headline"></a></h2>
+</div>
+</div>
 
 
            </div>

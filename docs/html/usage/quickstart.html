@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QuickStart &mdash; GAWA 2.1.0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <title>QuickStart &mdash; GAWA 2.1.0 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -38,7 +34,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">QuickStart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#code-and-dependencies">Code and dependencies</a></li>
@@ -75,17 +71,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="quickstart">
-<h1>QuickStart<a class="headerlink" href="#quickstart" title="Permalink to this heading"></a></h1>
+  <div class="section" id="quickstart">
+<h1>QuickStart<a class="headerlink" href="#quickstart" title="Permalink to this headline"></a></h1>
 <div class="line-block">
 <div class="line">To install the code, you have to clone the repository and follow instructions to install dependencies.</div>
 </div>
 <div class="line-block">
 <div class="line">The code is intended to run on Linux distributions.</div>
 </div>
-</section>
-<section id="code-and-dependencies">
-<h1>Code and dependencies<a class="headerlink" href="#code-and-dependencies" title="Permalink to this heading"></a></h1>
+</div>
+<div class="section" id="code-and-dependencies">
+<h1>Code and dependencies<a class="headerlink" href="#code-and-dependencies" title="Permalink to this headline"></a></h1>
 <div class="line-block">
 <div class="line">The code is written and runs in Python 3.9, but it is compatible to python 3.X. The following libraries are mandatory to run the code:</div>
 </div>
@@ -99,9 +95,9 @@
 <li><p><a class="reference external" href="https://scikit-image.org/docs/stable/install.html">scikit-image</a></p></li>
 <li><p><a class="reference external" href="https://parsl.readthedocs.io/en/stable/">parsl</a></p></li>
 </ul>
-</section>
-<section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
 <div class="line-block">
 <div class="line">Clone the repository and create an environment with Conda:</div>
 </div>
@@ -134,9 +130,9 @@
 <span class="n">cp</span> <span class="n">gawa</span><span class="o">.</span><span class="n">sh</span><span class="o">.</span><span class="n">template</span> <span class="n">gawa</span><span class="o">.</span><span class="n">sh</span>   <span class="c1"># You need to edit it if you want to run with Parsl in cluster.</span>
 </pre></div>
 </div>
-</section>
-<section id="running">
-<h1>Running<a class="headerlink" href="#running" title="Permalink to this heading"></a></h1>
+</div>
+<div class="section" id="running">
+<h1>Running<a class="headerlink" href="#running" title="Permalink to this headline"></a></h1>
 <div class="line-block">
 <div class="line">In jupyterlab, run the following command:</div>
 </div>
@@ -149,8 +145,8 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">W</span> <span class="n">ignore</span> <span class="n">gawa_main</span><span class="o">.</span><span class="n">py</span> <span class="n">gawa</span><span class="o">.</span><span class="n">cfg</span>
 </pre></div>
 </div>
-<section id="warnings">
-<h2>Warnings<a class="headerlink" href="#warnings" title="Permalink to this heading"></a></h2>
+<div class="section" id="warnings">
+<h2>Warnings<a class="headerlink" href="#warnings" title="Permalink to this headline"></a></h2>
 <div class="line-block">
 <div class="line">To run again the code, please remove the following folders with the command (being in the root folder):</div>
 </div>
@@ -161,10 +157,10 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="n">tiles_specs</span><span class="o">.</span><span class="n">fits</span> <span class="n">cluster</span><span class="o">.</span><span class="n">fits</span> <span class="n">cluster0</span><span class="o">.</span><span class="n">fits</span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="running-with-parsl-pilot-jobs">
-<h1>Running with Parsl (Pilot Jobs)<a class="headerlink" href="#running-with-parsl-pilot-jobs" title="Permalink to this heading"></a></h1>
+</div>
+</div>
+<div class="section" id="running-with-parsl-pilot-jobs">
+<h1>Running with Parsl (Pilot Jobs)<a class="headerlink" href="#running-with-parsl-pilot-jobs" title="Permalink to this headline"></a></h1>
 <div class="line-block">
 <div class="line">Edit gawa.sh, adding the path to Conda (CONDAPATH) and the path to this repository (GAWA_ROOT):</div>
 </div>
@@ -184,7 +180,7 @@ python -m ipykernel install --user --name=gawa
 <span class="n">python</span> <span class="o">-</span><span class="n">W</span> <span class="n">ignore</span> <span class="n">gawa_main</span><span class="o">.</span><span class="n">py</span> <span class="n">gawa</span><span class="o">.</span><span class="n">cfg</span>
 </pre></div>
 </div>
-</section>
+</div>
 
 
            </div>

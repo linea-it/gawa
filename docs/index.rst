@@ -20,7 +20,7 @@ Scientific use of GAWA:
 
 | - Installation of a new survey : 
 
-   | in gawa.cfg under starcat > footprint > isochrone_masks, duplicate the description of a given survey and make yours.    
+   | in gawa.cfg under starcat > footprint > isochrone_masks, duplicate the description of a given survey and create a new one from a photometric system.    
    
 | - GAWA detection parameters
 
@@ -33,7 +33,8 @@ Scientific use of GAWA:
    
 | - Current Isochrone
 
-   | The mask used by gawa was taken from an isochrone with 13.5 and [Fe/H]=-2. The mask compensates the variability in metalicity with a bias in magnitude (metal-rich clusters tend to be seen as  more distant clusters). Regardig the variability age, only stars in the MSTO tend to occupy different positions in CMD.
+   | The mask used by gawa was taken from an isochrone with 13.5 and [Fe/H]=-2, with small deviations towards bluer and redder limits. The mask encompasses binaries and possible small shifts in age/metalicity/reddening/magnitude measurements.
+   | Each isochronal mask is related to a specific photometric system.
    
 
 What is new in GAWA version 2:

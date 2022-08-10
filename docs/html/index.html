@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to GAWA’s documentation! &mdash; GAWA 2.1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <title>Welcome to GAWA’s documentation! &mdash; GAWA 2.1.0 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -37,7 +33,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="usage/quickstart.html">QuickStart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/quickstart.html#code-and-dependencies">Code and dependencies</a></li>
@@ -71,10 +67,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="welcome-to-gawa-s-documentation">
-<h1>Welcome to GAWA’s documentation!<a class="headerlink" href="#welcome-to-gawa-s-documentation" title="Permalink to this heading"></a></h1>
-<section id="scientific-use-of-gawa">
-<h2>Scientific use of GAWA:<a class="headerlink" href="#scientific-use-of-gawa" title="Permalink to this heading"></a></h2>
+  <div class="section" id="welcome-to-gawa-s-documentation">
+<h1>Welcome to GAWA’s documentation!<a class="headerlink" href="#welcome-to-gawa-s-documentation" title="Permalink to this headline"></a></h1>
+<div class="section" id="scientific-use-of-gawa">
+<h2>Scientific use of GAWA:<a class="headerlink" href="#scientific-use-of-gawa" title="Permalink to this headline"></a></h2>
 <div class="line-block">
 <div class="line">- The user should define a survey / 2 filters / 1 color</div>
 </div>
@@ -89,7 +85,7 @@
 </div>
 <blockquote>
 <div><div class="line-block">
-<div class="line">in gawa.cfg under starcat &gt; footprint &gt; isochrone_masks, duplicate the description of a given survey and make yours.</div>
+<div class="line">in gawa.cfg under starcat &gt; footprint &gt; isochrone_masks, duplicate the description of a given survey and create a new one from a photometric system.</div>
 </div>
 </div></blockquote>
 <div class="line-block">
@@ -106,12 +102,13 @@
 </div>
 <blockquote>
 <div><div class="line-block">
-<div class="line">The mask used by gawa was taken from an isochrone with 13.5 and [Fe/H]=-2. The mask compensates the variability in metalicity with a bias in magnitude (metal-rich clusters tend to be seen as  more distant clusters). Regardig the variability age, only stars in the MSTO tend to occupy different positions in CMD.</div>
+<div class="line">The mask used by gawa was taken from an isochrone with 13.5 and [Fe/H]=-2, with small deviations towards bluer and redder limits. The mask encompasses binaries and possible small shifts in age/metalicity/reddening/magnitude measurements.</div>
+<div class="line">Each isochronal mask is related to a specific photometric system.</div>
 </div>
 </div></blockquote>
-</section>
-<section id="what-is-new-in-gawa-version-2">
-<h2>What is new in GAWA version 2:<a class="headerlink" href="#what-is-new-in-gawa-version-2" title="Permalink to this heading"></a></h2>
+</div>
+<div class="section" id="what-is-new-in-gawa-version-2">
+<h2>What is new in GAWA version 2:<a class="headerlink" href="#what-is-new-in-gawa-version-2" title="Permalink to this headline"></a></h2>
 <div class="line-block">
 <div class="line">- the tiling is done in healpix pixels so that it can operate at any RA-Dec</div>
 <div class="line">- the divisision of the N tiles in P cores is done to optimize the distribution of the area to be analyzed (as equal area as possible).</div>
@@ -123,9 +120,9 @@
 <div class="line">- there are 3 levels of verbose. With verbose = 0 no intermediate file is written on disc except those necessary for the code.</div>
 <div class="line">- there are several re-entry points with the generation of numpy files (.npx). But this can be switched off if necessary</div>
 </div>
-</section>
-<section id="what-should-be-improved-dev">
-<h2>What should be improved / dev:<a class="headerlink" href="#what-should-be-improved-dev" title="Permalink to this heading"></a></h2>
+</div>
+<div class="section" id="what-should-be-improved-dev">
+<h2>What should be improved / dev:<a class="headerlink" href="#what-should-be-improved-dev" title="Permalink to this headline"></a></h2>
 <div class="line-block">
 <div class="line">- currently the code provides detections at discrete distances corresponding to those provided by the gawa/compute_dslices function. We should add a fct to refine this first distance estimate.</div>
 <div class="line">- Update the SPARSE2D package which is currently a C++ code =&gt; python version to avoid current i/o’s</div>
@@ -133,7 +130,7 @@
 <div class="line">- Filtering based on 3 pass-bands (2 CMDs)</div>
 </div>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="usage/quickstart.html">QuickStart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/quickstart.html#code-and-dependencies">Code and dependencies</a></li>
@@ -143,16 +140,16 @@
 <li class="toctree-l1"><a class="reference internal" href="usage/api.html">API Reference guide</a></li>
 </ul>
 </div>
-</section>
-</section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h1>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
-</section>
+</div>
 
 
            </div>
