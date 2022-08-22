@@ -1,18 +1,14 @@
 import numpy as np
-import matplotlib.pyplot as plt
+import dask.array as da
 import astropy.io.fits as fits
-import os, sys
-from astropy.cosmology.core import FlatLambdaCDM as flat
-from astropy import units as u
-from astropy.convolution import convolve,Gaussian1DKernel
+import os
 import healpy as hp
-from math import log, exp, atan, atanh
 from astropy.table import Table
-from scipy.optimize import least_squares
-from scipy import interpolate
+#from lib.timeit import timeit
 
 
 
+#@timeit
 def create_directory(dir):
     """_summary_
 
@@ -24,6 +20,7 @@ def create_directory(dir):
     return
 
 
+#@timeit
 def read_FitsCat(cat):
     """_summary_
 
@@ -39,6 +36,7 @@ def read_FitsCat(cat):
     return dat
 
 
+#@timeit
 def read_FitsFootprint(hpx_footprint, hpx_meta):
     """_summary_
 
@@ -61,6 +59,7 @@ def read_FitsFootprint(hpx_footprint, hpx_meta):
     return  hpix_map, frac_map
 
 
+#@timeit
 def read_mosaicFitsCat_in_disc (galcat, tile, radius_deg):
     """From a list of galcat files, selects objects in a cone centered 
     on racen, deccen Output is a structured array
@@ -90,9 +89,9 @@ def read_mosaicFitsCat_in_disc (galcat, tile, radius_deg):
     fits_pixels_in_disc = hp.query_disc(
         nside=Nside_fits, nest=nest_fits, 
         vec=hp.pixelfunc.ang2vec(
-            np.radians(90.-deccen), np.radians(racen)
+            da.radians(90.-deccen), da.radians(racen)
         ),
-        radius = np.radians(radius_deg), inclusive=True
+        radius = da.radians(radius_deg), inclusive=True
     )
     relevant_fits_pixels = fits_pixels_in_disc\
                            [np.isin(
@@ -101,7 +100,7 @@ def read_mosaicFitsCat_in_disc (galcat, tile, radius_deg):
                                assume_unique=True
                            )]
 
-    if len(relevant_fits_pixels) > 0:
+    if len(relevant_fits_pixels):
         # merge intersecting fits 
         for i in range (0, len(relevant_fits_pixels)):
             dat_disc = read_FitsCat(
@@ -126,6 +125,7 @@ def read_mosaicFitsCat_in_disc (galcat, tile, radius_deg):
     return data_gal_disc
 
 
+#@timeit
 def read_mosaicFootprint_in_disc (footprint, tile, radius_deg):
     """From a list of galcat files, selects objects in a cone 
     centered on racen, deccen
@@ -155,9 +155,9 @@ def read_mosaicFootprint_in_disc (footprint, tile, radius_deg):
     fits_pixels_in_disc = hp.query_disc(
         nside=Nside_fits, nest=nest_fits, 
         vec=hp.pixelfunc.ang2vec(
-            np.radians(90.-deccen), np.radians(racen)
+            da.radians(90.-deccen), da.radians(racen)
         ),
-        radius = np.radians(radius_deg), 
+        radius = da.radians(radius_deg), 
         inclusive=True
     )
     relevant_fits_pixels = fits_pixels_in_disc\
@@ -166,7 +166,7 @@ def read_mosaicFootprint_in_disc (footprint, tile, radius_deg):
                                hpix_fits, 
                                assume_unique=True
                            )]
-    if len(relevant_fits_pixels) > 0:
+    if len(relevant_fits_pixels):
         # merge intersecting fits 
         for i in range (0, len(relevant_fits_pixels)):
             dat_disc = read_FitsCat(
@@ -191,6 +191,7 @@ def read_mosaicFootprint_in_disc (footprint, tile, radius_deg):
     return data_fp_disc
 
 
+#@timeit
 def read_mosaicFitsCat_in_hpix (galcat, hpix_tile, Nside_tile, nest_tile):
     """_summary_
 
@@ -223,7 +224,7 @@ def read_mosaicFitsCat_in_hpix (galcat, hpix_tile, Nside_tile, nest_tile):
     relevant_fits_pixels = np.unique(
         hpix_fits[np.isin(hpix_fits_tile, hpix_tile)]
     )
-    if len(relevant_fits_pixels) > 0:
+    if len(relevant_fits_pixels):
         # merge intersecting fits 
         for i in range (0, len(relevant_fits_pixels)):
             dat = read_FitsCat(
@@ -238,6 +239,7 @@ def read_mosaicFitsCat_in_hpix (galcat, hpix_tile, Nside_tile, nest_tile):
     return data_gal_hpix
 
 
+#@timeit
 def read_mosaicFootprint_in_hpix (footprint, hpix_tile, Nside_tile, nest_tile):
     """_summary_
 
@@ -269,7 +271,7 @@ def read_mosaicFootprint_in_hpix (footprint, hpix_tile, Nside_tile, nest_tile):
         hpix_fits[np.isin(hpix_fits_tile, hpix_tile)]
     )
 
-    if len(relevant_fits_pixels) > 0:
+    if len(relevant_fits_pixels):
         # merge intersecting fits 
         for i in range (0, len(relevant_fits_pixels)):
             dat = read_FitsCat(
@@ -278,15 +280,16 @@ def read_mosaicFootprint_in_hpix (footprint, hpix_tile, Nside_tile, nest_tile):
                     str(relevant_fits_pixels[i])+'_footprint'+extension
                 )
             )
-            if i == 0:
-                data_fp_hpix = np.copy(dat)
-            else:
+            if i:
                 data_fp_hpix = np.append(data_fp_hpix, dat)
+            else:
+                data_fp_hpix = np.copy(dat)
     else:
         data_fp_hpix = None
     return data_fp_hpix
 
 
+#@timeit
 def create_survey_footprint_from_mosaic(footprint, survey_footprint):
     """_summary_
 
@@ -300,6 +303,7 @@ def create_survey_footprint_from_mosaic(footprint, survey_footprint):
     return
 
 
+#@timeit
 def create_mosaic_footprint(footprint, fpath):
     """_summary_
 
@@ -325,7 +329,7 @@ def create_mosaic_footprint(footprint, fpath):
             fits.Column(
                 name = footprint['key_pixel'],  
                 format = 'K',
-                array = hpix0[np.isin(hpix, hp)]
+                array = hpix0[da.isin(hpix, hp)]
             ),
             fits.Column(
                 name='ra',       
@@ -351,6 +355,7 @@ def create_mosaic_footprint(footprint, fpath):
     return
 
 
+#@timeit
 def concatenate_fits(flist, output):
     """_summary_
 
@@ -374,6 +379,7 @@ def concatenate_fits(flist, output):
     return cdat
 
 
+#@timeit
 def concatenate_fits_with_label(flist, label_name, label, output):
     """_summary_
 
@@ -399,6 +405,7 @@ def concatenate_fits_with_label(flist, label_name, label, output):
     return cdat
 
 
+#@timeit
 def add_key_to_fits(fitsfile, key_val, key_name, key_type):
     """_summary_
 
@@ -417,7 +424,7 @@ def add_key_to_fits(fitsfile, key_val, key_name, key_type):
     if key_type == 'float':
         new_col = fits.ColDefs([
             fits.Column(name=key_name, format='E',array=key_val)])
-    if key_type == 'int':
+    elif key_type == 'int':
         new_col = fits.ColDefs([
             fits.Column(name=key_name, format='J',array=key_val)])
 
@@ -427,6 +434,7 @@ def add_key_to_fits(fitsfile, key_val, key_name, key_type):
     return
 
         
+#@timeit
 def filter_hpx_tile(data, cat, tile_specs):
     """_summary_
 
@@ -446,6 +454,7 @@ def filter_hpx_tile(data, cat, tile_specs):
     return data[np.argwhere(hpx == pixel_tile).T[0]]
 
 
+#@timeit
 def add_hpx_to_cat(data_gal, ra, dec, Nside_tmp, nest_tmp, keyname):
     """_summary_
 
@@ -466,6 +475,7 @@ def add_hpx_to_cat(data_gal, ra, dec, Nside_tmp, nest_tmp, keyname):
     return t
 
 
+#@timeit
 def mad(x):
     """_summary_
 
@@ -478,6 +488,7 @@ def mad(x):
     return 1.4826*np.median(abs(x))
 
 
+#@timeit
 def gaussian(x, mu, sig):
     """_summary_
 
@@ -492,6 +503,7 @@ def gaussian(x, mu, sig):
     return np.exp(-(x - mu)**2 / (2.*sig**2) ) / (sig * np.sqrt(2.*np.pi))
 
 
+#@timeit
 def dist_ang(ra1, dec1, ra_ref, dec_ref):
     """_summary_
 
@@ -511,13 +523,14 @@ def dist_ang(ra1, dec1, ra_ref, dec_ref):
     ra_ref-dec_ref are scalars
     output is in radian
     """
-    costheta = np.sin(np.radians(dec_ref)) * np.sin(np.radians(dec1)) +\
-               np.cos(np.radians(dec_ref)) * np.cos(np.radians(dec1)) *\
-               np.cos(np.radians(ra1-ra_ref))
+    costheta = np.sin(da.radians(dec_ref)) * np.sin(da.radians(dec1)) +\
+               np.cos(da.radians(dec_ref)) * np.cos(da.radians(dec1)) *\
+               np.cos(da.radians(ra1-ra_ref))
     dist_ang = np.arccos(costheta)
     return dist_ang 
 
 
+#@timeit
 def area_ann_deg2(theta_1, theta_2):
     """_summary_
 
@@ -528,12 +541,13 @@ def area_ann_deg2(theta_1, theta_2):
     Returns:
         _type_: _description_
     """
-    area = 2. * np.pi * (np.cos(np.radians(theta_1)) -\
-                         np.cos(np.radians(theta_2))) *\
+    area = 2. * np.pi * (np.cos(da.radians(theta_1)) -\
+                         np.cos(da.radians(theta_2))) *\
         (180./np.pi)**2
     return area
 
 
+#@timeit
 def _mstar_ (mstar_filename, zin):
     """
     from a given (z, mstar) ascii file
@@ -543,6 +557,7 @@ def _mstar_ (mstar_filename, zin):
     return np.interp (zin,zst,mst)
 
 
+#@timeit
 def join_struct_arrays(arrays):
     """_summary_
 
@@ -562,6 +577,7 @@ def join_struct_arrays(arrays):
     dtype = sum((a.dtype.descr for a in arrays), [])
     return joint.ravel().view(dtype)
 
+#@timeit
 def radec_window_area (ramin, ramax, decmin, decmax):
     """_summary_
 
@@ -584,6 +600,7 @@ def radec_window_area (ramin, ramax, decmin, decmax):
 
 
 # healpix functions
+#@timeit
 def radec2phitheta(ra, dec):
     """_summary_
 
@@ -597,10 +614,11 @@ def radec2phitheta(ra, dec):
     """
     Turn (ra,dec) [deg] in (phi, theta) [rad] used by healpix
     """
-    phi, theta = np.radians(ra), np.radians(90.-dec)
+    phi, theta = da.radians(ra), da.radians(90.-dec)
     return phi, theta
 
 
+#@timeit
 def phitheta2radec(phi,theta):
     """_summary_
 
@@ -614,6 +632,7 @@ def phitheta2radec(phi,theta):
     return np.degrees(phi), 90.-np.degrees(theta)
 
 
+#@timeit
 def radec2hpix(ra, dec, Nside, nest):
     """_summary_
 
@@ -632,6 +651,7 @@ def radec2hpix(ra, dec, Nside, nest):
     return  hp.ang2pix(Nside, theta, phi, nest)
 
 
+#@timeit
 def hpix2radec(hpix, nside, nest):
     """_summary_
 
@@ -648,6 +668,7 @@ def hpix2radec(hpix, nside, nest):
     return phitheta2radec(phi,theta)
 
 
+#@timeit
 def sub_hpix(hpix, Nside, nest):
     """_summary_
 
@@ -674,6 +695,7 @@ def sub_hpix(hpix, Nside, nest):
     return radec2hpix(rac, decc, Nside*2, nest)
 
 
+#@timeit
 def makeHealpixMap(ra, dec, weights=None, nside=1024, nest=False):
     """_summary_
 
@@ -692,6 +714,7 @@ def makeHealpixMap(ra, dec, weights=None, nside=1024, nest=False):
     return np.bincount(ipix, weights = weights, minlength=hp.nside2npix(nside))
 
 
+#@timeit
 def all_hpx_in_annulus (ra, dec, radius_in_deg, radius_out_deg, 
                         hpx_meta, inclusive):
     """
@@ -704,23 +727,23 @@ def all_hpx_in_annulus (ra, dec, radius_in_deg, radius_out_deg,
     pixels_in_disc = hp.query_disc(
         nside=Nside, nest=nest, 
         vec=hp.pixelfunc.ang2vec(
-            np.radians(90.-dec), 
-            np.radians(ra)
+            da.radians(90.-dec), 
+            da.radians(ra)
         ),
-        radius = np.radians(radius_out_deg), 
+        radius = da.radians(radius_out_deg), 
         inclusive=inclusive
     )
     if radius_in_deg>0.:
         pixels_in_disc_in = hp.query_disc(
             nside=Nside, nest=nest, 
             vec=hp.pixelfunc.ang2vec(
-                np.radians(90.-dec), 
-                np.radians(ra)
+                da.radians(90.-dec), 
+                da.radians(ra)
             ),
-            radius = np.radians(radius_in_deg), 
+            radius = da.radians(radius_in_deg), 
             inclusive=inclusive
         )
-        id_annulus = np.isin(
+        id_annulus = da.isin(
             pixels_in_disc, 
             pixels_in_disc_in, 
             assume_unique=True, 
@@ -732,6 +755,7 @@ def all_hpx_in_annulus (ra, dec, radius_in_deg, radius_out_deg,
 
     return pixels_in_ann
 
+#@timeit
 def hpx_in_annulus (ra, dec, radius_in_deg, radius_out_deg, 
                     data_fp, hpx_meta, inclusive):
     """
@@ -754,7 +778,7 @@ def hpx_in_annulus (ra, dec, radius_in_deg, radius_out_deg,
     coverfrac = 0.
     hpx_in_ann, frac_in_ann = [], []
 
-    if npix_all > 0:
+    if npix_all:
         idx = np.isin(hpix, pixels_in_ann)
         hpx_in_ann = hpix[idx]  # visible pixels
         frac_in_ann = frac[idx] 
@@ -767,6 +791,7 @@ def hpx_in_annulus (ra, dec, radius_in_deg, radius_out_deg,
 
 # FCT to split surveys 
 
+#@timeit
 def survey_ra_minmax(ra):
     """_summary_
 
@@ -777,20 +802,21 @@ def survey_ra_minmax(ra):
         _type_: _description_
     """
 
-    ramin, ramax = np.amin(ra), np.amax(ra)
+    ramin, ramax = da.min(ra).compute(), da.max(ra).compute()
     if ramin<0.5 and ramax>359.5:
         nbins = 360
         hist, bin_edges = np.histogram(ra, bins=nbins, range=(0., 360))
-        ramin_empty = bin_edges[np.amin ( np.argwhere(hist==0 ))]
-        ramax_empty = bin_edges[np.amax ( np.argwhere(hist==0 ))]
+        ramin_empty = bin_edges[da.min ( np.argwhere(hist==0 )).compute()]
+        ramax_empty = bin_edges[da.max ( np.argwhere(hist==0 )).compute()]
         
         ra1 = ra[(ra<ramin_empty+1.)]
         ra2 = ra[(ra>ramax_empty-1.)]-360.
         ra_new = np.hstack((ra1, ra2))
-        ramin, ramax = np.amin(ra_new), np.amax(ra_new)
+        ramin, ramax = da.amin(ra_new).compute(), da.max(ra_new).compute()
     return ramin, ramax
 
 
+#@timeit
 def hpx_degrade(pix_in, nside_in, nest_in, nside_out, nest_out):
     """_summary_
 
@@ -810,6 +836,7 @@ def hpx_degrade(pix_in, nside_in, nest_in, nside_out, nest_out):
     nsamp = (float(nside_in)/float(nside_out))**2
     return pix_out, counts.astype(float)/nsamp
 
+#@timeit
 def hpx_split_survey (footprint_file, footprint, admin, output):
     """_summary_
 
@@ -852,9 +879,9 @@ def hpx_split_survey (footprint_file, footprint, admin, output):
         pixels_in_disc = hp.query_disc(
             nside=Nside_fp, nest=nest_fp, 
             vec=hp.pixelfunc.ang2vec(
-                np.radians(90.-deccen[i]), np.radians(racen[i])
+                da.radians(90.-deccen[i]), da.radians(racen[i])
             ),
-            radius = np.radians(radius_deg), 
+            radius = da.radians(radius_deg), 
             inclusive=False
         )
         framed_eff_area_deg2[i] = np.sum(
@@ -903,6 +930,7 @@ def hpx_split_survey (footprint_file, footprint, admin, output):
     return len(data_tiles)
 
 
+#@timeit
 def tile_radius(tiling):
     """_summary_
 
@@ -922,6 +950,7 @@ def tile_radius(tiling):
     return tile_radius + frame_deg
 
 
+#@timeit
 def create_tile_specs(tile, tile_radius_deg, admin):
     """_summary_
 
@@ -961,6 +990,7 @@ def create_tile_specs(tile, tile_radius_deg, admin):
     return tile_specs 
 
 
+#@timeit
 def cond_in_disc(rag, decg, hpxg, Nside, nest, racen, deccen, rad_deg):
     """_summary_
 
@@ -981,17 +1011,17 @@ def cond_in_disc(rag, decg, hpxg, Nside, nest, racen, deccen, rad_deg):
     pixels_in_disc_strict = hp.query_disc(
         nside = Nside, nest=nest, 
         vec = hp.pixelfunc.ang2vec(
-            np.radians(90.-deccen), np.radians(racen)
+            da.radians(90.-deccen), da.radians(racen)
         ),
-        radius = np.radians(rad_deg), 
+        radius = da.radians(rad_deg), 
         inclusive = False
     )
     pixels_in_disc = hp.query_disc(
         nside = Nside, nest=nest, 
         vec = hp.pixelfunc.ang2vec(
-            np.radians(90.-deccen), np.radians(racen)
+            da.radians(90.-deccen), da.radians(racen)
         ),
-        radius = np.radians(rad_deg), 
+        radius = da.radians(rad_deg), 
         inclusive=True
     )
     pixels_edge = pixels_in_disc[np.isin(
@@ -1010,6 +1040,7 @@ def cond_in_disc(rag, decg, hpxg, Nside, nest, racen, deccen, rad_deg):
     return (dist2cl<rad_deg)
 
 
+#@timeit
 def cond_in_hpx_disc(hpxg, Nside, nest, racen, deccen, rad_deg):
     """_summary_
 
@@ -1028,20 +1059,22 @@ def cond_in_hpx_disc(hpxg, Nside, nest, racen, deccen, rad_deg):
     pixels_in_disc_strict = hp.query_disc(
         nside=Nside, nest=nest, 
         vec=hp.pixelfunc.ang2vec(
-            np.radians(90.-deccen), np.radians(racen)
+            da.radians(90.-deccen), da.radians(racen)
         ),
-        radius = np.radians(rad_deg), 
+        radius = da.radians(rad_deg), 
         inclusive=False
     )
 
-    cond_strict = np.isin(hpxg, pixels_in_disc_strict)
+    cond_strict = da.isin(hpxg, pixels_in_disc_strict)
     return cond_strict
 
 
+#@timeit
 def normal_distribution_function(x):
     value = scipy.stats.norm.pdf(x,mean,std)
     return value
 
+#@timeit
 def compute_gaussian_kernel_1d(kernel):
 # kernel is an integer >0
     mean = 0.0 
@@ -1054,6 +1087,7 @@ def compute_gaussian_kernel_1d(kernel):
     return np.array(np.concatenate((np.sort(kk)[0:len(kk)-1], kk)))
 
 
+#@timeit
 def get_gaussian_kernel_1d(kernel):
 
     if kernel == 1:
@@ -1072,6 +1106,7 @@ def get_gaussian_kernel_1d(kernel):
     return gkernel
 
 
+#@timeit
 def concatenate_clusters(tiles_dir, infilename, clusters_outfile): 
     """_summary_
 
@@ -1088,6 +1123,7 @@ def concatenate_clusters(tiles_dir, infilename, clusters_outfile):
     return clcat
 
 
+#@timeit
 def concatenate_members(all_tiles, list_path_members, 
                         infilename, data_clusters, members_outfile):
     # data_clusters = clusters over the whole survey
@@ -1131,6 +1167,7 @@ def concatenate_members(all_tiles, list_path_members,
     return
 
 
+#@timeit
 def add_clusters_unique_id(data_clusters, clkeys):
     """_summary_
 

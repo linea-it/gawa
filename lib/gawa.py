@@ -1,6 +1,9 @@
 from astropy.io import fits
 from astropy import wcs
 import numpy as np
+import dask.array as da
+import dask.dataframe as dd
+import dask.dataframe as dd
 import matplotlib.pyplot as plt
 import scipy.ndimage as ndi
 import os
@@ -20,8 +23,9 @@ from .utils import tile_radius, sub_hpix, radec2hpix, hpix2radec, dist_ang
 from .utils import area_ann_deg2, hpx_in_annulus, join_struct_arrays
 from .utils import cond_in_disc, concatenate_clusters, add_clusters_unique_id
 from .utils import read_mosaicFitsCat_in_disc, read_mosaicFootprint_in_disc
+#from lib.timeit import timeit
 
-
+#@timeit
 def tile_dir_name(workdir, tile_nr):
     """Defines the working directory at the tile level
 
@@ -35,6 +39,7 @@ def tile_dir_name(workdir, tile_nr):
     return os.path.join(workdir, 'tiles', 'tile_'+str(tile_nr).zfill(3))
 
 
+#@timeit
 def create_gawa_directories(root, path):  # only called from pmem_main
     """Creates the relevant directories for writing intermediate 
     files/ results/ plots
@@ -52,6 +57,7 @@ def create_gawa_directories(root, path):  # only called from pmem_main
     return
 
 
+#@timeit
 def pix2xy (ix, iy, xmin, xmax, ymin, ymax, nx, ny):
     """_summary_
 
@@ -74,6 +80,7 @@ def pix2xy (ix, iy, xmin, xmax, ymin, ymax, nx, ny):
     return x, y
 
 
+#@timeit
 def xy2pix (x, y, xmin, xmax, ymin, ymax, nx, ny):
     """_summary_
 
@@ -96,6 +103,7 @@ def xy2pix (x, y, xmin, xmax, ymin, ymax, nx, ny):
     return ix.astype(int), iy.astype(int)
 
 
+#@timeit
 def x2pix (x, xmin, xmax, nx):
     """_summary_
 
@@ -114,6 +122,7 @@ def x2pix (x, xmin, xmax, nx):
     return ix.astype(int)
 
 
+#@timeit
 def effective_area_framed_tile(tile, data_fp, footprint, admin):
     """_summary_
 
@@ -133,9 +142,9 @@ def effective_area_framed_tile(tile, data_fp, footprint, admin):
     pixels_in_disc = hp.query_disc(
         nside=Nside, nest=nest, 
         vec=hp.pixelfunc.ang2vec(
-            np.radians(90.-tile['dec']), np.radians(tile['ra'])
+            da.radians(90.-tile['dec']), da.radians(tile['ra'])
         ),
-        radius = np.radians(radius_deg), 
+        radius = da.radians(radius_deg), 
         inclusive=False
     )
     framed_eff_area_deg2 = np.sum(
@@ -144,6 +153,7 @@ def effective_area_framed_tile(tile, data_fp, footprint, admin):
     return framed_eff_area_deg2
 
 
+#@timeit
 def plot_cmd(xall,yall, xar_in, yar_in, isochrone_masks, file_png):
     """_summary_
 
@@ -160,17 +170,18 @@ def plot_cmd(xall,yall, xar_in, yar_in, isochrone_masks, file_png):
                  isochrone_masks["mask_color_max"]
     ymin, ymax = isochrone_masks["mask_mag_min"],\
                  isochrone_masks["mask_mag_max"]
-    plt.clf()
-    plt.scatter(xar_in,yar_in,s=2,c='red', alpha=1, zorder=1) 
-    plt.scatter(xall,yall,s=2,c='green', alpha=1, zorder=0) 
-    plt.xlabel('g-r',fontsize=20)
-    plt.ylabel('g',fontsize=20)
-    plt.axis((xmin, xmax, ymax, ymin))
-    plt.tight_layout()
-    plt.savefig(file_png)
+    # plt.clf()
+    # plt.scatter(xar_in,yar_in,s=2,c='red', alpha=1, zorder=1) 
+    # plt.scatter(xall,yall,s=2,c='green', alpha=1, zorder=0) 
+    # plt.xlabel('g-r',fontsize=20)
+    # plt.ylabel('g',fontsize=20)
+    # plt.axis((xmin, xmax, ymax, ymin))
+    # plt.tight_layout()
+    # plt.savefig(file_png)
     return
 
 
+#@timeit
 def cmd_filter(magg, magr, cmd_mask, isochrone_masks):
     """_summary_
 
@@ -199,12 +210,13 @@ def cmd_filter(magg, magr, cmd_mask, isochrone_masks):
     ixdata, iydata = xy2pix (
         color[cond_frame], mag[cond_frame], xmin, xmax, ymin, ymax, nx, ny)
     flag_vis = cmd_mask[ixdata, iydata]
-    cond_in = np.zeros(len(mag)).astype(bool)
+    cond_in = da.zeros(len(mag)).astype(bool)
     cond_in[inframe] = flag_vis.astype(bool)  
 
     return cond_in
 
 
+#@timeit
 def cmd_mask(dslice, isochrone_masks, nsig, out_paths):
     """_summary_
 
@@ -238,11 +250,15 @@ def cmd_mask(dslice, isochrone_masks, nsig, out_paths):
     points = np.dstack((xar, yar)).reshape(len(xar), 2)
 
     # read error files 
-    gm, gm_err = np.loadtxt(gerr_file, usecols=(0, 1), unpack=True)
-    rm, rm_err = np.loadtxt(rerr_file, usecols=(0, 1), unpack=True)
-
+    file_1 = dd.read_csv(gerr_file, sep = ' ', header = None, usecols=[0,1])
+    gm, gm_err = file_1[0].to_dask_array().compute(), file_1[1].to_dask_array().compute()
+    file_2 = dd.read_csv(rerr_file, sep = ' ', header = None, usecols=[0,1])
+    rm, rm_err = file_2[0].to_dask_array().compute(), file_2[1].to_dask_array().compute()
+    
+    #print('AQUI',gm, gm_err, rm, rm_err)
     # get the polygon in color mag for a given cldistance 
-    gr, g0 = np.loadtxt(model_file, usecols=(0, 1), unpack=True)
+    df_model_file = dd.read_csv(model_file, sep = ' ', header = None, usecols=[0,1])
+    gr, g0 = df_model_file[0].to_dask_array().compute(), df_model_file[1].to_dask_array().compute()
     g = g0 + 5.*np.log10(dslice/10.)
     vertices = np.dstack((gr, g)).reshape(len(g),2)
 
@@ -300,6 +316,7 @@ def cmd_mask(dslice, isochrone_masks, nsig, out_paths):
     return mask
 
 
+#@timeit
 def compute_cmd_masks(isochrone_masks, out_paths, gawa_cfg):
     """_summary_
 
@@ -328,6 +345,7 @@ def compute_cmd_masks(isochrone_masks, out_paths, gawa_cfg):
     return
 
 
+#@timeit
 def select_stars_in_slice(data_star, starcat, gawa_cfg, mask, isochrone_masks):
     """_summary_
 
@@ -347,6 +365,7 @@ def select_stars_in_slice(data_star, starcat, gawa_cfg, mask, isochrone_masks):
     return data_star[cond]
 
 
+#@timeit
 def pixelized_radec(ra_map, dec_map, weight_map, w, nxy):
     """_summary_
 
@@ -369,6 +388,7 @@ def pixelized_radec(ra_map, dec_map, weight_map, w, nxy):
     return xycat
 
 
+#@timeit
 def pixelized_colmag(color, mag, weight, isochrone_masks, out):
     """_summary_
 
@@ -398,18 +418,19 @@ def pixelized_colmag(color, mag, weight, isochrone_masks, out):
     if out is not None:
         xbins = np.linspace(xmin, xmax, nx)
         ybins = np.linspace(ymin, ymax, ny)
-        plt.clf()
-        plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plt.cm.jet)
-        plt.xlabel('g-r',fontsize=20)
-        plt.ylabel('g',fontsize=20)
-        plt.axis((xmin, xmax, ymax, ymin))
-        plt.tight_layout()
-        plt.savefig(out)
+        # plt.clf()
+        # plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plt.cm.jet)
+        # plt.xlabel('g-r',fontsize=20)
+        # plt.ylabel('g',fontsize=20)
+        # plt.axis((xmin, xmax, ymax, ymin))
+        # plt.tight_layout()
+        # plt.savefig(out)
 
     return colmag_pix
 
 
 
+#@timeit
 def plot_pixelized_colmag(color_aper, gmag_aper, weight_aper, color_slaper, 
                           gmag_slaper, weight_slaper, color, mag, weight, 
                           isochrone_masks, out):
@@ -438,21 +459,22 @@ def plot_pixelized_colmag(color_aper, gmag_aper, weight_aper, color_slaper,
 
     xbins = np.linspace(xmin, xmax, nx)
     ybins = np.linspace(ymin, ymax, ny)
-    plt.clf()
-    plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plt.cm.jet)
-    plt.xlabel('g-r',fontsize=20)
-    plt.ylabel('g',fontsize=20)
-    plt.scatter(color_aper, gmag_aper, s=15, c='yellow', alpha=1, 
-                label="stars in aper") 
-    plt.scatter(color_slaper, gmag_slaper, s=15, c='red', alpha=1, 
-                label= "stars in aper + mask") 
-    plt.axis((xmin, xmax, ymax, ymin))
-    plt.tight_layout()
-    plt.legend()
-    plt.savefig(out)
+    # plt.clf()
+    # plt.hist2d(color, mag, bins=(xbins, ybins), density=True, cmap=plt.cm.jet)
+    # plt.xlabel('g-r',fontsize=20)
+    # plt.ylabel('g',fontsize=20)
+    # plt.scatter(color_aper, gmag_aper, s=15, c='yellow', alpha=1, 
+    #             label="stars in aper") 
+    # plt.scatter(color_slaper, gmag_slaper, s=15, c='red', alpha=1, 
+    #             label= "stars in aper + mask") 
+    # plt.axis((xmin, xmax, ymax, ymin))
+    # plt.tight_layout()
+    # plt.legend()
+    # plt.savefig(out)
     return
 
 
+#@timeit
 def create_wcs(gawa_cfg, tile_specs):
     """_summary_
 
@@ -477,6 +499,7 @@ def create_wcs(gawa_cfg, tile_specs):
     return w, nxy
 
 
+#@timeit
 def compute_catimage(ra_map, dec_map, weight_map, gawa_cfg, tile_specs):
     """_summary_
 
@@ -496,6 +519,7 @@ def compute_catimage(ra_map, dec_map, weight_map, gawa_cfg, tile_specs):
     return xycat
 
 
+#@timeit
 def randoms_in_spherical_cap(tile, bkg_arcmin2):
     """_summary_
 
@@ -517,9 +541,9 @@ def randoms_in_spherical_cap(tile, bkg_arcmin2):
     pixels_in_disc = hp.query_disc(
         nside=Nside_samp, nest=False, 
         vec=hp.pixelfunc.ang2vec(
-            np.radians(90.-tile['dec']), np.radians(tile['ra'])
+            da.radians(90.-tile['dec']), da.radians(tile['ra'])
         ),
-        radius = np.radians(tile['radius_tile_deg']), 
+        radius = da.radians(tile['radius_tile_deg']), 
         inclusive=False
     )
     area = 3600.*area_ann_deg2(0., tile['radius_tile_deg'])
@@ -528,6 +552,7 @@ def randoms_in_spherical_cap(tile, bkg_arcmin2):
     return hpix2radec(pix_samp, Nside_samp, False)
 
 
+#@timeit
 def compute_filled_catimage(ra_map, dec_map, weight_map, gawa_cfg, tile, data_fp, 
                             footprint, bkg_arcmin2):
     """_summary_
@@ -606,6 +631,7 @@ def compute_filled_catimage(ra_map, dec_map, weight_map, gawa_cfg, tile, data_fp
     return xycat
 
 
+#@timeit
 def map2fits(imap, gawa_cfg, tile, fitsname):
     """_summary_
 
@@ -624,6 +650,7 @@ def map2fits(imap, gawa_cfg, tile, fitsname):
     hdu.writeto(fitsname, overwrite=True)
     return
 
+#@timeit
 def fits2map(wmap):
     """_summary_
 
@@ -642,6 +669,7 @@ def fits2map(wmap):
     return wmap_data
 
 
+#@timeit
 def run_mr_filter(filled_catimage, wmap, gawa_cfg):
     """_summary_
 
@@ -662,7 +690,7 @@ def run_mr_filter(filled_catimage, wmap, gawa_cfg):
     smin = int(round(math.log10(scale_min_pix)/math.log10(2.)))
     smax = int(round(math.log10(scale_max_pix)/math.log10(2.)))
 
-    if smin == 0:
+    if not smin:
         subprocess.run((
             os.path.join(path_mr, 'mr_filter')+\
             ' -m 10 -i 3 -s 3.,3. -n '+str(smax+1)+' -f 3 -K -C 2 -p -e0 -A '+\
@@ -690,6 +718,7 @@ def run_mr_filter(filled_catimage, wmap, gawa_cfg):
     return
 
 
+#@timeit
 def wmap2peaks(wmap, wazp_specs, tile_specs):
     """_summary_
 
@@ -715,6 +744,7 @@ def wmap2peaks(wmap, wazp_specs, tile_specs):
     return ra_peak, dec_peak, iobj, jobj
 
 
+#@timeit
 def wave_radius(wmap_data, ip, jp, gawa_cfg):
     """_summary_
 
@@ -733,6 +763,7 @@ def wave_radius(wmap_data, ip, jp, gawa_cfg):
     return radius_arcmin
 
 
+#@timeit
 def filter_peaks(tile, map_resolution, ra0, dec0, ip0, jp0):
     """_summary_
 
@@ -750,7 +781,7 @@ def filter_peaks(tile, map_resolution, ra0, dec0, ip0, jp0):
 
     if tile['hpix']>0: # not target mode
         err_deg = 2./(60.*float(map_resolution))
-        dx, dy = err_deg*np.cos(np.radians(dec0)), err_deg
+        dx, dy = err_deg*np.cos(da.radians(dec0)), err_deg
         ghpx = radec2hpix (ra0, dec0, tile['Nside'], tile['nest'])
         ghpx1 = radec2hpix (ra0-dx, dec0-dy, tile['Nside'], tile['nest'])
         ghpx2 = radec2hpix (ra0-dx, dec0+dy, tile['Nside'], tile['nest'])
@@ -773,6 +804,7 @@ def filter_peaks(tile, map_resolution, ra0, dec0, ip0, jp0):
     return    ra, dec, ip, jp 
 
 
+#@timeit
 def coverfrac_disc(ra, dec, data_footprint, footprint, radius_deg):
     """_summary_
 
@@ -797,6 +829,7 @@ def coverfrac_disc(ra, dec, data_footprint, footprint, radius_deg):
     return coverfrac
 
 
+#@timeit
 def init_peaks_table(ra_peaks, dec_peaks, iobj, jobj, coverfrac, coverfrac_bkg, 
                      wradius, dslice, isochrone_masks, gawa_cfg):
     """initialize the table of peaks
@@ -848,6 +881,7 @@ def init_peaks_table(ra_peaks, dec_peaks, iobj, jobj, coverfrac, coverfrac_bkg,
     return Table(data_peaks)
 
 
+#@timeit
 def select_stars_in_disc(racen, deccen, data_stars, starcat, aper):
     """_summary_
 
@@ -867,6 +901,7 @@ def select_stars_in_disc(racen, deccen, data_stars, starcat, aper):
     return data_stars[cond]
 
 
+#@timeit
 def compute_flux_aper(rap, decp, hpix, weight, aper, Nside, nest):
     """_summary_
 
@@ -885,8 +920,8 @@ def compute_flux_aper(rap, decp, hpix, weight, aper, Nside, nest):
 
     pixels_in_disc = hp.query_disc(
         nside=Nside, nest=nest, 
-        vec=hp.pixelfunc.ang2vec(np.radians(90.-decp), np.radians(rap)),
-        radius = np.radians(aper), inclusive=False
+        vec=hp.pixelfunc.ang2vec(da.radians(90.-decp), da.radians(rap)),
+        radius = da.radians(aper), inclusive=False
     )
     Nraw = np.sum(weight[np.isin(hpix, pixels_in_disc)])
     pixelized_area = float(len(pixels_in_disc)) *\
@@ -894,6 +929,7 @@ def compute_flux_aper(rap, decp, hpix, weight, aper, Nside, nest):
     return Nraw*area_ann_deg2(0., aper)/pixelized_area
 
 
+#@timeit
 def compute_flux_aper_vec(rap, decp, aper, ras, decs, weights):
     """_summary_
 
@@ -920,6 +956,7 @@ def compute_flux_aper_vec(rap, decp, aper, ras, decs, weights):
     return Naper
 
 
+#@timeit
 def gmag_HB(isochrone_masks, dslice):
     """_summary_
 
@@ -932,14 +969,16 @@ def gmag_HB(isochrone_masks, dslice):
     """
 
     model_file = isochrone_masks["model_file"]
-    gr, g0 = np.loadtxt(model_file, usecols=(0, 1), unpack=True)
-    g0_HB_min = np.amin(g0[(gr<0.05) & (gr>-0.05)])
-    g0_HB_max = np.amax(g0[(gr<0.05) & (gr>-0.05)])
+    df_model_file =dd.read_csv(model_file, sep = ' ', header = None, usecols=[0,1])
+    gr, g0 = df_model_file[0].to_dask_array(), df_model_file[1].to_dask_array()
+    g0_HB_min = da.min(g0[(gr<0.05) & (gr>-0.05)]).compute()
+    g0_HB_max = da.max(g0[(gr<0.05) & (gr>-0.05)]).compute()
     g0_HB = (g0_HB_min + g0_HB_max)/2. 
     g_HB = g0_HB + 5.*np.log10(dslice/10.)
     return g_HB
 
 
+#@timeit
 def Dist_err(isochrone_masks, dslice):
     """_summary_
 
@@ -953,15 +992,17 @@ def Dist_err(isochrone_masks, dslice):
 
     # read model
     model_file = isochrone_masks["model_file"]
-    gr, g0 = np.loadtxt(model_file, usecols=(0, 1), unpack=True)
+    df_model_file = dd.read_csv(model_file, sep = ' ', header = None, usecols=[0,1])
+    gr, g0 = df_model_file[0].to_dask_array().compute(), df_model_file[1].to_dask_array().compute()
     # read error files 
     gerr_file, rerr_file = isochrone_masks["magerr_blue_file"],\
                            isochrone_masks["magerr_red_file"]
-    gm, gm_err = np.loadtxt(gerr_file, usecols=(0, 1), unpack=True)
+    df_gerr_file = dd.read_csv(gerr_file, sep = ' ', header = None, usecols=[0,1])
+    gm, gm_err = df_gerr_file[0].to_dask_array().compute(), df_gerr_file[1].to_dask_array().compute()
 
     g = g0 + 5.*np.log10(dslice/10.)
-    gmin = np.amin(g[(gr<0.05) & (gr>-0.05)])
-    gmax = np.amax(g[(gr<0.05) & (gr>-0.05)])
+    gmin = da.min(g[(gr<0.05) & (gr>-0.05)]).compute()
+    gmax = da.max(g[(gr<0.05) & (gr>-0.05)]).compute()
     gmin = gmin - np.interp (gmin, gm, gm_err)
     gmax = gmax + np.interp (gmax, gm, gm_err)    
     g_HB = (gmin + gmax)/2. 
@@ -971,6 +1012,7 @@ def Dist_err(isochrone_masks, dslice):
     delta_D = Dmax - Dmin
     return delta_D/100., Dmin/100., Dmax/100.
 
+#@timeit
 def compute_dslices(isochrone_masks, dslices_specs, workdir):
     """_summary_
     Args:
@@ -979,14 +1021,18 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
         workdir (_type_): _description_
     """
     model_file = isochrone_masks["model_file"]
-    gr, g0 = np.loadtxt(model_file, usecols=(0, 1), unpack=True)
-
+    df_model_file = dd.read_csv(model_file, sep = ' ', header = None, usecols=[0,1])
+    gr, g0 = df_model_file[0].to_dask_array().compute(), df_model_file[1].to_dask_array().compute()
+    
+            
     # read error files 
     gerr_file, rerr_file = isochrone_masks["magerr_blue_file"],\
                            isochrone_masks["magerr_red_file"]
-    gm, gm_err = np.loadtxt(gerr_file, usecols=(0, 1), unpack=True)
-
-    dstep = 10.
+    
+    df_gerr_file = dd.read_csv(gerr_file, sep = ' ', header = None, usecols=[0,1])                      
+    gm, gm_err = df_gerr_file[0].to_dask_array().compute(), df_gerr_file[1].to_dask_array().compute()
+    print(gm, gm_err)
+    dstep = 100000.
     dslices = [dslices_specs['dmin']]
     dist = dslices[0]
     nstep = 2*int((dslices_specs['dmax'] - dslices_specs['dmin'])/dstep)+1
@@ -1011,7 +1057,7 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
                 break
 
     dslices = np.array(dslices)
-    dslices = dslices[(dslices<125000.) & (dslices>80000.)]
+    #dslices = dslices[(dslices<125000.) & (dslices>80000.)]
     data = np.zeros( (len(dslices)), 
                      dtype = {
                          'names':(
@@ -1031,6 +1077,7 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
     return
 
 
+#@timeit
 def gmag_weight(gmag, dslice, isochrone_masks, gawa_cfg):    
     """_summary_
 
@@ -1051,6 +1098,7 @@ def gmag_weight(gmag, dslice, isochrone_masks, gawa_cfg):
     weight[weight<=gawa_cfg['wmin']] = gawa_cfg['wmin']
     return weight
 
+#@timeit
 def gmag_weight_map(dslice, isochrone_masks, gawa_cfg): 
     """_summary_
 
@@ -1076,6 +1124,7 @@ def gmag_weight_map(dslice, isochrone_masks, gawa_cfg):
     return np.tile(weight, (nx, 1))
 
 
+#@timeit
 def add_peaks_attributes(data_peaks, data_stars, starcat, bkg_arcmin2, 
                          dslice, isochrone_masks, tile, gawa_cfg):
     """_summary_
@@ -1127,6 +1176,7 @@ def add_peaks_attributes(data_peaks, data_stars, starcat, bkg_arcmin2,
     return
 
 
+#@timeit
 def key_cylinder(key_cyl, key_1, length, i0, i1, isl, nslices, type):
     """_summary_
 
@@ -1162,6 +1212,7 @@ def key_cylinder(key_cyl, key_1, length, i0, i1, isl, nslices, type):
     return key_cyl
 
 
+#@timeit
 def init_cylinders (keyrank, peak_ids, wazp_specs):
     """_summary_
 
@@ -1218,6 +1269,7 @@ def init_cylinders (keyrank, peak_ids, wazp_specs):
     return data_cylinders
 
 
+#@timeit
 def append_peaks_infos_to_cylinders(data_cylinders_init, peaks_list, dslices,
                                     ip_cyl, ra_cyl, dec_cyl, rank_cyl, snr_cyl):    
 
@@ -1283,6 +1335,7 @@ def append_peaks_infos_to_cylinders(data_cylinders_init, peaks_list, dslices,
     return join_struct_arrays(arrays)
 
 
+#@timeit
 def make_cylinders(peaks_list, dslices, gawa_cfg):
     """_summary_
 
@@ -1378,7 +1431,7 @@ def make_cylinders(peaks_list, dslices, gawa_cfg):
                     dec_cyl = key_cylinder(
                         dec_cyl,  dec_1, np0, i0, i1, isl, nsl, type='float'
                     )
-
+    data_cylinders = None 
     if npeaks_all > 0:
         data_init = init_cylinders (rank_cyl, ip_cyl, gawa_cfg)
         data_cylinders = append_peaks_infos_to_cylinders(
@@ -1390,11 +1443,12 @@ def make_cylinders(peaks_list, dslices, gawa_cfg):
         print('..........Number of cylinders : '+str(ncyl))
         print('..........Ratio npeaks / ncyl : '+\
               str(np.round(float(npeaks_all)/float(ncyl), 2)) )
-    else:
-        data_cylinders = None 
+    # else:
+    #     data_cylinders = None 
     return data_cylinders 
 
 
+#@timeit
 def gawa_tile_slice(tile, dslice, isochrone_masks, data_star, starcat, 
                     data_fp, footprint, gawa_cfg, out_paths, verbose):
     """_summary_
@@ -1549,6 +1603,7 @@ def gawa_tile_slice(tile, dslice, isochrone_masks, data_star, starcat,
     return data_peaks[condf]
 
 
+#@timeit
 def gawa_tile(tile_specs, isochrone_masks, data_star, starcat, data_fp, footprint, 
               gawa_cfg, admin, out_paths, verbose):
     """_summary_
@@ -1659,6 +1714,7 @@ def gawa_tile(tile_specs, isochrone_masks, data_star, starcat, data_fp, footprin
     return data_clusters, tile_info 
 
 
+#@timeit
 def run_gawa_tile(args):
     """_summary_
 
@@ -1671,6 +1727,7 @@ def run_gawa_tile(args):
     # read config file
     with open(config) as fstream:
         params = yaml.safe_load(fstream)
+        fstream.close()
 
     survey  = params['survey']
     starcat = params['starcat'][survey]
@@ -1735,6 +1792,7 @@ def run_gawa_tile(args):
     return
 
 
+#@timeit
 def cylinders2clusters(data_cylinders, peaks_list, tile, dslices, out_paths, clkeys):
     """_summary_
 
@@ -1776,6 +1834,7 @@ def cylinders2clusters(data_cylinders, peaks_list, tile, dslices, out_paths, clk
     return t
 
 
+#@timeit
 def cl_duplicates_filtering(data_clusters_in, gawa_cfg, mode):
     """_summary_
 
@@ -1833,6 +1892,7 @@ def cl_duplicates_filtering(data_clusters_in, gawa_cfg, mode):
     return data_clusters_out
 
 
+#@timeit
 def tiles_with_clusters(out_paths, all_tiles):
     """_summary_
 
@@ -1861,6 +1921,7 @@ def tiles_with_clusters(out_paths, all_tiles):
     return all_tiles[flag==1]
 
 
+#@timeit
 def gawa_concatenate(all_tiles, gawa_cfg, out_paths):
     """_summary_
 
@@ -1875,9 +1936,10 @@ def gawa_concatenate(all_tiles, gawa_cfg, out_paths):
     # concatenate all tiles 
     print ('Concatenate clusters')
     list_clusters = []
-    for it in range(0, len(all_tiles)):
-        tile_dir = tile_dir_name(out_paths['workdir'], int(all_tiles['id'][it]) )
-        list_clusters.append(os.path.join(tile_dir, out_paths['gawa']['results']))
+    # for it in range(0, len(all_tiles)):
+    #     tile_dir = tile_dir_name(out_paths['workdir'], int(all_tiles['id'][it]) )
+        # list_clusters.append(os.path.join(tile_dir, out_paths['gawa']['results']))
+    list_clusters = list(map(lambda it: os.path.join(tile_dir_name(out_paths['workdir'], int(all_tiles['id'][it]) ), out_paths['gawa']['results']), list(range(len(all_tiles)))))
     data_clusters0 = concatenate_clusters(
         list_clusters, 'clusters.fits', 
         os.path.join(out_paths['workdir'], 'clusters0.fits')
