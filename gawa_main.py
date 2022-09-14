@@ -88,6 +88,7 @@ def run(param, parsl_conf):
     # store config file in workdir
     with open(os.path.join(workdir, 'gawa.cfg'), 'w') as outfile:
         json.dump(param, outfile)
+        outfile.close()
 
     config = os.path.join(workdir, 'gawa.cfg')    
 
@@ -180,6 +181,7 @@ if __name__ == '__main__':
     # Loading Lephare configurations
     with open(config_path) as _file:
         gawa_config = yaml.load(_file, Loader=yaml.FullLoader)
+        _file.close()
 
     parsl_config = get_config(gawa_config['executor'])
 

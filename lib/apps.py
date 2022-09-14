@@ -32,6 +32,7 @@ def run_gawa_tile_job(args):
     # read config file
     with open(config) as fstream:
         params = yaml.load(fstream, Loader=yaml.FullLoader)
+        fstream.close()
 
     survey  = params['survey']
     starcat = params['starcat'][survey]
