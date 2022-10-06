@@ -97,7 +97,7 @@ def run_gawa_tile_job(args):
     return tile
 
 
-@python_app
+# @python_app
 def compute_cmd_masks_job(isochrone_masks, out_paths, gawa_cfg):
     from lib.gawa import compute_cmd_masks
     from lib.utils import get_logger

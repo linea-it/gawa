@@ -10,6 +10,7 @@ gawa.cfg
 .vscode/
 output/
 output_*/
-env.sh
+gawa.sh
+*.cfg
 /footprint/
 /isochrone_masks/

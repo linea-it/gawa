@@ -961,13 +961,13 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
     gerr_file, rerr_file = isochrone_masks["magerr_blue_file"],isochrone_masks["magerr_red_file"]
     gm, gm_err = np.loadtxt(gerr_file, usecols=(0, 1), unpack=True)
 
-    dstep = 10.
+    dstep = dslices_specs['dstep']
     dslices = [dslices_specs['dmin']]
     dist = dslices[0]
     nstep = 2*int((dslices_specs['dmax'] - dslices_specs['dmin'])/dstep)+1
     g = g0 + 5.*np.log10(dist/10.)
     gmin, gmax = np.amin(g[(gr<0.05) & (gr>-0.05)]),np.amax(g[(gr<0.05) & (gr>-0.05)])
-    gmin, gmax = gmin - np.interp (gmin, gm, gm_err),gmax + np.interp (gmax, gm, gm_err)    
+    gmin, gmax = gmin - np.interp (gmin, gm, gm_err),gmax + np.interp (gmax, gm, gm_err)
 
     for j in range(0,nstep):
         dist+=dstep
@@ -984,7 +984,7 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
                 break
 
     dslices = np.array(dslices)
-    dslices = dslices[(dslices<125000.) & (dslices>80000.)]
+    # dslices = dslices[(dslices<125000.) & (dslices>80000.)]
     data = np.zeros( (len(dslices)), 
         dtype = {
             'names':(

@@ -12,7 +12,7 @@ from lib.utils import (
     create_survey_footprint_from_mosaic, add_key_to_fits
 )
 from lib.gawa import (compute_dslices, gawa_concatenate, tiles_with_clusters)
-from lib.parsl_config import get_config
+from lib.parsl_config import get_executor
 from lib.apps import run_gawa_tile_job, compute_cmd_masks_job
 import argparse
 import logging, time
@@ -22,14 +22,18 @@ LEVEL = os.environ.get('GAWA_LOG_LEVEL', 'info')
 
 
 def run(param, parsl_conf):
-    """_summary_
+    """ Run GAWA workflow
 
     Args:
-        param (_type_): _description_
-        parsl_conf (_type_): _description_
+        param (dict): workflow config
+        parsl_conf (object): Config Parsl instance 
     """
     workdir = param['out_paths']['workdir']
     create_directory(workdir)
+
+    # Save the configuration used in the output directory
+    with open(f'{workdir}/gawa.ini', 'w') as _file:
+        yaml.dump(param, _file)
 
     logger = get_logger(
         name=__name__, level=LEVEL,
@@ -139,7 +143,7 @@ def run(param, parsl_conf):
 
     out_paths = param['out_paths']
     proc_masks = compute_cmd_masks_job(isochrone_masks[survey], out_paths, gawa_cfg)
-    proc_masks.result()
+    # proc_masks.result()
     logger.info(f'...Done in {time.time() - start_time} seconds')
 
     logger.info(f'> Compute Gawa per tiles')
@@ -181,7 +185,7 @@ if __name__ == '__main__':
     with open(config_path) as _file:
         gawa_config = yaml.load(_file, Loader=yaml.FullLoader)
 
-    parsl_config = get_config(gawa_config['executor'])
+    parsl_config = get_executor(gawa_config['executor'], gawa_config['executors'])
 
     gawa_root = os.getenv('GAWA_ROOT', '.')
     os.chdir(gawa_root)

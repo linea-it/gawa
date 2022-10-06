@@ -8,7 +8,40 @@ survey: 'MOCK_DES'  # DES
 ref_bfilter: 'filter_g'
 ref_rfilter: 'filter_r'
 ref_color: 'gr'
-executor: 'local_threads' # local_threads, local, htcondor or sdumont 
+executor: 'linea'
+executors:
+  linea:
+    classname: 'ICEXExecutor'
+    label: 'icex'
+    max_workers: 54
+    condor_provider:
+      init_blocks: 8
+      min_blocks: 8
+      max_blocks: 8
+      parallelism: 0.5
+      scheduler_options: '+RequiresWholeMachine = True'
+      cmd_timeout: 120
+  sdumont:
+    classname: 'SDExecutor'
+    label: 'sd'
+    sd_provider:
+      partition: 'cpu_small'
+      nodes_per_block: 10 # number of nodes
+      cmd_timeout: 240 # duration for which the provider will wait for a command to be invoked on a remote system
+      init_blocks: 5
+      min_blocks: 5
+      max_blocks: 5
+      parallelism: 1
+      walltime: '03:20:00'
+  local:
+    classname: 'HTLocalExecutor'
+    label: 'local'
+    max_workers: 4
+    local_provider:
+      min_blocks: 1
+      init_blocks: 1
+      max_blocks: 1
+      parallelism: 1
 
 ##  I/O section
 input_data_structure:
