@@ -22,11 +22,11 @@ LEVEL = os.environ.get('GAWA_LOG_LEVEL', 'info')
 
 
 def run(param, parsl_conf):
-    """_summary_
+    """ Run the Gawa pipeline
 
     Args:
-        param (_type_): _description_
-        parsl_conf (_type_): _description_
+        param (dict): Gawa parameters. See gawa.cfg for more details
+        parsl_conf (instance): Parsl config instance
     """
     workdir = param['out_paths']['workdir']
     create_directory(workdir)

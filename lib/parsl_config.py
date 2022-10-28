@@ -12,7 +12,11 @@ def get_config(key):
     Creates an instance of the Parsl configuration 
 
     Args:
-        phz_config (dict): Photo-z pipeline configuration - available in the config.yml
+        key (str): The key of the configuration to be returned.
+            Options are: 'local', 'local_threads', 'sdumont', 'htcondor'.
+
+    Returns:
+        config: Parsl config instance.
     """
 
     gawa_root_dir = os.getenv('GAWA_ROOT', '.')
