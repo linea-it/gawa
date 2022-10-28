@@ -14,3 +14,4 @@ gawa.sh
 *.cfg
 /footprint/
 /isochrone_masks/
+env.sh

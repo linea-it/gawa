@@ -1,194 +1,279 @@
+from lib.multithread import split_equal_area_in_threads
+from lib.utils import (
+    hpx_split_survey,
+    get_logger,
+    read_FitsCat,
+    create_directory,
+    create_survey_footprint_from_mosaic,
+    add_key_to_fits,
+)
+from lib.gawa import compute_dslices, gawa_concatenate, tiles_with_clusters
+from lib.parsl_config import get_parsl_config
+from lib.apps import (
+    run_gawa_tile_job,
+    compute_cmd_masks_job,
+    create_mosaic_footprint_job,
+    initialize,
+)
+import argparse
+import logging
+import time
+import parsl
+import matplotlib
 import numpy as np
 import yaml
 import os
 import json
-import matplotlib
-matplotlib.use('Agg')
 
-from lib.multithread import split_equal_area_in_threads
-from lib.utils import (
-    hpx_split_survey, get_logger, read_FitsCat,
-    create_directory, create_mosaic_footprint,
-    create_survey_footprint_from_mosaic, add_key_to_fits
-)
-from lib.gawa import (compute_dslices, gawa_concatenate, tiles_with_clusters)
-from lib.parsl_config import get_executor
-from lib.apps import run_gawa_tile_job, compute_cmd_masks_job
-import argparse
-import logging, time
-import parsl
+matplotlib.use("Agg")
 
-LEVEL = os.environ.get('GAWA_LOG_LEVEL', 'info')
+LEVEL = os.environ.get("GAWA_LOG_LEVEL", "info")
 
 
-def run(param, parsl_conf):
-    """ Run GAWA workflow
+class Gawa(object):
+    config = {}
+    parsl_cfg = None
+    workdir = "."
+    step_time = {}
+    logger = logging.getLogger(__name__)
 
-    Args:
-        param (dict): workflow config
-        parsl_conf (object): Config Parsl instance 
-    """
-    workdir = param['out_paths']['workdir']
-    create_directory(workdir)
+    def __init__(self, config: dict):
+        self.config = config
+        self.parsl_cfg = get_parsl_config(self.config)
+        self.workdir = self.config["out_paths"]["workdir"]
 
-    # Save the configuration used in the output directory
-    with open(f'{workdir}/gawa.ini', 'w') as _file:
-        yaml.dump(param, _file)
+        # creating working & output directories
+        create_directory(self.workdir)
+        create_directory(os.path.join(self.workdir, "tiles"))
 
-    logger = get_logger(
-        name=__name__, level=LEVEL,
-        stdout=os.path.join(workdir, 'pipeline.log')
-    )
+        # save the configuration used in the output directory
+        with open(f"{self.workdir}/gawa.ini", "w") as _file:
+            yaml.dump(config, _file)
 
-    handler_cons = logging.StreamHandler()
-    logger.addHandler(handler_cons)
+        self.logger = self._get_parsl_log()
 
-    start_time_full = time.time()
+        # changing run directory to sandbox in "child jobs".
+        self.parsl_cfg.run_dir = os.path.join(self.workdir, "runinfo")
 
-    # Changing run directory to sandbox in "child jobs".
-    parsl_conf.run_dir = os.path.join(workdir, "runinfo")
+    def run(self):
+        """Run GAWA workflow"""
 
-    # Settings Parsl configurations
-    parsl.clear()
-    parsl.load(parsl_conf)
+        # settings Parsl configurations
+        parsl.clear()
+        parsl.load(self.parsl_cfg)
 
-    # Working & output directories 
-    create_directory(os.path.join(workdir, 'tiles'))
-    survey = param['survey']
-    logger.info(f'Survey: {survey}')
-    logger.info(f'Workdir: {workdir}')
-    tiles_filename = os.path.join(
-        workdir, param['admin']['tiling']['tiles_filename']
-    )
+        survey = self.config.get("survey")
+        self.logger.info(f"Survey: {survey}")
+        self.logger.info(f"Workdir: {self.workdir}")
+        self.logger.info(f"Executor: {self.config.get('executor')}")
 
-    # create required data structure if not exist and update config 
-    if not param['input_data_structure'][survey]['footprint_hpx_mosaic']:
-        start_time = time.time()
-        logger.info(f'> Creating footprint mosaic for {survey}')
-        create_mosaic_footprint(
-            param['footprint'][survey], os.path.join(workdir, 'footprint')
+        # step 1: creating footprint mosaic if not exist and updating config
+        if not self.config["input_data_structure"][survey]["footprint_hpx_mosaic"]:
+            footprint_path = self.create_mosaic_footprint()
+            self.config["footprint"][survey]["mosaic"]["dir"] = footprint_path
+
+        ref_bfilter = self.config["ref_bfilter"]
+        ref_rfilter = self.config["ref_rfilter"]
+        ref_color = self.config["ref_color"]
+        isoc_masks = self.config["isochrone_masks"][survey]
+
+        # update parameters with selected filters in config
+        keys = self.config["starcat"][survey]["keys"]
+        keys["key_mag_blue"] = keys["key_mag"][ref_bfilter]
+        keys["key_mag_red"] = keys["key_mag"][ref_rfilter]
+        isoc_masks["magerr_blue_file"] = isoc_masks["magerr_file"][ref_bfilter]
+        isoc_masks["magerr_red_file"] = isoc_masks["magerr_file"][ref_rfilter]
+        isoc_masks["model_file"] = isoc_masks["model_file"][ref_color]
+        isoc_masks["mask_color_min"] = isoc_masks["mask_color_min"][ref_color]
+        isoc_masks["mask_color_max"] = isoc_masks["mask_color_max"][ref_color]
+        isoc_masks["mask_mag_min"] = isoc_masks["mask_mag_min"][ref_bfilter]
+        isoc_masks["mask_mag_max"] = isoc_masks["mask_mag_max"][ref_bfilter]
+
+        # store config file in workdir
+        with open(os.path.join(self.workdir, "gawa.cfg"), "w") as outfile:
+            json.dump(self.config, outfile)
+
+        survey_footprint = self.create_survey_footprint_from_mosaic()
+        footprint = self.config["footprint"]
+        tiles_filename = os.path.join(
+            self.workdir, self.config["admin"]["tiling"]["tiles_filename"]
         )
-        param['footprint'][survey]['mosaic']['dir'] = os.path.join(
-            workdir, 'footprint'
-        )
-        logger.info(f'...Done in {time.time() - start_time} seconds')
 
-    ref_bfilter = param['ref_bfilter']
-    ref_rfilter = param['ref_rfilter']
-    ref_color = param['ref_color']
-    isochrone_masks = param['isochrone_masks']
-
-    # update parameters with selected filters in config 
-    param['starcat'][survey]['keys']['key_mag_blue'] = param['starcat'][survey]['keys']['key_mag'][ref_bfilter]
-    param['starcat'][survey]['keys']['key_mag_red'] = param['starcat'][survey]['keys']['key_mag'][ref_rfilter]
-    isochrone_masks[survey]['magerr_blue_file'] = isochrone_masks[survey]['magerr_file'][ref_bfilter]
-    isochrone_masks[survey]['magerr_red_file'] = isochrone_masks[survey]['magerr_file'][ref_rfilter]
-    isochrone_masks[survey]['model_file'] = isochrone_masks[survey]['model_file'][ref_color]
-    isochrone_masks[survey]['mask_color_min'] = isochrone_masks[survey]['mask_color_min'][ref_color]
-    isochrone_masks[survey]['mask_color_max'] = isochrone_masks[survey]['mask_color_max'][ref_color]
-    isochrone_masks[survey]['mask_mag_min'] = isochrone_masks[survey]['mask_mag_min'][ref_bfilter]
-    isochrone_masks[survey]['mask_mag_max'] = isochrone_masks[survey]['mask_mag_max'][ref_bfilter]
-
-    # store config file in workdir
-    with open(os.path.join(workdir, 'gawa.cfg'), 'w') as outfile:
-        json.dump(param, outfile)
-
-    config = os.path.join(workdir, 'gawa.cfg')    
-
-    input_data_structure = param['input_data_structure']
-    footprint = param['footprint']
-
-    # split_area:
-    if input_data_structure[survey]['footprint_hpx_mosaic']: 
-        survey_footprint = os.path.join(workdir, 'survey_footprint.fits')
-        if not os.path.isfile(survey_footprint):
+        if not os.path.isfile(tiles_filename):
             start_time = time.time()
-            logger.info(f'> Creating survey_footprint from mosaic')
-            create_survey_footprint_from_mosaic(
-                footprint[survey], survey_footprint
+            self.logger.info("> Creating tiles")
+            ntiles = hpx_split_survey(
+                survey_footprint,
+                footprint[survey],
+                self.config["admin"]["tiling"],
+                tiles_filename,
             )
-            logger.info(f'...Done in {time.time() - start_time} seconds')
-    else:
-        survey_footprint = footprint[survey]['survey_footprint']
+            n_threads, thread_ids = split_equal_area_in_threads(
+                self.config["admin"]["nthreads_max"], tiles_filename
+            )
+            add_key_to_fits(tiles_filename, thread_ids, "thread_id", "int")
+            all_tiles = read_FitsCat(tiles_filename)
+            _time = time.time() - start_time
+            self.step_time.update({"create_tiles": _time})
+            self.logger.info(f"...Done in {_time} seconds")
+        else:
+            all_tiles = read_FitsCat(tiles_filename)
+            ntiles, n_threads = len(all_tiles), np.amax(all_tiles["thread_id"])
+            thread_ids = all_tiles["thread_id"]
 
-    if not os.path.isfile(tiles_filename):
+        self.logger.info(f"Ntiles / Nthreads = {ntiles}/{n_threads}")
+
+        gawa_cfg = self.config["gawa_cfg"]
+
+        # prepare dslices
         start_time = time.time()
-        logger.info(f'> Creating tiles')
-        ntiles = hpx_split_survey(
-            survey_footprint, footprint[survey], param['admin']['tiling'], tiles_filename
+        self.logger.info("> Preparing dslices")
+        compute_dslices(isoc_masks, gawa_cfg["dslices"], self.workdir)
+        _time = time.time() - start_time
+        self.step_time.update({"prepare_dslices": _time})
+        self.logger.info(f"...Done in {_time} seconds")
+
+        # waiting for resources availability
+        self.logger.info("> Waiting for resources availability...")
+        start_wait_time = time.time()
+        future = initialize()
+        future.result()
+        wait_time = time.time() - start_wait_time
+        self.logger.info(f"...Done in {wait_time} seconds")
+
+        # compute cmd_masks
+        start_time = time.time()
+        self.logger.info("> Compute CMD masks")
+        out_paths = self.config["out_paths"]
+        proc_masks = compute_cmd_masks_job(isoc_masks, out_paths, gawa_cfg)
+        proc_masks.result()
+        _time = time.time() - start_time
+        self.step_time.update({"compute_cmd_masks": _time})
+        self.logger.info(f"...Done in {_time} seconds")
+
+        # compute gawa per tiles
+        self.logger.info("> Compute Gawa per tiles")
+        start_time = time.time()
+        procs = list()
+        config = os.path.join(self.workdir, "gawa.cfg")
+
+        for tile in all_tiles:
+            procs.append(run_gawa_tile_job((tile, config)))
+
+        for proc in procs:
+            proc.result()
+
+        _time = time.time() - start_time
+        self.step_time.update({"compute_gawa_per_tiles": _time})
+        self.logger.info(f"...Done in {_time} seconds")
+
+        self.concatenate_tiles(all_tiles)
+
+        self.logger.info(f"Results in {self.workdir}")
+        self.logger.info(f"Time elapsed: {self.fulltime}")
+        parsl.clear()
+
+    @property
+    def fulltime(self):
+        """Sum the execution time of all steps"""
+
+        fulltime = 0.0
+
+        for key, value in self.step_time.items():
+            fulltime += value
+
+        return fulltime
+
+    def concatenate_tiles(self, all_tiles):
+        """Concatenate tiles with clusters
+
+        Args:
+            all_tiles (astropy.io.fits.fitsrec.FITS_rec): all tiles
+        """
+
+        out_paths = self.config["out_paths"]
+        gawa_cfg = self.config["gawa_cfg"]
+
+        # concatenate tiles with clusters
+        start_time = time.time()
+        self.logger.info("> Concatenating tiles with clusters")
+        eff_tiles = tiles_with_clusters(out_paths, all_tiles)
+        data_clusters = gawa_concatenate(eff_tiles, gawa_cfg, out_paths)
+        data_clusters.write(
+            os.path.join(out_paths["workdir"], "clusters.fits"), overwrite=True
         )
-        n_threads, thread_ids = split_equal_area_in_threads(
-            param['admin']['nthreads_max'], tiles_filename
+        _time = time.time() - start_time
+        self.logger.info(f"...Done in {_time} seconds")
+        self.step_time.update({"concatenate_tiles": _time})
+
+    def create_survey_footprint_from_mosaic(self):
+        """Create survey footprint from mosaic"""
+
+        start_time = time.time()
+        survey = self.config.get("survey")
+        input_data_structure = self.config["input_data_structure"]
+        footprint = self.config["footprint"]
+
+        if input_data_structure[survey]["footprint_hpx_mosaic"]:
+            survey_footprint = os.path.join(self.workdir, "survey_footprint.fits")
+            if not os.path.isfile(survey_footprint):
+                self.logger.info("> Creating survey_footprint from mosaic")
+                create_survey_footprint_from_mosaic(footprint[survey], survey_footprint)
+                _time = time.time() - start_time
+                self.step_time.update({"create_survey_footprint_from_mosaic": _time})
+                self.logger.info(f"...Done in {_time} seconds")
+        else:
+            survey_footprint = footprint[survey]["survey_footprint"]
+
+        return survey_footprint
+
+    def create_mosaic_footprint(self):
+        """Create mosaic footprint"""
+
+        start_time = time.time()
+        survey = self.config.get("survey")
+        self.logger.info(f"> Creating footprint mosaic for {survey}")
+        footprint_path = os.path.join(self.workdir, "footprint")
+        process = create_mosaic_footprint_job(
+            self.config["footprint"][survey], footprint_path
         )
-        add_key_to_fits(tiles_filename, thread_ids, 'thread_id', 'int')
-        all_tiles = read_FitsCat(tiles_filename)
-        logger.info(f'...Done in {time.time() - start_time} seconds')
-    else:
-        all_tiles = read_FitsCat(tiles_filename)
-        ntiles, n_threads = len(all_tiles), np.amax(all_tiles['thread_id']) 
-        thread_ids = all_tiles['thread_id']
-    logger.info(f'Ntiles / Nthreads = {ntiles}/{n_threads}')
+        process.result()
+        _time = time.time() - start_time
+        self.step_time.update({"create_mosaic_footprint": _time})
+        self.logger.info(f"...Done in {_time} seconds")
+        return footprint_path
 
-    gawa_cfg = param['gawa_cfg']
+    def _get_parsl_log(self):
+        """Get logging instance
 
-    # prepare dslices 
-    start_time = time.time()
-    logger.info(f'> Preparing dslices')
-    compute_dslices(isochrone_masks[survey], gawa_cfg['dslices'], workdir)
-    logger.info(f'...Done in {time.time() - start_time} seconds')
+        Returns:
+            logging.Logger: logging instance
+        """
 
-    # compute cmd_masks 
-    start_time = time.time()
-    logger.info('> Compute CMD masks')
-
-    out_paths = param['out_paths']
-    proc_masks = compute_cmd_masks_job(isochrone_masks[survey], out_paths, gawa_cfg)
-    # proc_masks.result()
-    logger.info(f'...Done in {time.time() - start_time} seconds')
-
-    logger.info(f'> Compute Gawa per tiles')
-    start_time = time.time()
-    procs = list()
-    for tile in all_tiles:
-        procs.append(run_gawa_tile_job((tile, config))) 
-
-    for proc in procs:
-        proc.result()
-    logger.info(f'...Done in {time.time() - start_time} seconds')
-
-    # concatenate
-    # tiles with clusters 
-    start_time = time.time()
-    logger.info(f'> Concatenating tiles with clusters')
-    eff_tiles = tiles_with_clusters(out_paths, all_tiles)
-    data_clusters = gawa_concatenate(eff_tiles, gawa_cfg, out_paths)
-    data_clusters.write(
-        os.path.join(out_paths['workdir'],'clusters.fits'), overwrite=True
-    )
-    logger.info(f'...All done folks: {time.time() - start_time} seconds')
-    logger.info(f'Results in {workdir}')
-    logger.info(f'Time elapsed: {time.time() - start_time_full}')
-    parsl.clear()
+        logger = get_logger(
+            name=__name__,
+            level=LEVEL,
+            stdout=os.path.join(self.workdir, "pipeline.log"),
+        )
+        logger.addHandler(logging.StreamHandler())
+        return logger
 
 
-if __name__ == '__main__':
-    working_dir = os.getcwd()
-
+if __name__ == "__main__":
     # Create the parser and add arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument(dest='config_path', help="yaml config path")
+    parser.add_argument(dest="config_path", help="yaml config path")
 
     args = parser.parse_args()
     config_path = args.config_path
 
-    # Loading Lephare configurations
+    # Loading configurations
     with open(config_path) as _file:
         gawa_config = yaml.load(_file, Loader=yaml.FullLoader)
 
-    parsl_config = get_executor(gawa_config['executor'], gawa_config['executors'])
-
-    gawa_root = os.getenv('GAWA_ROOT', '.')
+    gawa_root = os.getenv("GAWA_ROOT", ".")
     os.chdir(gawa_root)
 
     # Run GAWA
-    run(gawa_config, parsl_config)
+    gawa_wf = Gawa(gawa_config)
+    gawa_wf.run()
