@@ -1,3 +1,4 @@
+from sys import stderr, stdout
 from lib.multithread import split_equal_area_in_threads
 from lib.utils import (
     hpx_split_survey,
@@ -67,7 +68,18 @@ class Gawa(object):
         self.logger.info(f"Workdir: {self.workdir}")
         self.logger.info(f"Executor: {self.config.get('executor')}")
 
-        # step 1: creating footprint mosaic if not exist and updating config
+        # waiting for resources availability
+        self.logger.info("> Waiting for resources availability...")
+        start_wait_time = time.time()
+        initlog = f"{self.workdir}/init.out"
+        future = initialize(stderr=initlog, stdout=initlog)
+        future.result()
+        wait_time = time.time() - start_wait_time
+        self.logger.info(f"...Done in {wait_time} seconds")
+
+        start_full_time = time.time()
+
+        # creating footprint mosaic if not exist and updating config
         if not self.config["input_data_structure"][survey]["footprint_hpx_mosaic"]:
             footprint_path = self.create_mosaic_footprint()
             self.config["footprint"][survey]["mosaic"]["dir"] = footprint_path
@@ -133,14 +145,6 @@ class Gawa(object):
         self.step_time.update({"prepare_dslices": _time})
         self.logger.info(f"...Done in {_time} seconds")
 
-        # waiting for resources availability
-        self.logger.info("> Waiting for resources availability...")
-        start_wait_time = time.time()
-        future = initialize()
-        future.result()
-        wait_time = time.time() - start_wait_time
-        self.logger.info(f"...Done in {wait_time} seconds")
-
         # compute cmd_masks
         start_time = time.time()
         self.logger.info("> Compute CMD masks")
@@ -170,7 +174,9 @@ class Gawa(object):
         self.concatenate_tiles(all_tiles)
 
         self.logger.info(f"Results in {self.workdir}")
-        self.logger.info(f"Time elapsed: {self.fulltime}")
+        self.logger.info(f"Time steps: {self.fulltime}")
+        fulltime = time.time() - start_full_time
+        self.logger.info(f"Time elapsed: {fulltime}")
         parsl.clear()
 
     @property
