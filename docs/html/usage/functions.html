@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Functions &mdash; Gawa 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="QuickStart" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Gawa
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">QuickStart</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Gawa</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Functions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/usage/functions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-gawa_main">
+<span id="functions"></span><h1>Functions<a class="headerlink" href="#module-gawa_main" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="gawa_main.run">
+<span class="sig-prename descclassname"><span class="pre">gawa_main.</span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parsl_conf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gawa_main.run" title="Permalink to this definition"></a></dt>
+<dd><p>Run the Gawa pipeline</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>param</strong> (<em>dict</em>) – Gawa parameters. See gawa.cfg for more details</p></li>
+<li><p><strong>parsl_conf</strong> (<em>instance</em>) – Parsl config instance</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-lib.gawa"></span><dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.Dist_err">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">Dist_err</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.Dist_err" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>isochrone_masks</strong> (<em>bool</em>) – _description_</p></li>
+<li><p><strong>dslice</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.add_peaks_attributes">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">add_peaks_attributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_peaks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_stars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bkg_arcmin2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.add_peaks_attributes" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_peaks</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>data_stars</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>starcat</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>bkg_arcmin2</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dslice</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>isochrone_masks</strong> (<em>bool</em>) – _description_</p></li>
+<li><p><strong>tile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>gawa_cfg</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.append_peaks_infos_to_cylinders">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">append_peaks_infos_to_cylinders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_cylinders_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip_cyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra_cyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_cyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank_cyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr_cyl</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.append_peaks_infos_to_cylinders" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_cylinders_init</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>peaks_list</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dslices</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>ip_cyl</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>ra_cyl</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dec_cyl</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>rank_cyl</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>snr_cyl</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.cl_duplicates_filtering">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">cl_duplicates_filtering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_clusters_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.cl_duplicates_filtering" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_clusters_in</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>gawa_cfg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>mode</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.cmd_filter">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">cmd_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">magg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmd_mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.cmd_filter" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>magg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>magr</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>cmd_mask</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>isochrone_masks</strong> (<em>bool</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.cmd_mask">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">cmd_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.cmd_mask" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dslice</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>isochrone_masks</strong> (<em>bool</em>) – _description_</p></li>
+<li><p><strong>nsig</strong> (<em>float</em>) – </p></li>
+<li><p><strong>out_paths</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.compute_catimage">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">compute_catimage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_catimage" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ra_map</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dec_map</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>weight_map</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>gawa_cfg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>tile_specs</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.compute_cmd_masks">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">compute_cmd_masks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger=&lt;module</span> <span class="pre">'logging'</span> <span class="pre">from</span> <span class="pre">'/home/singulani/miniconda3/envs/gawa/lib/python3.9/logging/__init__.py'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_cmd_masks" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>isochrone_masks</strong> (<em>bool</em>) – _description_</p></li>
+<li><p><strong>out_paths</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>gawa_cfg</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.compute_dslices">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">compute_dslices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslices_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_dslices" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>isochrone_masks</strong> (<em>bool</em>) – _description_</p></li>
+<li><p><strong>dslices_specs</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>workdir</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.compute_filled_catimage">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">compute_filled_catimage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bkg_arcmin2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_filled_catimage" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ra_map</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dec_map</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>weight_map</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>gawa_cfg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>tile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>data_fp</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>footprint</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>bkg_arcmin2</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.compute_flux_aper">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">compute_flux_aper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_flux_aper" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rap</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>decp</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>hpix</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>weight</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>aper</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>Nside</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nest</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.compute_flux_aper_vec">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">compute_flux_aper_vec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ras</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.compute_flux_aper_vec" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rap</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>decp</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>aper</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>ras</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>decs</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>weights</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.coverfrac_disc">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">coverfrac_disc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_deg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.coverfrac_disc" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ra</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dec</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>data_footprint</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>footprint</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>radius_deg</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.create_gawa_directories">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">create_gawa_directories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.create_gawa_directories" title="Permalink to this definition"></a></dt>
+<dd><p>Creates the relevant directories for writing intermediate
+files/ results/ plots</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>str</em>) – location of the new directories</p></li>
+<li><p><strong>path</strong> (<em>dic</em>) – dictionary of strings</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.create_wcs">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">create_wcs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.create_wcs" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gawa_cfg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>tile_specs</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.cylinders2clusters">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">cylinders2clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_cylinders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peaks_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clkeys</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.cylinders2clusters" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_cylinders</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>peaks_list</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>tile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dslices</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>out_paths</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>clkeys</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.effective_area_framed_tile">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">effective_area_framed_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.effective_area_framed_tile" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>data_fp</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>footprint</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>admin</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.filter_peaks">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">filter_peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_resolution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jp0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.filter_peaks" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>map_resolution</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>ra0</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dec0</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>ip0</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>jp0</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.fits2map">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">fits2map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wmap</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.fits2map" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>wmap</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.gawa_concatenate">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">gawa_concatenate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_tiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gawa_concatenate" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>out_paths</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>all_tiles</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.gawa_tile">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">gawa_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_star</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger=&lt;module</span> <span class="pre">'logging'</span> <span class="pre">from</span> <span class="pre">'/home/singulani/miniconda3/envs/gawa/lib/python3.9/logging/__init__.py'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gawa_tile" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tile_specs</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>isochrone_masks</strong> (<em>bool</em>) – _description_</p></li>
+<li><p><strong>data_star</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>starcat</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>data_fp</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>footprint</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>gawa_cfg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>admin</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>out_paths</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>verbose</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>logger</strong> (<em>instance</em>) – Logging instance.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.gawa_tile_slice">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">gawa_tile_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_star</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gawa_tile_slice" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dslice</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>isochrone_masks</strong> (<em>bool</em>) – _description_</p></li>
+<li><p><strong>data_star</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>starcat</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>data_fp</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>footprint</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>gawa_cfg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>out_paths</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>verbose</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.gmag_HB">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">gmag_HB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gmag_HB" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>isochrone_masks</strong> (<em>bool</em>) – _description_</p></li>
+<li><p><strong>dslice</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.gmag_weight">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">gmag_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gmag_weight" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gmag</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dslice</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>isochrone_masks</strong> (<em>bool</em>) – _description_</p></li>
+<li><p><strong>gawa_cfg</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.gmag_weight_map">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">gmag_weight_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.gmag_weight_map" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dslice</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>isochrone_masks</strong> (<em>bool</em>) – _description_</p></li>
+<li><p><strong>gawa_cfg</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.init_cylinders">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">init_cylinders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyrank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wazp_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.init_cylinders" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keyrank</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>peak_ids</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>wazp_specs</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.init_peaks_table">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">init_peaks_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_peaks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_peaks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iobj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jobj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coverfrac</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coverfrac_bkg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wradius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.init_peaks_table" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the table of peaks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ra</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dec</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>data_footprint</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>footprint</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>radius_deg</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.key_cylinder">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">key_cylinder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_cyl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nslices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.key_cylinder" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key_cyl</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>key_1</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>length</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>i0</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>i1</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>isl</strong> (<em>bool</em>) – _description_</p></li>
+<li><p><strong>nslices</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>type</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.make_cylinders">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">make_cylinders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peaks_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dslices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.make_cylinders" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peaks_list</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dslices</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>gawa_cfg</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.map2fits">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">map2fits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitsname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.map2fits" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>imap</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>gawa_cfg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>tile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>fitsname</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.pix2xy">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">pix2xy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.pix2xy" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ix</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>iy</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>xmin</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>xmax</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>ymin</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>ymax</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nx</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>ny</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.pixelized_colmag">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">pixelized_colmag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.pixelized_colmag" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>mag</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>weight</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>isochrone_masks</strong> (<em>bool</em>) – _description_</p></li>
+<li><p><strong>out</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.pixelized_radec">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">pixelized_radec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nxy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.pixelized_radec" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ra_map</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dec_map</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>weight_map</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>w</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nxy</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.plot_cmd">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">plot_cmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xall</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yall</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xar_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yar_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_png</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.plot_cmd" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xall</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>yall</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>xar_in</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>yar_in</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>isochrone_masks</strong> (<em>bool</em>) – _description_</p></li>
+<li><p><strong>file_png</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.plot_pixelized_colmag">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">plot_pixelized_colmag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color_aper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmag_aper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_aper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_slaper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmag_slaper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_slaper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.plot_pixelized_colmag" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color_aper</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>gmag_aper</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>weight_aper</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>color_slaper</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>gmag_slaper</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>weight_slaper</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>color</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>mag</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>weight</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>isochrone_masks</strong> (<em>bool</em>) – _description_</p></li>
+<li><p><strong>out</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.randoms_in_spherical_cap">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">randoms_in_spherical_cap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bkg_arcmin2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.randoms_in_spherical_cap" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>bkg_arcmin2</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.run_mr_filter">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">run_mr_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filled_catimage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wmap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.run_mr_filter" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filled_catimage</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>wmap</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>gawa_cfg</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.select_stars_in_disc">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">select_stars_in_disc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">racen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deccen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_stars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.select_stars_in_disc" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>racen</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>deccen</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>data_stars</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>starcat</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>aper</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.select_stars_in_slice">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">select_stars_in_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_star</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isochrone_masks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.select_stars_in_slice" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_star</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>starcat</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>gawa_cfg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>mask</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>isochrone_masks</strong> (<em>bool</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.tile_dir_name">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">tile_dir_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_nr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.tile_dir_name" title="Permalink to this definition"></a></dt>
+<dd><p>Defines the working directory at the tile level</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>workdir</strong> (<em>str</em>) – workdir</p></li>
+<li><p><strong>tile_nr</strong> (<em>int</em>) – tile index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>name of the tile directory</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.tiles_with_clusters">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">tiles_with_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_tiles</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.tiles_with_clusters" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>out_paths</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>all_tiles</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.wave_radius">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">wave_radius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wmap_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gawa_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.wave_radius" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wmap_data</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>ip</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>jp</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>gawa_cfg</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.wmap2peaks">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">wmap2peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wmap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wazp_specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.wmap2peaks" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wmap</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>wazp_specs</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>tile_specs</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.x2pix">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">x2pix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.x2pix" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>xmin</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>xmax</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nx</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.gawa.xy2pix">
+<span class="sig-prename descclassname"><span class="pre">lib.gawa.</span></span><span class="sig-name descname"><span class="pre">xy2pix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.gawa.xy2pix" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>y</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>xmin</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>xmax</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>ymin</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>ymax</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nx</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>ny</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-lib.utils"></span><dl class="py function">
+<dt class="sig sig-object py" id="lib.utils._mstar_">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">_mstar_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mstar_filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils._mstar_" title="Permalink to this definition"></a></dt>
+<dd><p>from a given (z, mstar) ascii file
+interpolate to provide the mstar at a given z_in</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mstar_filename</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>zin</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.add_clusters_unique_id">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">add_clusters_unique_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_clusters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clkeys</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.add_clusters_unique_id" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_clusters</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>clkeys</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.add_hpx_to_cat">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">add_hpx_to_cat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_gal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.add_hpx_to_cat" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_gal</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>ra</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dec</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>Nside_tmp</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nest_tmp</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>keyname</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.add_key_to_fits">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">add_key_to_fits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fitsfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.add_key_to_fits" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fitsfile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>key_val</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>key_name</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>key_type</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.all_hpx_in_annulus">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">all_hpx_in_annulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_in_deg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_out_deg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpx_meta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inclusive</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.all_hpx_in_annulus" title="Permalink to this definition"></a></dt>
+<dd><p>Get the list of all healpix pixels falling in an annulus around
+ra-dec (deg)
+the radii that define the annulus are in degrees
+pixels are inclusive on radius_out but not radius_in</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ra</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dec</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>radius_in_deg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>radius_out_deg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>hpx_meta</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>inclusive</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.area_ann_deg2">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">area_ann_deg2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.area_ann_deg2" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>theta_1</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>theta_2</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.concatenate_clusters">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">concatenate_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tiles_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infilename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clusters_outfile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.concatenate_clusters" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tiles_dir</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>clusters_outfile</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.concatenate_fits">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">concatenate_fits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.concatenate_fits" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flist</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>output</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.concatenate_fits_with_label">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">concatenate_fits_with_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.concatenate_fits_with_label" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flist</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>label_name</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>label</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>output</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.cond_in_disc">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">cond_in_disc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpxg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">racen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deccen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rad_deg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.cond_in_disc" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rag</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>decg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>hpxg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>Nside</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nest</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>racen</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>deccen</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>rad_deg</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.cond_in_hpx_disc">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">cond_in_hpx_disc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hpxg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">racen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deccen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rad_deg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.cond_in_hpx_disc" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hpxg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>Nside</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nest</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>racen</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>deccen</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>rad_deg</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.create_directory">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">create_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.create_directory" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dir</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.create_mosaic_footprint">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">create_mosaic_footprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.create_mosaic_footprint" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>footprint</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>fpath</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.create_survey_footprint_from_mosaic">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">create_survey_footprint_from_mosaic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">survey_footprint</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.create_survey_footprint_from_mosaic" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>footprint</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>fpath</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.create_tile_specs">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">create_tile_specs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_radius_deg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.create_tile_specs" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>tile_radius_deg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>admin</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.dist_ang">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">dist_ang</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra_ref</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_ref</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.dist_ang" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ra1</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dec1</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>ra_ref</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dec_ref</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.filter_hpx_tile">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">filter_hpx_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_specs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.filter_hpx_tile" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>cat</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>tile_specs</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.gaussian">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.gaussian" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>mu</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>sig</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.get_logger">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.get_logger" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a logger object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>string</em><em>, </em><em>optional</em>) – logger name. Defaults to None.</p></li>
+<li><p><strong>stdout</strong> (<em>boolean</em><em>, </em><em>optional</em>) – print to stdout. Defaults to True.</p></li>
+<li><p><strong>level</strong> (<em>string</em><em>, </em><em>optional</em>) – logger level. Defaults to ‘info’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>logger object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>logger</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.hpix2radec">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">hpix2radec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hpix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.hpix2radec" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hpix</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nside</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nest</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.hpx_degrade">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">hpx_degrade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pix_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nside_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nside_out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest_out</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.hpx_degrade" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pix_in</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nside_in</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nest_in</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nside_out</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nest_out</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.hpx_in_annulus">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">hpx_in_annulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_in_deg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_out_deg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpx_meta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inclusive</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.hpx_in_annulus" title="Permalink to this definition"></a></dt>
+<dd><p>Given an array of healpix pixels (hpix, frac) where frac is the
+covered fraction of each hpix pixel,
+computes the sub list of these pixels falling in an annulus around position
+ra-dec (deg)
+the radii that define the annulus are in degrees
+hpx pixels are inclusive on radius_out but not radius_in</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ra</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dec</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>radius_in_deg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>radius_out_deg</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>data_fp</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>hpx_meta</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>inclusive</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.hpx_split_survey">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">hpx_split_survey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">footprint_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.hpx_split_survey" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>footprint_file</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>footprint</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>admin</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>output</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.join_struct_arrays">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">join_struct_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arrays</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.join_struct_arrays" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>arrays</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.mad">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">mad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.mad" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.makeHealpixMap">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">makeHealpixMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nside</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.makeHealpixMap" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ra</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>dec</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>weights</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_. Defaults to None.</p></li>
+<li><p><strong>nside</strong> (<em>int</em><em>, </em><em>optional</em>) – _description_. Defaults to 1024.</p></li>
+<li><p><strong>nest</strong> (<em>bool</em><em>, </em><em>optional</em>) – _description_. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.phitheta2radec">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">phitheta2radec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.phitheta2radec" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phi</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>theta</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.radec2hpix">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">radec2hpix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.radec2hpix" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hpix</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nside</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nest</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.radec2phitheta">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">radec2phitheta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.radec2phitheta" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phi</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>theta</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.radec_window_area">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">radec_window_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ramin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ramax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.radec_window_area" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ramin</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>ramax</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>decmin</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>decmax</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.read_FitsCat">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">read_FitsCat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_FitsCat" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cat</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.read_FitsFootprint">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">read_FitsFootprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hpx_footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpx_meta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_FitsFootprint" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hpx_footprint</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>hpx_meta</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.read_mosaicFitsCat_in_disc">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">read_mosaicFitsCat_in_disc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">galcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_deg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_mosaicFitsCat_in_disc" title="Permalink to this definition"></a></dt>
+<dd><p>From a list of galcat files, selects objects in a cone centered
+on racen, deccen Output is a structured array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>galcat</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>tile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>radius_deg</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.read_mosaicFitsCat_in_hpix">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">read_mosaicFitsCat_in_hpix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">galcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpix_tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside_tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest_tile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_mosaicFitsCat_in_hpix" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>footprint</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>hpix_tile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>Nside_tile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nest_tile</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.read_mosaicFootprint_in_disc">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">read_mosaicFootprint_in_disc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_deg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_mosaicFootprint_in_disc" title="Permalink to this definition"></a></dt>
+<dd><p>From a list of galcat files, selects objects in a cone
+centered on racen, deccen
+Output is a structured array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>footprint</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>tile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>radius_deg</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.read_mosaicFootprint_in_hpix">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">read_mosaicFootprint_in_hpix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">footprint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hpix_tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside_tile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest_tile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.read_mosaicFootprint_in_hpix" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>footprint</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>hpix_tile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>Nside_tile</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nest_tile</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.sub_hpix">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">sub_hpix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hpix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nside</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.sub_hpix" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hpix</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>Nside</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nest</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.survey_ra_minmax">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">survey_ra_minmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.survey_ra_minmax" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ra</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lib.utils.tile_radius">
+<span class="sig-prename descclassname"><span class="pre">lib.utils.</span></span><span class="sig-name descname"><span class="pre">tile_radius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tiling</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.utils.tile_radius" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tiling</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-lib.parsl_config"></span><dl class="py function">
+<dt class="sig sig-object py" id="lib.parsl_config.get_config">
+<span class="sig-prename descclassname"><span class="pre">lib.parsl_config.</span></span><span class="sig-name descname"><span class="pre">get_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lib.parsl_config.get_config" title="Permalink to this definition"></a></dt>
+<dd><p>Creates an instance of the Parsl configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – The key of the configuration to be returned.
+Options are: ‘local’, ‘local_threads’, ‘sdumont’, ‘htcondor’.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Parsl config instance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>config</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-lib.apps"></span></section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="QuickStart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Christophe Benoist, Adriano Pieres, Cristiano Singulani.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

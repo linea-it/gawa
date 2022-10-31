@@ -132,9 +132,8 @@ class Gawa(object):
             all_tiles = read_FitsCat(tiles_filename)
             ntiles, n_threads = len(all_tiles), np.amax(all_tiles["thread_id"])
             thread_ids = all_tiles["thread_id"]
-
+            
         self.logger.info(f"Ntiles / Nthreads = {ntiles}/{n_threads}")
-
         gawa_cfg = self.config["gawa_cfg"]
 
         # prepare dslices

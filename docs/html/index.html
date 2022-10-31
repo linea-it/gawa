@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to GAWA’s documentation! &mdash; GAWA 2.1.0 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="QuickStart" href="usage/quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> GAWA
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage/quickstart.html">QuickStart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/quickstart.html#code-and-dependencies">Code and dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/quickstart.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/quickstart.html#running">Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/quickstart.html#running-with-parsl-pilot-jobs">Running with Parsl (Pilot Jobs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/api.html">API Reference guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">GAWA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Welcome to GAWA’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="welcome-to-gawa-s-documentation">
+<h1>Welcome to GAWA’s documentation!<a class="headerlink" href="#welcome-to-gawa-s-documentation" title="Permalink to this headline"></a></h1>
+<div class="section" id="scientific-use-of-gawa">
+<h2>Scientific use of GAWA:<a class="headerlink" href="#scientific-use-of-gawa" title="Permalink to this headline"></a></h2>
+<div class="line-block">
+<div class="line">- The user should define a survey / 2 filters / 1 color</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">survey</span><span class="p">:</span> <span class="s1">&#39;MOCK_DES&#39;</span>  <span class="c1"># DES</span>
+<span class="n">ref_bfilter</span><span class="p">:</span> <span class="s1">&#39;filter_g&#39;</span>
+<span class="n">ref_rfilter</span><span class="p">:</span> <span class="s1">&#39;filter_r&#39;</span>
+<span class="n">ref_color</span><span class="p">:</span> <span class="s1">&#39;gr&#39;</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">- Installation of a new survey :</div>
+</div>
+<blockquote>
+<div><div class="line-block">
+<div class="line">in gawa.cfg under starcat &gt; footprint &gt; isochrone_masks, duplicate the description of a given survey and create a new one from a photometric system.</div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">- GAWA detection parameters</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span> <span class="n">gawa_cfg</span> <span class="o">/</span> <span class="n">detection_mode</span> <span class="o">=&gt;</span> <span class="n">galaxy</span> <span class="n">OR</span> <span class="n">cluster</span>
+<span class="o">+</span> <span class="n">gawa_cfg</span> <span class="o">/</span> <span class="n">dslices</span> <span class="o">=&gt;</span> <span class="n">define</span> <span class="n">the</span> <span class="nb">set</span> <span class="n">of</span> <span class="n">distances</span> <span class="n">to</span> <span class="n">perform</span> <span class="n">detection</span><span class="o">.</span>
+
+<span class="c1"># Warning: the code should be updated once the CMD masks are properly set and strategy defined</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">- Current Isochrone</div>
+</div>
+<blockquote>
+<div><div class="line-block">
+<div class="line">The mask used by gawa was taken from an isochrone with 13.5 and [Fe/H]=-2, with small deviations towards bluer and redder limits. The mask encompasses binaries and possible small shifts in age/metalicity/reddening/magnitude measurements.</div>
+<div class="line">Each isochronal mask is related to a specific photometric system.</div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="what-is-new-in-gawa-version-2">
+<h2>What is new in GAWA version 2:<a class="headerlink" href="#what-is-new-in-gawa-version-2" title="Permalink to this headline"></a></h2>
+<div class="line-block">
+<div class="line">- the tiling is done in healpix pixels so that it can operate at any RA-Dec</div>
+<div class="line">- the divisision of the N tiles in P cores is done to optimize the distribution of the area to be analyzed (as equal area as possible).</div>
+<div class="line">- SNR has a new definition =&gt; decreases Nr false positives</div>
+<div class="line">- cylinders are stored</div>
+<div class="line">- identification of clusters in cylinders is performed</div>
+<div class="line">- method for filtering of possible duplicates has improved in the tiles and between the tiles.</div>
+<div class="line">- several steps of the codes were rewritten to decrease CPU time. Some steps were improved by a factor &gt; 10.</div>
+<div class="line">- there are 3 levels of verbose. With verbose = 0 no intermediate file is written on disc except those necessary for the code.</div>
+<div class="line">- there are several re-entry points with the generation of numpy files (.npx). But this can be switched off if necessary</div>
+</div>
+</div>
+<div class="section" id="what-should-be-improved-dev">
+<h2>What should be improved / dev:<a class="headerlink" href="#what-should-be-improved-dev" title="Permalink to this headline"></a></h2>
+<div class="line-block">
+<div class="line">- currently the code provides detections at discrete distances corresponding to those provided by the gawa/compute_dslices function. We should add a fct to refine this first distance estimate.</div>
+<div class="line">- Update the SPARSE2D package which is currently a C++ code =&gt; python version to avoid current i/o’s</div>
+<div class="line">- BKG is computed in each tile. If a tile is too incomplete it may lead to a poor estimate of the BKG =&gt; bad SNRs.   This has to be checked.</div>
+<div class="line">- Filtering based on 3 pass-bands (2 CMDs)</div>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage/quickstart.html">QuickStart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/quickstart.html#code-and-dependencies">Code and dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/quickstart.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/quickstart.html#running">Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/quickstart.html#running-with-parsl-pilot-jobs">Running with Parsl (Pilot Jobs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/api.html">API Reference guide</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage/quickstart.html" class="btn btn-neutral float-right" title="QuickStart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LIneA.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
