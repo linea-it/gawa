@@ -22,6 +22,53 @@ from .utils import cond_in_disc, concatenate_clusters, add_clusters_unique_id
 from .utils import read_mosaicFitsCat_in_disc, read_mosaicFootprint_in_disc
 
 
+def update_filters_in_params(param_data, survey, ref_bfilter, ref_rfilter, ref_color):
+    param_data['starcat'][survey]['keys']['key_mag_blue'] = param_data\
+                                                            ['starcat'][survey]\
+                                                            ['keys']['key_mag']\
+                                                            [ref_bfilter]
+
+    param_data['starcat'][survey]['keys']['key_mag_red'] = param_data\
+                                                           ['starcat'][survey]\
+                                                           ['keys']['key_mag']\
+                                                           [ref_rfilter]
+    param_data['isochrone_masks'][survey]['magerr_blue_file'] = param_data\
+                                                                ['isochrone_masks']\
+                                                                [survey]\
+                                                                ['magerr_file']\
+                                                                [ref_bfilter]
+    param_data['isochrone_masks'][survey]['magerr_red_file'] = param_data\
+                                                               ['isochrone_masks']\
+                                                               [survey]\
+                                                               ['magerr_file']\
+                                                               [ref_rfilter]
+    param_data['isochrone_masks'][survey]['model_file'] = param_data\
+                                                          ['isochrone_masks']\
+                                                          [survey]['model_file']\
+                                                          [ref_color]
+    param_data['isochrone_masks'][survey]['mask_color_min'] = param_data\
+                                                              ['isochrone_masks']\
+                                                              [survey]\
+                                                              ['mask_color_min']\
+                                                              [ref_color]
+    param_data['isochrone_masks'][survey]['mask_color_max'] = param_data\
+                                                              ['isochrone_masks']\
+                                                              [survey]\
+                                                              ['mask_color_max']\
+                                                              [ref_color]
+    param_data['isochrone_masks'][survey]['mask_mag_min'] = param_data\
+                                                            ['isochrone_masks']\
+                                                            [survey]\
+                                                            ['mask_mag_min']\
+                                                            [ref_bfilter]
+    param_data['isochrone_masks'][survey]['mask_mag_max'] = param_data\
+                                                            ['isochrone_masks']\
+                                                            [survey]\
+                                                            ['mask_mag_max']\
+                                                            [ref_bfilter]
+    return param_data
+
+
 def tile_dir_name(workdir, tile_nr):
     """Defines the working directory at the tile level
 
@@ -986,7 +1033,7 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
                            isochrone_masks["magerr_red_file"]
     gm, gm_err = np.loadtxt(gerr_file, usecols=(0, 1), unpack=True)
 
-    dstep = 10.
+    dstep = dslices_specs['dstep']
     dslices = [dslices_specs['dmin']]
     dist = dslices[0]
     nstep = 2*int((dslices_specs['dmax'] - dslices_specs['dmin'])/dstep)+1

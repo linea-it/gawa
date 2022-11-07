@@ -39,6 +39,15 @@ def read_FitsCat(cat):
     return dat
 
 
+def update_hpx_parameters(param_data, survey, input_data_structure):
+    param_data['admin']['tiling']['nest'] = input_data_structure[survey]['nest']
+    param_data['starcat'][survey]['mosaic']['Nside'] = input_data_structure[survey]['Nside']
+    param_data['starcat'][survey]['mosaic']['nest'] = input_data_structure[survey]['nest']
+    param_data['footprint'][survey]['mosaic']['Nside'] = input_data_structure[survey]['Nside']
+    param_data['footprint'][survey]['mosaic']['nest'] = input_data_structure[survey]['nest']
+    return param_data
+
+
 def read_FitsFootprint(hpx_footprint, hpx_meta):
     """_summary_
 
@@ -55,7 +64,7 @@ def read_FitsFootprint(hpx_footprint, hpx_meta):
     hdulist.close()
     hpix_map = dat[hpx_meta['key_pixel']].astype(int)
     if hpx_meta['key_frac'] == 'none':
-        frac_map = np.ones(len(hpix_map0)).astype(float)
+        frac_map = np.ones(len(hpix_map)).astype(float)
     else:
         frac_map = dat[hpx_meta['key_frac']]
     return  hpix_map, frac_map
@@ -791,11 +800,12 @@ def survey_ra_minmax(ra):
     return ramin, ramax
 
 
-def hpx_degrade(pix_in, nside_in, nest_in, nside_out, nest_out):
+def hpx_degrade(pix_in, frac_in, nside_in, nest_in, nside_out, nest_out):
     """_summary_
 
     Args:
         pix_in (_type_): _description_
+        frac_in (_type_): _description_
         nside_in (_type_): _description_
         nest_in (_type_): _description_
         nside_out (_type_): _description_
@@ -808,60 +818,105 @@ def hpx_degrade(pix_in, nside_in, nest_in, nside_out, nest_out):
     pix_out0 = radec2hpix(ra, dec, nside_out, nest_out)
     pix_out, counts = np.unique(pix_out0, return_counts=True)
     nsamp = (float(nside_in)/float(nside_out))**2
-    return pix_out, counts.astype(float)/nsamp
 
-def hpx_split_survey (footprint_file, footprint, admin, output):
+    area_out = hp.pixelfunc.nside2pixarea(nside_out, degrees=True)
+    area_in = hp.pixelfunc.nside2pixarea(nside_in, degrees=True)
+
+    frac_out = np.zeros(len(pix_out))
+    for i in range(0, len(pix_out)):
+        frac_out[i] = np.sum(
+            frac_in[np.isin(pix_out0, pix_out)]
+        ) * area_in/area_out
+    return pix_out, counts.astype(float)/nsamp, frac_out
+
+
+def hpx_split_survey_equal_tiles (footprint_files, footprint, tiling):
     """_summary_
 
     Args:
         footprint_file (_type_): _description_
         footprint (_type_): _description_
-        admin (_type_): _description_
+        tiling (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    Nside_fp  , nest_fp   = footprint['Nside'], footprint['nest']
+    Nside_tile, nest_tile = tiling['Nside'], tiling['nest']
+
+    hpix_tiles = np.array([]).astype('int')
+    frac_tiles = np.array([])
+    i=0
+    for footprint_file in footprint_files:
+        dat = read_FitsCat(footprint_file)
+        hpix_map = dat[footprint['key_pixel']]
+        frac_map = dat[footprint['key_frac']]
+        hpix_tile, frac0_tile, frac_tile = hpx_degrade(
+            hpix_map, frac_map, Nside_fp, nest_fp, Nside_tile, nest_tile
+        )
+        hpix_tiles = np.hstack((hpix_tiles, hpix_tile))
+        frac_tiles = np.hstack((frac_tiles, frac_tile))
+        i+=1
+
+    frac_unique = np.zeros(len(np.unique(hpix_tiles)))
+    hpix_unique = np.unique(hpix_tiles)
+    for i in range(0, len(hpix_unique)):
+        frac_unique[i] = np.sum(frac_tiles[np.argwhere(hpix_tiles==hpix_unique[i])])
+
+    return hpix_unique, frac_unique
+
+
+def hpx_split_survey (footprint, tiling, output):
+    """_summary_
+
+    Args:
+        footprint (_type_): _description_
+        tiling (_type_): _description_
         output (_type_): _description_
 
     Returns:
         _type_: _description_
     """
     Nside_fp  , nest_fp   = footprint['Nside'], footprint['nest']
-    Nside_tile, nest_tile = admin['Nside'], admin['nest']
+    Nside_tile, nest_tile = tiling['Nside'], tiling['nest']
 
-    dat = read_FitsCat(footprint_file)
-    hpix_map = dat[footprint['key_pixel']]
-    frac_map = dat[footprint['key_frac']]
-
-    '''
-    # inner tile
-    hmap = np.arange(hp.nside2npix(Nside_fp))
-    pixel0 = np.zeros(len(hmap))
-    pixel0[hpix_map]=1
-    frac0 = hp.pixelfunc.ud_grade(pixel0, Nside_tile)
-    hpix_tile = np.argwhere(frac0>0).T[0]
-    frac_tile = frac0[(frac0>0)]
-    '''
-    hpix_tile, frac_tile = hpx_degrade(
-        hpix_map, Nside_fp, nest_fp, Nside_tile, nest_tile
+    ftp_path = footprint['mosaic']['dir']
+    footprint_files = np.array(
+        [os.path.join(ftp_path, x) for x in os.listdir(ftp_path)]
     )
-
-    racen, deccen = hpix2radec(hpix_tile, Nside_tile, nest_tile)
+    hpix_tiles, frac_tiles = hpx_split_survey_equal_tiles(
+        footprint_files, footprint, tiling
+    )
+    
+    racen, deccen = hpix2radec(hpix_tiles, Nside_tile, nest_tile)
     area_tile = hp.pixelfunc.nside2pixarea(Nside_tile, degrees=True)
 
     # tiles 
-    radius_deg = tile_radius(admin)
-    framed_eff_area_deg2 = np.zeros(len(racen))
-    for i in range(0, len(racen)):
+    framed_eff_area_deg2 = np.zeros(len(hpix_tiles))
+    tile_radius_deg = np.zeros(len(hpix_tiles))
+    for i in range(0, len(hpix_tiles)):
+        tile_radius_deg[i] = tile_radius(tiling, hpix_tiles[i])
         pixels_in_disc = hp.query_disc(
             nside=Nside_fp, nest=nest_fp, 
             vec=hp.pixelfunc.ang2vec(
                 np.radians(90.-deccen[i]), np.radians(racen[i])
             ),
-            radius = np.radians(radius_deg), 
+            radius = np.radians(tile_radius_deg[i]), 
             inclusive=False
         )
+        data_fp_disc = read_mosaicFootprint_in_disc(
+            footprint, {'ra': racen[i], 'dec': deccen[i]}, 
+            tile_radius_deg[i]
+        )
+
+        hpix_disc = data_fp_disc[footprint['key_pixel']]
+        frac_disc = data_fp_disc[footprint['key_frac']]
+
         framed_eff_area_deg2[i] = np.sum(
-            frac_map[np.isin(hpix_map, pixels_in_disc, assume_unique=True)]
+            frac_disc[np.isin(hpix_disc, pixels_in_disc, assume_unique=True)]
         ) * hp.pixelfunc.nside2pixarea(Nside_fp, degrees=True)
 
-    data_tiles = np.zeros( (len(hpix_tile)), 
+    data_tiles = np.zeros( (len(hpix_tiles)), 
                            dtype={
                                'names':(
                                    'id', 'hpix', 
@@ -881,16 +936,16 @@ def hpx_split_survey (footprint_file, footprint, admin, output):
                                   ) 
                            }
     )
-    data_tiles['id'] = np.arange(len(hpix_tile))
-    data_tiles['hpix'] = hpix_tile
+    data_tiles['id'] = np.arange(len(hpix_tiles))
+    data_tiles['hpix'] = hpix_tiles
     data_tiles['ra'], data_tiles['dec'] = np.around(racen,4),\
                                           np.around(deccen,4)
     data_tiles['area_deg2'] = np.around(area_tile,4)
-    data_tiles['eff_area_deg2'] = np.around(frac_tile*area_tile,4)
+    data_tiles['eff_area_deg2'] = np.around(frac_tiles*area_tile,4)
     data_tiles['framed_eff_area_deg2'] = np.around(framed_eff_area_deg2,4)
-    data_tiles['radius_tile_deg'] = np.ones(len(hpix_tile))*tile_radius(admin)
-    data_tiles['Nside'] = Nside_tile *np.ones(len(hpix_tile)).astype(int)
-    data_tiles['nest'] = len(hpix_tile)*[nest_tile]
+    data_tiles['radius_tile_deg'] = np.ones(len(hpix_tiles))*tile_radius_deg
+    data_tiles['Nside'] = Nside_tile *np.ones(len(hpix_tiles)).astype(int)
+    data_tiles['nest'] = len(hpix_tiles)*[nest_tile]
 
     t = Table (data_tiles)
     t.write(output, overwrite=True)
@@ -898,12 +953,12 @@ def hpx_split_survey (footprint_file, footprint, admin, output):
            np.round(hp.pixelfunc.nside2pixarea(Nside_tile, degrees=True), 2)
     )
     print ('.....effective survey area (deg2) = ', 
-           np.around(np.sum(frac_tile)*area_tile,4)
+           np.around(np.sum(frac_tiles)*area_tile,4)
     )
+
     return len(data_tiles)
 
-
-def tile_radius(tiling):
+def tile_radius(tiling, hpix):
     """_summary_
 
     Args:
@@ -914,15 +969,20 @@ def tile_radius(tiling):
     """
 
     Nside_tile = tiling['Nside']
+    nest_tile = tiling['nest']
     frame_deg = tiling['overlap_deg']
-    tile_radius = (2.*\
-                   hp.pixelfunc.nside2pixarea(
-                       Nside_tile, degrees=True
-                   ))**0.5 / 2.
+
+    theta, phi = hp.vec2ang(hp.boundaries(Nside_tile, hpix, 1, nest_tile).T)
+    ra, dec = phitheta2radec(phi, theta)
+    racen, deccen = hpix2radec(hpix, Nside_tile, nest_tile)
+    dist = np.degrees(
+        dist_ang(
+            ra, dec, racen, deccen
+        ))
+    tile_radius = np.amax(dist)
     return tile_radius + frame_deg
 
-
-def create_tile_specs(tile, tile_radius_deg, admin):
+def create_tile_specs(tile, admin):
     """_summary_
 
     Args:
@@ -940,12 +1000,14 @@ def create_tile_specs(tile, tile_radius_deg, admin):
         area_deg2 = -1.
         eff_area_deg2 = -1. 
         framed_eff_area_deg2 = -1.
+        # tile_radius_deg = 
     else:
         hpix = tile['hpix']
         Nside, nest = admin['tiling']['Nside'], admin['tiling']['nest']
         area_deg2 = tile['area_deg2']
         eff_area_deg2 = tile['eff_area_deg2']
         framed_eff_area_deg2 = tile['framed_eff_area_deg2']
+        tile_radius_deg = tile_radius(admin['tiling'], hpix)
 
     tile_specs = {'id':tile['id'],
                   'ra': tile['ra'], 'dec': tile['dec'],
