@@ -1824,7 +1824,7 @@ def cl_duplicates_filtering(data_clusters_in, gawa_cfg, mode):
             cond[np.argwhere(cond).T[0]] = in_cone 
             flagdp[cond] = 1
 
-    data_clusters_out = data_clusters_in[flagdp==0]
+    data_clusters_out = data_cl[flagdp==0]
     print ('              Nr. of duplicates = '+\
            str(len(data_cl) - len(data_clusters_out))+\
            ' / '+str(len(data_cl)))
