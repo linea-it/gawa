@@ -161,36 +161,6 @@ def x2pix (x, xmin, xmax, nx):
     return ix.astype(int)
 
 
-def effective_area_framed_tile(tile, data_fp, footprint, admin):
-    """_summary_
-
-    Args:
-        tile (_type_): _description_
-        data_fp (_type_): _description_
-        footprint (_type_): _description_
-        admin (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
-    Nside, nest = footprint['Nside'], footprint['nest']
-    hpix_map, frac_map = data_fp[footprint['key_pixel']],\
-                         data_fp[footprint['key_frac']]
-    radius_deg = tile_radius(admin)
-    pixels_in_disc = hp.query_disc(
-        nside=Nside, nest=nest, 
-        vec=hp.pixelfunc.ang2vec(
-            np.radians(90.-tile['dec']), np.radians(tile['ra'])
-        ),
-        radius = np.radians(radius_deg), 
-        inclusive=False
-    )
-    framed_eff_area_deg2 = np.sum(
-        frac_map[np.isin(hpix_map, pixels_in_disc)]
-    ) * hp.pixelfunc.nside2pixarea(Nside, degrees=True)
-    return framed_eff_area_deg2
-
-
 def plot_cmd(xall,yall, xar_in, yar_in, isochrone_masks, file_png):
     """_summary_
 
@@ -1741,8 +1711,8 @@ def run_gawa_tile(args):
         create_directory(tile_dir)
         create_gawa_directories(tile_dir, out_paths['gawa'])
         out_paths['workdir_loc'] = tile_dir # local update 
-        tile_radius_deg = tile_radius(admin['tiling'])
-        tile_specs = create_tile_specs(tiles[it], tile_radius_deg, admin)
+        tile_specs = create_tile_specs(tiles[it], admin)
+        tile_radius_deg = tile_specs['radius_tile_deg']
         data_star_tile = read_mosaicFitsCat_in_disc(
             starcat, tiles[it], tile_radius_deg
         )   
