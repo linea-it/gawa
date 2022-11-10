@@ -1,30 +1,37 @@
-from sys import stderr, stdout
-from lib.multithread import split_equal_area_in_threads
-from lib.utils import (
-    hpx_split_survey,
-    get_logger,
-    read_FitsCat,
-    create_directory,
-    create_survey_footprint_from_mosaic,
-    add_key_to_fits,
-)
-from lib.gawa import compute_dslices, gawa_concatenate, tiles_with_clusters
-from lib.parsl_config import get_parsl_config
+import argparse
+import json
+import logging
+import os
+import time
+
+import matplotlib
+import numpy as np
+import parsl
+import yaml
+
 from lib.apps import (
-    run_gawa_tile_job,
     compute_cmd_masks_job,
     create_mosaic_footprint_job,
     initialize,
+    run_gawa_tile_job,
 )
-import argparse
-import logging
-import time
-import parsl
-import matplotlib
-import numpy as np
-import yaml
-import os
-import json
+from lib.gawa import (
+    compute_dslices,
+    gawa_concatenate,
+    tiles_with_clusters,
+    update_filters_in_params,
+)
+from lib.multithread import split_equal_area_in_threads
+from lib.parsl_config import get_parsl_config
+from lib.utils import (
+    add_key_to_fits,
+    create_directory,
+    create_survey_footprint_from_mosaic,
+    get_logger,
+    hpx_split_survey,
+    read_FitsCat,
+    update_hpx_parameters,
+)
 
 matplotlib.use("Agg")
 
@@ -87,25 +94,19 @@ class Gawa(object):
         ref_bfilter = self.config["ref_bfilter"]
         ref_rfilter = self.config["ref_rfilter"]
         ref_color = self.config["ref_color"]
-        isoc_masks = self.config["isochrone_masks"][survey]
 
-        # update parameters with selected filters in config
-        keys = self.config["starcat"][survey]["keys"]
-        keys["key_mag_blue"] = keys["key_mag"][ref_bfilter]
-        keys["key_mag_red"] = keys["key_mag"][ref_rfilter]
-        isoc_masks["magerr_blue_file"] = isoc_masks["magerr_file"][ref_bfilter]
-        isoc_masks["magerr_red_file"] = isoc_masks["magerr_file"][ref_rfilter]
-        isoc_masks["model_file"] = isoc_masks["model_file"][ref_color]
-        isoc_masks["mask_color_min"] = isoc_masks["mask_color_min"][ref_color]
-        isoc_masks["mask_color_max"] = isoc_masks["mask_color_max"][ref_color]
-        isoc_masks["mask_mag_min"] = isoc_masks["mask_mag_min"][ref_bfilter]
-        isoc_masks["mask_mag_max"] = isoc_masks["mask_mag_max"][ref_bfilter]
+        # update parameters with hpx params + selected filters in config
+        self.config = update_hpx_parameters(
+            self.config, survey, self.config.get("input_data_structure")
+        )
+        self.config = update_filters_in_params(
+            self.config, survey, ref_bfilter, ref_rfilter, ref_color
+        )
 
         # store config file in workdir
         with open(os.path.join(self.workdir, "gawa.cfg"), "w") as outfile:
             json.dump(self.config, outfile)
 
-        survey_footprint = self.create_survey_footprint_from_mosaic()
         footprint = self.config["footprint"]
         tiles_filename = os.path.join(
             self.workdir, self.config["admin"]["tiling"]["tiles_filename"]
@@ -115,7 +116,6 @@ class Gawa(object):
             start_time = time.time()
             self.logger.info("> Creating tiles")
             ntiles = hpx_split_survey(
-                survey_footprint,
                 footprint[survey],
                 self.config["admin"]["tiling"],
                 tiles_filename,
@@ -132,13 +132,14 @@ class Gawa(object):
             all_tiles = read_FitsCat(tiles_filename)
             ntiles, n_threads = len(all_tiles), np.amax(all_tiles["thread_id"])
             thread_ids = all_tiles["thread_id"]
-            
+
         self.logger.info(f"Ntiles / Nthreads = {ntiles}/{n_threads}")
         gawa_cfg = self.config["gawa_cfg"]
 
         # prepare dslices
         start_time = time.time()
         self.logger.info("> Preparing dslices")
+        isoc_masks = self.config["isochrone_masks"][survey]
         compute_dslices(isoc_masks, gawa_cfg["dslices"], self.workdir)
         _time = time.time() - start_time
         self.step_time.update({"prepare_dslices": _time})

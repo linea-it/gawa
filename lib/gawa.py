@@ -1,27 +1,70 @@
-from astropy.io import fits
-from astropy import wcs
-import numpy as np
-import matplotlib.pyplot as plt
-import scipy.ndimage as ndi
-import os
-from astropy import units as u
-import math
-import healpy as hp
-from astropy.table import Table
-from skimage.feature import peak_local_max
-from astropy.coordinates import SkyCoord, search_around_sky
-from matplotlib import path as pth
-import subprocess
 import logging
+import math
+import os
+import subprocess
 
-from lib.utils import create_directory, read_FitsCat
-from lib.utils import tile_radius, sub_hpix, radec2hpix, hpix2radec, dist_ang
-from lib.utils import area_ann_deg2, hpx_in_annulus, join_struct_arrays
-from lib.utils import cond_in_disc, concatenate_clusters, add_clusters_unique_id
+import healpy as hp
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.ndimage as ndi
+from astropy import units as u
+from astropy import wcs
+from astropy.coordinates import SkyCoord, search_around_sky
+from astropy.io import fits
+from astropy.table import Table
+from matplotlib import path as pth
+from skimage.feature import peak_local_max
+
+from lib.utils import (
+    add_clusters_unique_id,
+    area_ann_deg2,
+    concatenate_clusters,
+    cond_in_disc,
+    create_directory,
+    dist_ang,
+    hpix2radec,
+    hpx_in_annulus,
+    join_struct_arrays,
+    radec2hpix,
+    read_FitsCat,
+    sub_hpix,
+    tile_radius,
+)
 
 GAWA_ROOT = os.getenv("GAWA_ROOT", ".")
 LEVEL = os.getenv("GAWA_LOG_LEVEL", "info")
 logger = logging.getLogger()
+
+
+def update_filters_in_params(param_data, survey, ref_bfilter, ref_rfilter, ref_color):
+    param_data["starcat"][survey]["keys"]["key_mag_blue"] = param_data["starcat"][
+        survey
+    ]["keys"]["key_mag"][ref_bfilter]
+    param_data["starcat"][survey]["keys"]["key_mag_red"] = param_data["starcat"][
+        survey
+    ]["keys"]["key_mag"][ref_rfilter]
+    param_data["isochrone_masks"][survey]["magerr_blue_file"] = param_data[
+        "isochrone_masks"
+    ][survey]["magerr_file"][ref_bfilter]
+    param_data["isochrone_masks"][survey]["magerr_red_file"] = param_data[
+        "isochrone_masks"
+    ][survey]["magerr_file"][ref_rfilter]
+    param_data["isochrone_masks"][survey]["model_file"] = param_data["isochrone_masks"][
+        survey
+    ]["model_file"][ref_color]
+    param_data["isochrone_masks"][survey]["mask_color_min"] = param_data[
+        "isochrone_masks"
+    ][survey]["mask_color_min"][ref_color]
+    param_data["isochrone_masks"][survey]["mask_color_max"] = param_data[
+        "isochrone_masks"
+    ][survey]["mask_color_max"][ref_color]
+    param_data["isochrone_masks"][survey]["mask_mag_min"] = param_data[
+        "isochrone_masks"
+    ][survey]["mask_mag_min"][ref_bfilter]
+    param_data["isochrone_masks"][survey]["mask_mag_max"] = param_data[
+        "isochrone_masks"
+    ][survey]["mask_mag_max"][ref_bfilter]
+    return param_data
 
 
 def tile_dir_name(workdir, tile_nr):
@@ -116,36 +159,6 @@ def x2pix(x, xmin, xmax, nx):
     ix = (x - xmin) / xstep
     ix[(ix >= float(nx))] = nx - 1
     return ix.astype(int)
-
-
-def effective_area_framed_tile(tile, data_fp, footprint, admin):
-    """_summary_
-
-    Args:
-        tile (_type_): _description_
-        data_fp (_type_): _description_
-        footprint (_type_): _description_
-        admin (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
-    Nside, nest = footprint["Nside"], footprint["nest"]
-    hpix_map, frac_map = data_fp[footprint["key_pixel"]], data_fp[footprint["key_frac"]]
-    radius_deg = tile_radius(admin)
-    pixels_in_disc = hp.query_disc(
-        nside=Nside,
-        nest=nest,
-        vec=hp.pixelfunc.ang2vec(
-            np.radians(90.0 - tile["dec"]), np.radians(tile["ra"])
-        ),
-        radius=np.radians(radius_deg),
-        inclusive=False,
-    )
-    framed_eff_area_deg2 = np.sum(
-        frac_map[np.isin(hpix_map, pixels_in_disc)]
-    ) * hp.pixelfunc.nside2pixarea(Nside, degrees=True)
-    return framed_eff_area_deg2
 
 
 def plot_cmd(xall, yall, xar_in, yar_in, isochrone_masks, file_png):
@@ -553,7 +566,7 @@ def randoms_in_spherical_cap(tile, bkg_arcmin2):
     )
     area = 3600.0 * area_ann_deg2(0.0, tile["radius_tile_deg"])
     nsamp = int(bkg_arcmin2 * area)
-    pix_samp = np.random.choice(pixels_in_disc, nsamp, replace=False)
+    pix_samp = np.random.choice(pixels_in_disc, nsamp, replace=True)
     return hpix2radec(pix_samp, Nside_samp, False)
 
 
@@ -1082,7 +1095,7 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
 
     Returns:
         _type_: _description_
-    
+
     """
     model_file = isochrone_masks["model_file"]
     gr, g0 = np.loadtxt(model_file, usecols=(0, 1), unpack=True)
@@ -1974,10 +1987,13 @@ def cl_duplicates_filtering(data_clusters_in, gawa_cfg, mode):
                 cond = (abs(distpc[i] - distpc) <= min_delta_distkpc) & (
                     clid[i] != clid
                 )
-            if mode == "survey":
+            elif mode == "survey":
                 cond = (abs(distpc[i] - distpc) <= min_delta_distkpc) & (
                     tile_id[i] != tile_id
                 )
+            else:
+                continue
+
             in_cone = cond_in_disc(
                 ra[cond],
                 dec[cond],
@@ -1991,7 +2007,7 @@ def cl_duplicates_filtering(data_clusters_in, gawa_cfg, mode):
             cond[np.argwhere(cond).T[0]] = in_cone
             flagdp[cond] = 1
 
-    data_clusters_out = data_clusters_in[flagdp == 0]
+    data_clusters_out = data_cl[flagdp == 0]
     logger.info(
         "              Nr. of duplicates = "
         + str(len(data_cl) - len(data_clusters_out))

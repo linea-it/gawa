@@ -1,9 +1,10 @@
-import numpy as np
-import astropy.io.fits as fits
-import os
-import healpy as hp
-from astropy.table import Table
 import logging
+import os
+
+import astropy.io.fits as fits
+import healpy as hp
+import numpy as np
+from astropy.table import Table
 
 
 def get_logger(name=None, stdout=None, level="info"):
@@ -54,6 +55,23 @@ def create_directory(dir):
     if not os.path.exists(dir):
         os.mkdir(dir)
     return
+
+
+def update_hpx_parameters(param_data, survey, input_data_structure):
+    param_data["admin"]["tiling"]["nest"] = input_data_structure[survey]["nest"]
+    param_data["starcat"][survey]["mosaic"]["Nside"] = input_data_structure[survey][
+        "Nside"
+    ]
+    param_data["starcat"][survey]["mosaic"]["nest"] = input_data_structure[survey][
+        "nest"
+    ]
+    param_data["footprint"][survey]["mosaic"]["Nside"] = input_data_structure[survey][
+        "Nside"
+    ]
+    param_data["footprint"][survey]["mosaic"]["nest"] = input_data_structure[survey][
+        "nest"
+    ]
+    return param_data
 
 
 def read_FitsCat(cat):
@@ -127,14 +145,18 @@ def read_mosaicFitsCat_in_disc(galcat, tile, radius_deg):
         np.isin(fits_pixels_in_disc, hpix_fits, assume_unique=True)
     ]
 
-    data_gal_disc = []
-
     if len(relevant_fits_pixels) > 0:
         # merge intersecting fits
         for i in range(0, len(relevant_fits_pixels)):
+            print(
+                "path: {}".format(
+                    os.path.join(gdir, str(relevant_fits_pixels[i]) + extension)
+                )
+            )
             dat_disc = read_FitsCat(
                 os.path.join(gdir, str(relevant_fits_pixels[i]) + extension)
             )
+            print(dat_disc)
             dcen = np.degrees(
                 dist_ang(
                     dat_disc[galcat["keys"]["key_ra"]],
@@ -186,7 +208,6 @@ def read_mosaicFootprint_in_disc(footprint, tile, radius_deg):
     relevant_fits_pixels = fits_pixels_in_disc[
         np.isin(fits_pixels_in_disc, hpix_fits, assume_unique=True)
     ]
-    data_fp_disc = []
 
     if len(relevant_fits_pixels) > 0:
         # merge intersecting fits
@@ -237,8 +258,6 @@ def read_mosaicFitsCat_in_hpix(galcat, hpix_tile, Nside_tile, nest_tile):
     hpix_fits_tile = radec2hpix(ra_fits, dec_fits, Nside_tile, nest_tile)
     relevant_fits_pixels = np.unique(hpix_fits[np.isin(hpix_fits_tile, hpix_tile)])
 
-    data_gal_hpix = []
-
     if len(relevant_fits_pixels) > 0:
         # merge intersecting fits
         for i in range(0, len(relevant_fits_pixels)):
@@ -280,7 +299,6 @@ def read_mosaicFootprint_in_hpix(footprint, hpix_tile, Nside_tile, nest_tile):
     hpix_fits_tile = radec2hpix(ra_fits, dec_fits, Nside_tile, nest_tile)
 
     relevant_fits_pixels = np.unique(hpix_fits[np.isin(hpix_fits_tile, hpix_tile)])
-    data_fp_hpix = []
 
     if len(relevant_fits_pixels) > 0:
         # merge intersecting fits
@@ -322,8 +340,6 @@ def concatenate_fits(flist, output):
         _type_: _description_
     """
 
-    cdat = []
-
     for i in range(0, len(flist)):
         dat = read_FitsCat(flist[i])
         if i == 0:
@@ -348,7 +364,7 @@ def concatenate_fits_with_label(flist, label_name, label, output):
     Returns:
         _type_: _description_
     """
-    cdat = []
+
     for i in range(0, len(flist)):
         dat = read_FitsCat(flist[i])
         datL = Table(dat)
@@ -785,11 +801,12 @@ def survey_ra_minmax(ra):
     return ramin, ramax
 
 
-def hpx_degrade(pix_in, nside_in, nest_in, nside_out, nest_out):
+def hpx_degrade(pix_in, frac_in, nside_in, nest_in, nside_out, nest_out):
     """_summary_
 
     Args:
         pix_in (_type_): _description_
+        frac_in (_type_): _description_
         nside_in (_type_): _description_
         nest_in (_type_): _description_
         nside_out (_type_): _description_
@@ -802,63 +819,101 @@ def hpx_degrade(pix_in, nside_in, nest_in, nside_out, nest_out):
     pix_out0 = radec2hpix(ra, dec, nside_out, nest_out)
     pix_out, counts = np.unique(pix_out0, return_counts=True)
     nsamp = (float(nside_in) / float(nside_out)) ** 2
-    return pix_out, counts.astype(float) / nsamp
+
+    area_out = hp.pixelfunc.nside2pixarea(nside_out, degrees=True)
+    area_in = hp.pixelfunc.nside2pixarea(nside_in, degrees=True)
+
+    frac_out = np.zeros(len(pix_out))
+    for i in range(0, len(pix_out)):
+        frac_out[i] = np.sum(frac_in[np.isin(pix_out0, pix_out)]) * area_in / area_out
+
+    return pix_out, counts.astype(float) / nsamp, frac_out
 
 
-def hpx_split_survey(footprint_file, footprint, admin, output):
+def hpx_split_survey_equal_tiles(footprint_files, footprint, tiling):
     """_summary_
-
     Args:
         footprint_file (_type_): _description_
         footprint (_type_): _description_
-        admin (_type_): _description_
-        output (_type_): _description_
-
+        tiling (_type_): _description_
     Returns:
         _type_: _description_
     """
     Nside_fp, nest_fp = footprint["Nside"], footprint["nest"]
-    Nside_tile, nest_tile = admin["Nside"], admin["nest"]
+    Nside_tile, nest_tile = tiling["Nside"], tiling["nest"]
 
-    dat = read_FitsCat(footprint_file)
-    hpix_map = dat[footprint["key_pixel"]]
-    frac_map = dat[footprint["key_frac"]]
+    hpix_tiles = np.array([]).astype("int")
+    frac_tiles = np.array([])
+    i = 0
+    for footprint_file in footprint_files:
+        dat = read_FitsCat(footprint_file)
+        hpix_map = dat[footprint["key_pixel"]]
+        frac_map = dat[footprint["key_frac"]]
+        hpix_tile, frac0_tile, frac_tile = hpx_degrade(
+            hpix_map, frac_map, Nside_fp, nest_fp, Nside_tile, nest_tile
+        )
+        hpix_tiles = np.hstack((hpix_tiles, hpix_tile))
+        frac_tiles = np.hstack((frac_tiles, frac_tile))
+        i += 1
 
+    frac_unique = np.zeros(len(np.unique(hpix_tiles)))
+    hpix_unique = np.unique(hpix_tiles)
+    for i in range(0, len(hpix_unique)):
+        frac_unique[i] = np.sum(frac_tiles[np.argwhere(hpix_tiles == hpix_unique[i])])
+
+    return hpix_unique, frac_unique
+
+
+def hpx_split_survey(footprint, tiling, output):
+    """_summary_
+    Args:
+        footprint (_type_): _description_
+        tiling (_type_): _description_
+        output (_type_): _description_
+    Returns:
+        _type_: _description_
     """
-    # inner tile
-    hmap = np.arange(hp.nside2npix(Nside_fp))
-    pixel0 = np.zeros(len(hmap))
-    pixel0[hpix_map]=1
-    frac0 = hp.pixelfunc.ud_grade(pixel0, Nside_tile)
-    hpix_tile = np.argwhere(frac0>0).T[0]
-    frac_tile = frac0[(frac0>0)]
-    """
-    hpix_tile, frac_tile = hpx_degrade(
-        hpix_map, Nside_fp, nest_fp, Nside_tile, nest_tile
+    Nside_fp, nest_fp = footprint["Nside"], footprint["nest"]
+    Nside_tile, nest_tile = tiling["Nside"], tiling["nest"]
+
+    ftp_path = footprint["mosaic"]["dir"]
+    footprint_files = np.array(
+        [os.path.join(ftp_path, x) for x in os.listdir(ftp_path)]
+    )
+    hpix_tiles, frac_tiles = hpx_split_survey_equal_tiles(
+        footprint_files, footprint, tiling
     )
 
-    racen, deccen = hpix2radec(hpix_tile, Nside_tile, nest_tile)
+    racen, deccen = hpix2radec(hpix_tiles, Nside_tile, nest_tile)
     area_tile = hp.pixelfunc.nside2pixarea(Nside_tile, degrees=True)
 
     # tiles
-    radius_deg = tile_radius(admin)
-    framed_eff_area_deg2 = np.zeros(len(racen))
-    for i in range(0, len(racen)):
+    framed_eff_area_deg2 = np.zeros(len(hpix_tiles))
+    tile_radius_deg = np.zeros(len(hpix_tiles))
+    for i in range(0, len(hpix_tiles)):
+        tile_radius_deg[i] = tile_radius(tiling, hpix_tiles[i])
         pixels_in_disc = hp.query_disc(
             nside=Nside_fp,
             nest=nest_fp,
             vec=hp.pixelfunc.ang2vec(
                 np.radians(90.0 - deccen[i]), np.radians(racen[i])
             ),
-            radius=np.radians(radius_deg),
+            radius=np.radians(tile_radius_deg[i]),
             inclusive=False,
         )
+        data_fp_disc = read_mosaicFootprint_in_disc(
+            footprint, {"ra": racen[i], "dec": deccen[i]}, tile_radius_deg[i]
+        )
+
+        hpix_disc = data_fp_disc[footprint["key_pixel"]]
+        frac_disc = data_fp_disc[footprint["key_frac"]]
+
         framed_eff_area_deg2[i] = np.sum(
-            frac_map[np.isin(hpix_map, pixels_in_disc, assume_unique=True)]
+            frac_disc[np.isin(hpix_disc, pixels_in_disc, assume_unique=True)]
         ) * hp.pixelfunc.nside2pixarea(Nside_fp, degrees=True)
 
     data_tiles = np.zeros(
-        (len(hpix_tile)),
+        (len(hpix_tiles)),
         dtype={
             "names": (
                 "id",
@@ -875,15 +930,15 @@ def hpx_split_survey(footprint_file, footprint, admin, output):
             "formats": ("i8", "i8", "f8", "f8", "f8", "f8", "f8", "f8", "i8", "b"),
         },
     )
-    data_tiles["id"] = np.arange(len(hpix_tile))
-    data_tiles["hpix"] = hpix_tile
+    data_tiles["id"] = np.arange(len(hpix_tiles))
+    data_tiles["hpix"] = hpix_tiles
     data_tiles["ra"], data_tiles["dec"] = np.around(racen, 4), np.around(deccen, 4)
     data_tiles["area_deg2"] = np.around(area_tile, 4)
-    data_tiles["eff_area_deg2"] = np.around(frac_tile * area_tile, 4)
+    data_tiles["eff_area_deg2"] = np.around(frac_tiles * area_tile, 4)
     data_tiles["framed_eff_area_deg2"] = np.around(framed_eff_area_deg2, 4)
-    data_tiles["radius_tile_deg"] = np.ones(len(hpix_tile)) * tile_radius(admin)
-    data_tiles["Nside"] = Nside_tile * np.ones(len(hpix_tile)).astype(int)
-    data_tiles["nest"] = len(hpix_tile) * [nest_tile]
+    data_tiles["radius_tile_deg"] = np.ones(len(hpix_tiles)) * tile_radius_deg
+    data_tiles["Nside"] = Nside_tile * np.ones(len(hpix_tiles)).astype(int)
+    data_tiles["nest"] = len(hpix_tiles) * [nest_tile]
 
     t = Table(data_tiles)
     t.write(output, overwrite=True)
@@ -893,35 +948,39 @@ def hpx_split_survey(footprint_file, footprint, admin, output):
     )
     print(
         ".....effective survey area (deg2) = ",
-        np.around(np.sum(frac_tile) * area_tile, 4),
+        np.around(np.sum(frac_tiles) * area_tile, 4),
     )
+
     return len(data_tiles)
 
 
-def tile_radius(tiling):
+def tile_radius(tiling, hpix):
     """_summary_
 
     Args:
         tiling (_type_): _description_
+        hpix (_type_): _description_
 
     Returns:
         _type_: _description_
     """
 
     Nside_tile = tiling["Nside"]
+    nest_tile = tiling["nest"]
     frame_deg = tiling["overlap_deg"]
-    tile_radius = (
-        2.0 * hp.pixelfunc.nside2pixarea(Nside_tile, degrees=True)
-    ) ** 0.5 / 2.0
+    theta, phi = hp.vec2ang(hp.boundaries(Nside_tile, hpix, 1, nest_tile).T)
+    ra, dec = phitheta2radec(phi, theta)
+    racen, deccen = hpix2radec(hpix, Nside_tile, nest_tile)
+    dist = np.degrees(dist_ang(ra, dec, racen, deccen))
+    tile_radius = np.amax(dist)
     return tile_radius + frame_deg
 
 
-def create_tile_specs(tile, tile_radius_deg, admin):
+def create_tile_specs(tile, admin):
     """_summary_
 
     Args:
         tile (_type_): _description_
-        tile_radius_deg (_type_): _description_
         admin (_type_): _description_
 
     Returns:
@@ -940,6 +999,10 @@ def create_tile_specs(tile, tile_radius_deg, admin):
         area_deg2 = tile["area_deg2"]
         eff_area_deg2 = tile["eff_area_deg2"]
         framed_eff_area_deg2 = tile["framed_eff_area_deg2"]
+
+    tile_radius_deg = tile_radius(admin["tiling"], hpix)
+
+    print("tile_radius_deg: ", tile_radius_deg)
 
     tile_specs = {
         "id": tile["id"],
@@ -1117,8 +1180,7 @@ def concatenate_clusters(tiles_dir, infilename, clusters_outfile):
 def concatenate_members(
     all_tiles, list_path_members, infilename, data_clusters, members_outfile
 ):
-    final_members = []
-    ids_for_members, tile_for_members = [], []
+    # ids_for_members, tile_for_members = [], []
 
     # data_clusters = clusters over the whole survey
     for it in range(0, len(all_tiles)):
@@ -1133,7 +1195,7 @@ def concatenate_members(
         # idd = clusters_tile[np.argsort(clusters_id_in_tile)]["index_cl_tile"]
         # sort members by id_in_tile
         members_kept_sorted = members_kept[np.argsort(members_kept["index_cl_tile"])]
-        
+
         if it == 0:
             final_members = np.copy(members_kept_sorted)
         else:

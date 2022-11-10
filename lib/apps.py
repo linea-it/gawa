@@ -18,7 +18,6 @@ def run_gawa_tile_job(args):
     from lib.utils import (
         create_directory,
         create_tile_specs,
-        tile_radius,
         read_mosaicFitsCat_in_disc,
         read_mosaicFootprint_in_disc,
     )
@@ -56,10 +55,12 @@ def run_gawa_tile_job(args):
     create_directory(tile_dir)
     create_gawa_directories(tile_dir, out_paths["gawa"])
     out_paths["workdir_loc"] = tile_dir  # local update
-    tile_radius_deg = tile_radius(admin["tiling"])
-    tile_specs = create_tile_specs(tile, tile_radius_deg, admin)
+    tile_specs = create_tile_specs(tile, admin)
+    tile_radius_deg = tile_specs.get("radius_tile_deg")
+    logger.info("tile_radius_deg: {}".format(tile_radius_deg))
     data_star_tile = read_mosaicFitsCat_in_disc(starcat, tile, tile_radius_deg)
     data_fp_tile = read_mosaicFootprint_in_disc(footprint, tile, tile_radius_deg)
+    logger.info("starcat: {}".format(starcat))
 
     if params["verbose"] >= 2:
         t = Table(data_star_tile)
