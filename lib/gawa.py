@@ -541,7 +541,10 @@ def randoms_in_spherical_cap(tile, bkg_arcmin2):
     )
     area = 3600.*area_ann_deg2(0., tile['radius_tile_deg'])
     nsamp = int(bkg_arcmin2*area)
-    pix_samp = np.random.choice(pixels_in_disc, nsamp, replace=False) 
+    if nsamp < len(pixels_in_disc):
+        pix_samp = pixels_in_disc
+    else:
+        pix_samp = np.random.choice(pixels_in_disc, nsamp, replace=False) 
     return hpix2radec(pix_samp, Nside_samp, False)
 
 
