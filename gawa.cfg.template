@@ -54,8 +54,7 @@ input_data_structure:
         starcat_hpx_mosaic: True
         footprint_hpx_mosaic: False # if False read survey_footprint
         Nside: 32
-￼       nest: True
-
+        nest: True
 starcat:
     DES:
         mosaic:
