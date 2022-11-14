@@ -8,22 +8,58 @@ survey: 'MOCK_DES'  # DES
 ref_bfilter: 'filter_g'
 ref_rfilter: 'filter_r'
 ref_color: 'gr'
-executor: 'local_threads' # local_threads, local, htcondor or sdumont 
+executor: 'local'
+executors:
+    linea:
+        classname: 'ICEXExecutor'
+        label: 'icex'
+        max_workers: 54
+        provider:
+            init_blocks: 8
+            min_blocks: 8
+            max_blocks: 8
+            parallelism: 0.5
+            scheduler_options: '+RequiresWholeMachine = True'
+            cmd_timeout: 120
+    sdumont:
+        classname: 'SDExecutor'
+        label: 'sd'
+        provider:
+            partition: 'cpu_small'
+            nodes_per_block: 10 # number of nodes
+            cmd_timeout: 240 # duration for which the provider will wait for a command to be invoked on a remote system
+            init_blocks: 5
+            min_blocks: 5
+            max_blocks: 5
+            parallelism: 1
+            walltime: '03:20:00'
+    local:
+        classname: 'HTLocalExecutor'
+        label: 'local'
+        max_workers: 4
+        provider:
+            min_blocks: 1
+            init_blocks: 1
+            max_blocks: 1
+            parallelism: 1
 
 ##  I/O section
 input_data_structure:
     DES: 
         starcat_hpx_mosaic: True
         footprint_hpx_mosaic: False # if False read survey_footprint 
+        Nside: 32
+        nest: True
     MOCK_DES: 
         starcat_hpx_mosaic: True
-        footprint_hpx_mosaic: False # if False read survey_footprint 
-
+        footprint_hpx_mosaic: False # if False read survey_footprint
+        Nside: 32
+        nest: True
 starcat:
     DES:
         mosaic:
-            dir: "" # add dir
-            Nside: 32 
+            dir: None # add dir
+            Nside: 32
             nest: True
         keys:
             key_ra: 'RA'
@@ -84,7 +120,6 @@ admin:
         tiles_filename: "tiles_specs.fits"
     nthreads_max: 10
 
-
 # masks
 isochrone_masks:
     DES:
@@ -121,7 +156,7 @@ isochrone_masks:
 # gawa parameters
 gawa_cfg:
     dslices:
-        dstep: 10
+        dstep: 10.
         dmin: 20000. # pc
         dmax: 200000. # pc
         dslices_filename: 'dslices.fits' # in workdir 
@@ -177,7 +212,4 @@ gawa_cfg:
         cluster:
             scale_min_arcmin: 1. #arcmin
             scale_max_arcmin: 3. #arcmin
-    #path_mr_filter: "/opt/softs-centos7/sparse2d/20150904/bin/"
     path_mr_filter: ""
-
-
