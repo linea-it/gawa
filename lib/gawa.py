@@ -1091,7 +1091,7 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
                 break
 
     dslices = np.array(dslices)
-    dslices = dslices[(dslices < 125000.0) & (dslices > 80000.0)]
+    # dslices = dslices[(dslices < 125000.0) & (dslices > 80000.0)]
     data = np.zeros(
         (len(dslices)), dtype={"names": ("id", "dist_pc"), "formats": ("i8", "f8")}
     )

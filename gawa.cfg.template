@@ -122,7 +122,7 @@ isochrone_masks:
 # gawa parameters
 gawa_cfg:
     dslices:
-        dstep: 10
+        dstep: 100000.
         dmin: 20000. # pc
         dmax: 200000. # pc
         dslices_filename: 'dslices.fits' # in workdir 
