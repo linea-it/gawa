@@ -11,5 +11,6 @@ gawa.cfg
 output/
 output_*/
 env.sh
+gawa.sh
 /footprint/
 /isochrone_masks/
