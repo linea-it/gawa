@@ -14,17 +14,19 @@ executor: 'local_threads' # local_threads, local, htcondor or sdumont
 input_data_structure:
     DES: 
         starcat_hpx_mosaic: True
-        footprint_hpx_mosaic: False # if False read survey_footprint 
+        footprint_hpx_mosaic: False # if False read survey_footprint
+        Nside: 32
+        nest: True 
     MOCK_DES: 
         starcat_hpx_mosaic: True
-        footprint_hpx_mosaic: False # if False read survey_footprint 
+        footprint_hpx_mosaic: False # if False read survey_footprint
+        Nside: 32
+        nest: True
 
 starcat:
     DES:
         mosaic:
             dir: "" # add dir
-            Nside: 32 
-            nest: True
         keys:
             key_ra: 'RA'
             key_dec: 'DEC'
@@ -79,7 +81,6 @@ admin:
     target_mode: False
     tiling:
         Nside: 16
-        nest: True
         overlap_deg: 1. 
         tiles_filename: "tiles_specs.fits"
     nthreads_max: 10
@@ -121,7 +122,7 @@ isochrone_masks:
 # gawa parameters
 gawa_cfg:
     dslices:
-        dstep: 10
+        dstep: 100000.
         dmin: 20000. # pc
         dmax: 200000. # pc
         dslices_filename: 'dslices.fits' # in workdir 
