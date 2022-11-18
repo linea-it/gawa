@@ -197,7 +197,7 @@ def read_mosaicFootprint_in_disc(footprint, tile, radius_deg):
         for i in range(0, len(relevant_fits_pixels)):
             dat_disc = read_FitsCat(
                 os.path.join(
-                    gdir, str(relevant_fits_pixels[i]) + "_footprint" + extension
+                    gdir, str(relevant_fits_pixels[i]) + extension
                 )
             )
             ra, dec = hpix2radec(
@@ -290,7 +290,7 @@ def read_mosaicFootprint_in_hpix(footprint, hpix_tile, Nside_tile, nest_tile):
         for i in range(0, len(relevant_fits_pixels)):
             dat = read_FitsCat(
                 os.path.join(
-                    gdir, str(relevant_fits_pixels[i]) + "_footprint" + extension
+                    gdir, str(relevant_fits_pixels[i]) + extension
                 )
             )
             if i == 0:
