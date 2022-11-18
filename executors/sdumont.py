@@ -5,29 +5,30 @@ from parsl.launchers import SrunLauncher
 import os
 
 
-class SDExecutor(HighThroughputExecutor):
-    def __init__(self, **kwargs):
-        debug = True if os.getenv("GAWA_LOG_LEVEL", "") == "debug" else False
+def create_executor(config):
+    """create a new executor to SDumont
 
-        provider = SlurmProvider(
-            partition="cpu_dev",
-            nodes_per_block=2,  # number of nodes
-            cmd_timeout=240,  # duration for which the provider will wait for a command to be invoked on a remote system
-            launcher=SrunLauncher(debug=debug, overrides=""),
-            init_blocks=1,
-            min_blocks=1,
-            max_blocks=1,
-            parallelism=0.5,
-            walltime="00:20:00",
-            worker_init=f"source {os.getenv('GAWA_ROOT', '.')}/gawa.sh",
-        )
-        super().__init__(provider=provider)
-        self.__dict__.update(kwargs)
+    Args:
+        config (dict): Parsl configuration
 
-        if "interface" in kwargs:
-            self.address = address_by_interface(kwargs["interface"])
-        else:
-            self.address = address_by_hostname()
+    Returns:
+        HighThroughputExecutor: Parsl executor
+    """
 
-        if "provider" in kwargs:
-            self.provider.__dict__.update(kwargs["provider"])
+    debug = True if os.getenv("GAWA_LOG_LEVEL", "") == "debug" else False
+
+    provider = config.pop("provider_opts", {})
+    provider["launcher"] = SrunLauncher(debug=debug, overrides="")
+    provider["address"] = address_by_hostname()
+
+    interface = config.pop("interface", None)
+
+    if interface:
+        provider["address"] = address_by_interface(interface)
+
+    if not "worker_init" in provider:
+        worker_init = f"source {os.getenv('GAWA_ROOT', '.')}/gawa.sh"
+        provider["worker_init"] = worker_init
+
+    config["provider"] = SlurmProvider(**provider)
+    return HighThroughputExecutor(**config)

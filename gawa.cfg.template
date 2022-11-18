@@ -11,10 +11,9 @@ ref_color: 'gr'
 executor: 'local'
 executors:
     linea:
-        classname: 'ICEXExecutor'
-        label: 'icex'
+        label: 'ICEXExecutor'
         max_workers: 54
-        provider:
+        provider_opts:
             init_blocks: 8
             min_blocks: 8
             max_blocks: 8
@@ -22,9 +21,8 @@ executors:
             scheduler_options: '+RequiresWholeMachine = True'
             cmd_timeout: 120
     sdumont:
-        classname: 'SDExecutor'
-        label: 'sd'
-        provider:
+        label: 'SDExecutor'
+        provider_opts:
             partition: 'cpu_small'
             nodes_per_block: 10 # number of nodes
             cmd_timeout: 240 # duration for which the provider will wait for a command to be invoked on a remote system
@@ -34,14 +32,13 @@ executors:
             parallelism: 1
             walltime: '03:20:00'
     local:
-        classname: 'HTLocalExecutor'
-        label: 'local'
-        max_workers: 4
-        provider:
+        label: 'LocalExecutor'
+        max_workers: 5
+        provider_opts:
             min_blocks: 1
             init_blocks: 1
             max_blocks: 1
-            parallelism: 1
+            parallelism: 0.6
 
 ##  I/O section
 input_data_structure:
@@ -156,7 +153,7 @@ isochrone_masks:
 # gawa parameters
 gawa_cfg:
     dslices:
-        dstep: 10.
+        dstep: 100000.
         dmin: 20000. # pc
         dmax: 200000. # pc
         dslices_filename: 'dslices.fits' # in workdir 

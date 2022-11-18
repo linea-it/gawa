@@ -4,24 +4,27 @@ from parsl.addresses import address_by_hostname, address_by_interface
 import os
 
 
-class ICEXExecutor(HighThroughputExecutor):
-    def __init__(self, **kwargs):
-        provider = CondorProvider(
-            init_blocks=1,
-            min_blocks=1,
-            max_blocks=1,
-            parallelism=0.5,
-            scheduler_options="+RequiresWholeMachine = True",
-            worker_init=f"source {os.getenv('GAWA_ROOT', '.')}/gawa.sh",
-            cmd_timeout=120,
-        )
-        super().__init__(provider=provider)
-        self.__dict__.update(kwargs)
+def create_executor(config):
+    """create a new executor to ICEX LIneA
 
-        if "interface" in kwargs:
-            self.address = address_by_interface(kwargs["interface"])
-        else:
-            self.address = address_by_hostname()
+    Args:
+        config (dict): Parsl configuration
 
-        if "provider" in kwargs:
-            self.provider.__dict__.update(kwargs["provider"])
+    Returns:
+        HighThroughputExecutor: Parsl executor
+    """
+
+    provider = config.pop("provider_opts", {})
+    provider["address"] = address_by_hostname()
+
+    interface = config.pop("interface", None)
+
+    if interface:
+        provider["address"] = address_by_interface(interface)
+
+    if not "worker_init" in provider:
+        worker_init = f"source {os.getenv('GAWA_ROOT', '.')}/gawa.sh"
+        provider["worker_init"] = worker_init
+
+    config["provider"] = CondorProvider(**provider)
+    return HighThroughputExecutor(**config)
