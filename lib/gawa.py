@@ -1066,32 +1066,34 @@ def compute_dslices(isochrone_masks, dslices_specs, workdir):
     )
     gm, gm_err = np.loadtxt(gerr_file, usecols=(0, 1), unpack=True)
 
-    dstep = dslices_specs["dstep"]
-    dslices = [dslices_specs["dmin"]]
-    dist = dslices[0]
-    nstep = 2 * int((dslices_specs["dmax"] - dslices_specs["dmin"]) / dstep) + 1
-    g = g0 + 5.0 * np.log10(dist / 10.0)
-    gmin, gmax = np.amin(g[(gr < 0.05) & (gr > -0.05)]), np.amax(
-        g[(gr < 0.05) & (gr > -0.05)]
-    )
-    gmin, gmax = gmin - np.interp(gmin, gm, gm_err), gmax + np.interp(gmax, gm, gm_err)
-
-    for j in range(0, nstep):
-        dist += dstep
+    if (dslices_specs["mode"] == 'linear'):
+        dslices = np.arange(dslices_specs["dmin"], dslices_specs["dmax"] + dslices_specs["dstep"], dslices_specs["dstep"])
+    else:
+        dstep = dslices_specs["dstep"]
+        dslices = [dslices_specs["dmin"]]
+        dist = dslices[0]
+        nstep = 2 * int((dslices_specs["dmax"] - dslices_specs["dmin"]) / dstep) + 1
         g = g0 + 5.0 * np.log10(dist / 10.0)
-        gmin1 = np.amin(g[(gr < 0.05) & (gr > -0.05)])
-        gmax1 = np.amax(g[(gr < 0.05) & (gr > -0.05)])
-        gmin1 = gmin1 - np.interp(gmin1, gm, gm_err)
-        gmax1 = gmax1 + np.interp(gmax1, gm, gm_err)
-        if gmin1 >= gmax:
-            dslices.append(dist)
-            gmin = gmin1
-            gmax = gmax1
-            if dist > dslices_specs["dmax"]:
-                break
+        gmin, gmax = np.amin(g[(gr < 0.05) & (gr > -0.05)]), np.amax(
+            g[(gr < 0.05) & (gr > -0.05)]
+        )
+        gmin, gmax = gmin - np.interp(gmin, gm, gm_err), gmax + np.interp(gmax, gm, gm_err)
+
+        for j in range(0, nstep):
+            dist += dstep
+            g = g0 + 5.0 * np.log10(dist / 10.0)
+            gmin1 = np.amin(g[(gr < 0.05) & (gr > -0.05)])
+            gmax1 = np.amax(g[(gr < 0.05) & (gr > -0.05)])
+            gmin1 = gmin1 - np.interp(gmin1, gm, gm_err)
+            gmax1 = gmax1 + np.interp(gmax1, gm, gm_err)
+            if gmin1 >= gmax:
+                dslices.append(dist)
+                gmin = gmin1
+                gmax = gmax1
+                if dist > dslices_specs["dmax"]:
+                    break
 
     dslices = np.array(dslices)
-    # dslices = dslices[(dslices < 125000.0) & (dslices > 80000.0)]
     data = np.zeros(
         (len(dslices)), dtype={"names": ("id", "dist_pc"), "formats": ("i8", "f8")}
     )
