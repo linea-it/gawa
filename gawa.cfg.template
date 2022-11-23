@@ -8,7 +8,7 @@ survey: 'MOCK_DES'  # DES
 ref_bfilter: 'filter_g'
 ref_rfilter: 'filter_r'
 ref_color: 'gr'
-executor: 'local_threads' # local_threads, local, htcondor or sdumont 
+executor: 'local' # local_threads, local, htcondor or sdumont 
 
 ##  I/O section
 input_data_structure:
@@ -122,10 +122,11 @@ isochrone_masks:
 # gawa parameters
 gawa_cfg:
     dslices:
-        dstep: 100000.
-        dmin: 20000. # pc
+        dstep: 20000.
+        dmin: 100000. # pc
         dmax: 200000. # pc
         dslices_filename: 'dslices.fits' # in workdir 
+        mode: 'linear'
 
     photo_err:
         nsig: 1.
