@@ -348,7 +348,7 @@ def create_mosaic_footprint(footprint, fpath):
             ]
         )
         hdu = fits.BinTableHDU.from_columns(all_cols)
-        hdu.writeto(os.path.join(fpath, str(hp) + "_footprint.fits"), overwrite=True)
+        hdu.writeto(os.path.join(fpath, str(hp) + ".fits"), overwrite=True)
     return
 
 
