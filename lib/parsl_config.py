@@ -25,12 +25,12 @@ def get_config(key):
         "htcondor": HighThroughputExecutor(
             label='htcondor',
             address=address_by_hostname(),
-            max_workers=54,
+            max_workers=50,
             worker_debug=True,
             provider=CondorProvider(
-                init_blocks=5,
-                min_blocks=5,
-                max_blocks=5,
+                init_blocks=3,
+                min_blocks=3,
+                max_blocks=3,
                 parallelism=0.5,
                 scheduler_options='+RequiresWholeMachine = True',
                 worker_init=f"source {gawa_root_dir}/gawa.sh",
