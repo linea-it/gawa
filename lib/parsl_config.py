@@ -28,9 +28,9 @@ def get_config(key):
             max_workers=54,
             worker_debug=True,
             provider=CondorProvider(
-                init_blocks=15,
-                min_blocks=15,
-                max_blocks=16,
+                init_blocks=5,
+                min_blocks=5,
+                max_blocks=5,
                 parallelism=0.5,
                 scheduler_options='+RequiresWholeMachine = True',
                 worker_init=f"source {gawa_root_dir}/gawa.sh",
