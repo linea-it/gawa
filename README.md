@@ -48,7 +48,7 @@ source gawa.sh
 python -W ignore gawa_main.py gawa.cfg
 ```
 
-### Running
+### Running with JupyterLab
 
 ```bash
 jupyter-lab gawazpy.ipynb
