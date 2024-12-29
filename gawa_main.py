@@ -28,15 +28,21 @@ import logging
 import time
 import parsl
 
+STEP_1 = "STEP_1"
+STEP_2 = "STEP_2"
+STEP_3 = "STEP_3"
+STEP_4 = "STEP_4"
+
 LEVEL = os.environ.get("GAWA_LOG_LEVEL", "info")
 
 
-def run(param, parsl_conf):
+def run(param, parsl_conf, step):
     """Run the Gawa pipeline
 
     Args:
         param (dict): Gawa parameters. See gawa.cfg for more details
         parsl_conf (instance): Parsl config instance
+        step (str): Step to run. Default is "all"
     """
     workdir = param["out_paths"]["workdir"]
     create_directory(workdir)
@@ -64,31 +70,37 @@ def run(param, parsl_conf):
     logger.info(f"Workdir: {workdir}")
     tiles_filename = os.path.join(workdir, param["admin"]["tiling"]["tiles_filename"])
 
-    # create required data structure if not exist and update config
-    if not param["input_data_structure"][survey]["footprint_hpx_mosaic"]:
-        start_time = time.time()
-        logger.info(f"> Creating footprint mosaic for {survey}")
-        create_mosaic_footprint(
-            param["footprint"][survey], os.path.join(workdir, "footprint")
-        )
-        param["footprint"][survey]["mosaic"]["dir"] = os.path.join(workdir, "footprint")
-        logger.info(f"...Done in {time.time() - start_time} seconds")
+    if step == STEP_1:
+        # create required data structure if not exist and update config
+        if not param["input_data_structure"][survey]["footprint_hpx_mosaic"]:
+            start_time = time.time()
+            logger.info(f"> Creating footprint mosaic for {survey}")
+            create_mosaic_footprint(
+                param["footprint"][survey], os.path.join(workdir, "footprint")
+            )
+            param["footprint"][survey]["mosaic"]["dir"] = os.path.join(workdir, "footprint")
+            logger.info(f"...Done in {time.time() - start_time} seconds")
 
-    ref_bfilter = param["ref_bfilter"]
-    ref_rfilter = param["ref_rfilter"]
-    ref_color = param["ref_color"]
-    isochrone_masks = param["isochrone_masks"]
+        ref_bfilter = param["ref_bfilter"]
+        ref_rfilter = param["ref_rfilter"]
+        ref_color = param["ref_color"]
+        isochrone_masks = param["isochrone_masks"]
 
-    # update parameters with selected filters in config
-    param = update_hpx_parameters(param, survey, param["input_data_structure"])
-    param = update_filters_in_params(param, survey, ref_bfilter, ref_rfilter, ref_color)
-
-    with open(os.path.join(workdir, "gawa.cfg"), "w") as outfile:
-        json.dump(param, outfile)
+        
+        # update parameters with selected filters in config
+        param = update_hpx_parameters(param, survey, param["input_data_structure"])
+        param = update_filters_in_params(param, survey, ref_bfilter, ref_rfilter, ref_color)
+        with open(os.path.join(workdir, "gawa.cfg"), "w") as outfile:
+            json.dump(param, outfile)
+        return
+    else:
+        with open(os.path.join(workdir, "gawa.cfg")) as json_file:
+            param = json.load(json_file)
+        isochrone_masks = param["isochrone_masks"]
 
     config = os.path.join(workdir, "gawa.cfg")
 
-    if not os.path.isfile(tiles_filename):
+    if not os.path.isfile(tiles_filename) and step == STEP_2:
         start_time = time.time()
         logger.info("> Creating tiles")
         ntiles = hpx_split_survey(
@@ -102,6 +114,7 @@ def run(param, parsl_conf):
         add_key_to_fits(tiles_filename, thread_ids, "thread_id", "int")
         all_tiles = read_FitsCat(tiles_filename)
         logger.info(f"...Done in {time.time() - start_time} seconds")
+        return 
     else:
         all_tiles = read_FitsCat(tiles_filename)
         ntiles, n_threads = len(all_tiles), np.amax(all_tiles["thread_id"])
@@ -110,45 +123,49 @@ def run(param, parsl_conf):
 
     gawa_cfg = param["gawa_cfg"]
 
-    # prepare dslices
-    start_time = time.time()
-    logger.info(f"> Preparing dslices")
-    compute_dslices(isochrone_masks[survey], gawa_cfg["dslices"], workdir)
-    logger.info(f"...Done in {time.time() - start_time} seconds")
-
-    # compute cmd_masks
-    start_time = time.time()
-    logger.info("> Compute CMD masks")
-
     out_paths = param["out_paths"]
-    proc_masks = compute_cmd_masks_job(isochrone_masks[survey], out_paths, gawa_cfg)
-    proc_masks.result()
-    logger.info(f"...Done in {time.time() - start_time} seconds")
+    if step == STEP_3:
+        # prepare dslices
+        start_time = time.time()
+        logger.info(f"> Preparing dslices")
+        compute_dslices(isochrone_masks[survey], gawa_cfg["dslices"], workdir)
+        logger.info(f"...Done in {time.time() - start_time} seconds")
 
-    logger.info(f"> Compute Gawa per tiles")
-    start_time = time.time()
-    procs = list()
-    for tile in all_tiles:
-        procs.append(run_gawa_tile_job((tile, config)))
+        # compute cmd_masks
+        start_time = time.time()
+        logger.info("> Compute CMD masks")
 
-    for proc in procs:
-        proc.result()
-    logger.info(f"...Done in {time.time() - start_time} seconds")
+        out_paths = param["out_paths"]
+        proc_masks = compute_cmd_masks_job(isochrone_masks[survey], out_paths, gawa_cfg)
+        proc_masks.result()
+        logger.info(f"...Done in {time.time() - start_time} seconds")
 
-    # concatenate
-    # tiles with clusters
-    start_time = time.time()
-    logger.info(f"> Concatenating tiles with clusters")
-    eff_tiles = tiles_with_clusters(out_paths, all_tiles)
-    data_clusters = gawa_concatenate(eff_tiles, gawa_cfg, out_paths)
-    data_clusters.write(
-        os.path.join(out_paths["workdir"], "clusters.fits"), overwrite=True
-    )
-    logger.info(f"...All done folks: {time.time() - start_time} seconds")
-    logger.info(f"Results in {workdir}")
-    logger.info(f"Time elapsed: {time.time() - start_time_full}")
-    parsl.clear()
+        logger.info(f"> Compute Gawa per tiles")
+        start_time = time.time()
+        procs = list()
+        for tile in all_tiles:
+            procs.append(run_gawa_tile_job((tile, config)))
 
+        for proc in procs:
+            proc.result()
+        logger.info(f"...Done in {time.time() - start_time} seconds")
+        return
+
+    if step == STEP_4:
+        # concatenate
+        # tiles with clusters
+        start_time = time.time()
+        logger.info(f"> Concatenating tiles with clusters")
+        eff_tiles = tiles_with_clusters(out_paths, all_tiles)
+        data_clusters = gawa_concatenate(eff_tiles, gawa_cfg, out_paths)
+        data_clusters.write(
+            os.path.join(out_paths["workdir"], "clusters.fits"), overwrite=True
+        )
+        logger.info(f"...All done folks: {time.time() - start_time} seconds")
+        logger.info(f"Results in {workdir}")
+        logger.info(f"Time elapsed: {time.time() - start_time_full}")
+        parsl.clear()
+        return
 
 if __name__ == "__main__":
     working_dir = os.getcwd()
@@ -156,9 +173,12 @@ if __name__ == "__main__":
     # Create the parser and add arguments
     parser = argparse.ArgumentParser()
     parser.add_argument(dest="config_path", help="yaml config path")
+    parser.add_argument(dest="step", help="step to run", default="all")
+    
 
     args = parser.parse_args()
     config_path = args.config_path
+    step = args.step if args.step else "all"
 
     # Loading Lephare configurations
     with open(config_path) as _file:
@@ -170,4 +190,4 @@ if __name__ == "__main__":
     os.chdir(gawa_root)
 
     # Run GAWA
-    run(gawa_config, parsl_config)
+    run(gawa_config, parsl_config, step)

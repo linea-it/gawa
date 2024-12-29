@@ -69,3 +69,16 @@ rm tiles_specs.fits cluster.fits cluster0.fits
 ```
 
 If you run with max_threads > 1, the kernel may die while running the main cell. We think that this is related to the memory required by the jobs. Set max_threads = 1 and run again.
+---
+
+## Running with Docker Compose (Parsl)
+
+```bash
+docker-compose up --build -d 
+
+docker exec -it gawa bash
+
+conda run --no-capture-output -n gawa python -W ignore gawa_main.py gawa.cfg
+# conda run --no-capture-output -n gawa debugpy --listen 0.0.0.0:5678 --wait-for-client gawa_main.py gawa.cfg  # Debugging
+
+```
